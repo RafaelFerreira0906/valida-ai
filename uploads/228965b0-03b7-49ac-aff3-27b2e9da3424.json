@@ -1,0 +1,495 @@
+{
+  "e_balanco_patrimonial": true,
+  "nome_empresa": "AERIS INDÚSTRIA E COMÉRCIO DE EQUIPAMENTOS PARA GERAÇÃO DE ENERGIA S.A.",
+  "cnpj_empresa": "12.528.708/0001-07",
+  "assinatura_representante": "Alexandre Sarnes Negrão",
+  "assinatura_contador": "Sandra Karla Rodrigues Coutinho",
+  "observacoes": "De 2020 para 2022, o ativo total consolidado cresceu de 2.370.629 para 3.774.957, impulsionado principalmente pelo aumento do ativo circulante.\nOs estoques avançaram de 617.582 em 2020 para 1.303.250 em 2022, pressionando o capital de giro.\nO caixa e equivalentes também cresceram, de 684.554 em 2020 para 1.061.718 em 2022.\nO passivo circulante caiu fortemente em 2021, mas voltou a subir em 2022 para 1.332.523, influenciado por adiantamentos de clientes e dívidas de curto prazo.\nO passivo não circulante aumentou de 461.998 em 2020 para 1.557.566 em 2022, refletindo maior endividamento de longo prazo.\nO patrimônio líquido permaneceu positivo nos três anos, porém caiu de 999.592 em 2021 para 884.868 em 2022.\nEm 2022 houve prejuízo líquido de 92.709, após lucros de 69.193 em 2021 e 113.199 em 2020.\nA liquidez corrente permaneceu acima de 1 em todos os anos, mas a liquidez seca caiu para menos de 1 em 2022.\nA principal deterioração em 2022 está associada à forte elevação dos estoques e à maior pressão financeira.\nRecomenda-se reforçar a gestão de estoques, reduzir o ciclo operacional, alongar passivos com menor custo e preservar caixa.\nTambém é importante priorizar rentabilidade operacional e disciplina no capital de giro para recompor o patrimônio e reduzir alavancagem.",
+  "pendencia_nao_existe_dre": false,
+  "balanco_auditado_por_auditor_registrado": true,
+  "balanco_patrimonial_consolidado_grupo": true,
+  "balanco_patrimonial_detalhado": [
+    {
+      "ano_balanco": 2022,
+      "data_encerramento_exercicio": "2022-12-31",
+      "pendencia_conta_ativo_credor": false,
+      "pendencia_conta_passivo_devedor": false,
+      "total_ativo": 3774957,
+      "ativo_circulante": 2597564,
+      "ativos_detalhados": {
+        "caixa": null,
+        "bancos_conta_movimento": null,
+        "aplicacoes_financeiras": null,
+        "titulos_valores_mobiliarios": null,
+        "contas_receber": 0,
+        "provisao_devedores_duvidosos": null,
+        "adiantamento_fornecedores": null,
+        "impostos_recuperar": 137042,
+        "estoques": 1303250,
+        "outras_contas_ativo_circulante": [
+          {
+            "nome": "Caixa e equivalentes de caixa",
+            "valor": 1061718
+          },
+          {
+            "nome": "Outras contas a receber",
+            "valor": 95554
+          }
+        ]
+      },
+      "realizavel_longo_prazo": 169382,
+      "realizavel_longo_prazo_detalhado": {
+        "investimentos_longo_prazo": null,
+        "adiantamentos_fornecedores": null,
+        "emprestimos_empresas_ligadas": null,
+        "outras_contas_realizavel_longo_prazo": [
+          {
+            "nome": "Imposto de renda e contribuição social diferidos",
+            "valor": 5485
+          },
+          {
+            "nome": "Tributos a recuperar",
+            "valor": 163897
+          }
+        ]
+      },
+      "ativo_permanente": null,
+      "investimentos_ativo_permante": null,
+      "ativo_investimento_detalhado": {
+        "participacoes_empresas_ligadas_ou_coligadas_ou_controladas": null,
+        "outras_contas_investimentos_ativo_permante": []
+      },
+      "imobilizado": 1004040,
+      "imobilizado_detalhado": {
+        "imoveis": {
+          "terrenos": null,
+          "edificacoes": null
+        },
+        "bens_em_uso": {
+          "moveis_utensilios": null,
+          "veiculos": null,
+          "maquinas_equipamentos_ferramentas": null
+        },
+        "depreciacao_acumulada": null,
+        "outras_contas_imobilizado": []
+      },
+      "diferido": null,
+      "diferido_detalhado": {
+        "gastos": null
+      },
+      "conta_compensacao_ativo": null,
+      "conta_compensacao_ativo_detalhado": {
+        "servicos_contratados_ativo": null,
+        "garantias_diversas_ativo": null,
+        "comodato_de_bens_ativo": null
+      },
+      "total_passivo": 3774957,
+      "passivo_circulante": 1332523,
+      "passivos_detalhados": {
+        "duplicatas_descontadas": null,
+        "emprestimos_financiamentos": 259160,
+        "debentures": null,
+        "fornecedores": 336048,
+        "dividas_empresas_ligadas": null,
+        "dividendos_pagar": 0,
+        "salarios_encargos_tributos_contribuicoes": [
+          {
+            "nome": "Salários e encargos sociais",
+            "valor": 41364
+          },
+          {
+            "nome": "Impostos a recolher",
+            "valor": 18219
+          }
+        ]
+      },
+      "provisoes_para_contingencias": [],
+      "provisoes_circulante": [],
+      "outras_contas_passivo_circulante": [
+        {
+          "nome": "Adiantamentos de clientes",
+          "valor": 668003
+        },
+        {
+          "nome": "Instrumentos financeiros derivativos",
+          "valor": 2436
+        },
+        {
+          "nome": "Outras contas a pagar",
+          "valor": 7293
+        }
+      ],
+      "exigivel_longo_prazo": 1557566,
+      "exigivel_longo_prazo_detalhado": {
+        "emprestimos_financiamentos": 1557566,
+        "debentures": null,
+        "dividas_empresas_ligadas": null,
+        "provisoes_contingencias": null,
+        "impostos_parcelados": null,
+        "resultados_exercicios_futuros": null,
+        "participacoes_minoritarios": null,
+        "outras_contas_exigivel_longo_prazo": []
+      },
+      "conta_compensacao_passivo": null,
+      "conta_compensacao_passivo_detalhado": {
+        "servicos_contratados_passivo": null,
+        "garantias_diversas_passivo": null,
+        "comodato_de_bens_passivo": null
+      },
+      "patrimonio_liquido": 884868,
+      "patrimonio_liquido_detalhado": {
+        "capital_social_realizado_integralizado": 815102,
+        "capital_social_subscrito": null,
+        "reservas_capital": 463,
+        "reservas_lucros": 108175,
+        "reservas_reavaliacao": null,
+        "lucros_prejuizos_acumulados": null,
+        "outras_contas_patrimonio_liquido": [
+          {
+            "nome": "Ajustes de avaliação patrimonial",
+            "valor": 703
+          },
+          {
+            "nome": "Ações em tesouraria",
+            "valor": -39575
+          }
+        ]
+      },
+      "indicadores_financeiros": {
+        "rentabilidade_do_patrimonio": -0.10477151635540992,
+        "liquidez_corrente": 1.949232090063101,
+        "liquidez_seca": 0.9713252142823078,
+        "liquidez_imediata": null,
+        "indice_de_solvencia_geral": 1,
+        "rentabilidade_do_ativo": -0.024558891354958277,
+        "pendencia_comodato": false
+      }
+    },
+    {
+      "ano_balanco": 2021,
+      "data_encerramento_exercicio": "2021-12-31",
+      "pendencia_conta_ativo_credor": false,
+      "pendencia_conta_passivo_devedor": false,
+      "total_ativo": 2805671,
+      "ativo_circulante": 1703528,
+      "ativos_detalhados": {
+        "caixa": null,
+        "bancos_conta_movimento": null,
+        "aplicacoes_financeiras": null,
+        "titulos_valores_mobiliarios": null,
+        "contas_receber": 21176,
+        "provisao_devedores_duvidosos": null,
+        "adiantamento_fornecedores": null,
+        "impostos_recuperar": 144200,
+        "estoques": 624589,
+        "outras_contas_ativo_circulante": [
+          {
+            "nome": "Caixa e equivalentes de caixa",
+            "valor": 892933
+          },
+          {
+            "nome": "Outras contas a receber",
+            "valor": 19359
+          },
+          {
+            "nome": "Ativos financeiros",
+            "valor": 1271
+          }
+        ]
+      },
+      "realizavel_longo_prazo": 125423,
+      "realizavel_longo_prazo_detalhado": {
+        "investimentos_longo_prazo": null,
+        "adiantamentos_fornecedores": null,
+        "emprestimos_empresas_ligadas": null,
+        "outras_contas_realizavel_longo_prazo": [
+          {
+            "nome": "Tributos a recuperar",
+            "valor": 125423
+          }
+        ]
+      },
+      "ativo_permanente": null,
+      "investimentos_ativo_permante": null,
+      "ativo_investimento_detalhado": {
+        "participacoes_empresas_ligadas_ou_coligadas_ou_controladas": null,
+        "outras_contas_investimentos_ativo_permante": []
+      },
+      "imobilizado": 974124,
+      "imobilizado_detalhado": {
+        "imoveis": {
+          "terrenos": null,
+          "edificacoes": null
+        },
+        "bens_em_uso": {
+          "moveis_utensilios": null,
+          "veiculos": null,
+          "maquinas_equipamentos_ferramentas": null
+        },
+        "depreciacao_acumulada": null,
+        "outras_contas_imobilizado": []
+      },
+      "diferido": null,
+      "diferido_detalhado": {
+        "gastos": null
+      },
+      "conta_compensacao_ativo": null,
+      "conta_compensacao_ativo_detalhado": {
+        "servicos_contratados_ativo": null,
+        "garantias_diversas_ativo": null,
+        "comodato_de_bens_ativo": null
+      },
+      "total_passivo": 2805671,
+      "passivo_circulante": 427025,
+      "passivos_detalhados": {
+        "duplicatas_descontadas": null,
+        "emprestimos_financiamentos": 91688,
+        "debentures": null,
+        "fornecedores": 268479,
+        "dividas_empresas_ligadas": null,
+        "dividendos_pagar": 15782,
+        "salarios_encargos_tributos_contribuicoes": [
+          {
+            "nome": "Salários e encargos sociais",
+            "valor": 34771
+          },
+          {
+            "nome": "Impostos a recolher",
+            "valor": 11323
+          }
+        ]
+      },
+      "provisoes_para_contingencias": [],
+      "provisoes_circulante": [],
+      "outras_contas_passivo_circulante": [
+        {
+          "nome": "Instrumentos financeiros derivativos",
+          "valor": 790
+        },
+        {
+          "nome": "Outras contas a pagar",
+          "valor": 4192
+        }
+      ],
+      "exigivel_longo_prazo": 1379054,
+      "exigivel_longo_prazo_detalhado": {
+        "emprestimos_financiamentos": 1367056,
+        "debentures": null,
+        "dividas_empresas_ligadas": null,
+        "provisoes_contingencias": null,
+        "impostos_parcelados": null,
+        "resultados_exercicios_futuros": null,
+        "participacoes_minoritarios": null,
+        "outras_contas_exigivel_longo_prazo": [
+          {
+            "nome": "Imposto de renda e contribuição social diferidos",
+            "valor": 11998
+          }
+        ]
+      },
+      "conta_compensacao_passivo": null,
+      "conta_compensacao_passivo_detalhado": {
+        "servicos_contratados_passivo": null,
+        "garantias_diversas_passivo": null,
+        "comodato_de_bens_passivo": null
+      },
+      "patrimonio_liquido": 999592,
+      "patrimonio_liquido_detalhado": {
+        "capital_social_realizado_integralizado": 815102,
+        "capital_social_subscrito": null,
+        "reservas_capital": 396,
+        "reservas_lucros": 202882,
+        "reservas_reavaliacao": null,
+        "lucros_prejuizos_acumulados": null,
+        "outras_contas_patrimonio_liquido": [
+          {
+            "nome": "Ajustes de avaliação patrimonial",
+            "valor": 1531
+          },
+          {
+            "nome": "Ações em tesouraria",
+            "valor": -20319
+          }
+        ]
+      },
+      "indicadores_financeiros": {
+        "rentabilidade_do_patrimonio": 0.06922103418034099,
+        "liquidez_corrente": 3.98933083543001,
+        "liquidez_seca": 2.526632047304022,
+        "liquidez_imediata": null,
+        "indice_de_solvencia_geral": 1,
+        "rentabilidade_do_ativo": 0.024661037044862662,
+        "pendencia_comodato": false
+      }
+    },
+    {
+      "ano_balanco": 2020,
+      "data_encerramento_exercicio": "2020-12-31",
+      "pendencia_conta_ativo_credor": false,
+      "pendencia_conta_passivo_devedor": false,
+      "total_ativo": 2370629,
+      "ativo_circulante": 1667824,
+      "ativos_detalhados": {
+        "caixa": null,
+        "bancos_conta_movimento": null,
+        "aplicacoes_financeiras": null,
+        "titulos_valores_mobiliarios": null,
+        "contas_receber": 220132,
+        "provisao_devedores_duvidosos": null,
+        "adiantamento_fornecedores": null,
+        "impostos_recuperar": 80862,
+        "estoques": 617582,
+        "outras_contas_ativo_circulante": [
+          {
+            "nome": "Caixa e equivalentes de caixa",
+            "valor": 684554
+          },
+          {
+            "nome": "Outras contas a receber",
+            "valor": 39823
+          },
+          {
+            "nome": "Ativos financeiros",
+            "valor": 16059
+          },
+          {
+            "nome": "Instrumentos financeiros derivativos",
+            "valor": 8812
+          }
+        ]
+      },
+      "realizavel_longo_prazo": 81211,
+      "realizavel_longo_prazo_detalhado": {
+        "investimentos_longo_prazo": null,
+        "adiantamentos_fornecedores": null,
+        "emprestimos_empresas_ligadas": null,
+        "outras_contas_realizavel_longo_prazo": [
+          {
+            "nome": "Tributos a recuperar",
+            "valor": 80006
+          },
+          {
+            "nome": "Outras contas a receber",
+            "valor": 1205
+          }
+        ]
+      },
+      "ativo_permanente": null,
+      "investimentos_ativo_permante": null,
+      "ativo_investimento_detalhado": {
+        "participacoes_empresas_ligadas_ou_coligadas_ou_controladas": null,
+        "outras_contas_investimentos_ativo_permante": []
+      },
+      "imobilizado": 620306,
+      "imobilizado_detalhado": {
+        "imoveis": {
+          "terrenos": null,
+          "edificacoes": null
+        },
+        "bens_em_uso": {
+          "moveis_utensilios": null,
+          "veiculos": null,
+          "maquinas_equipamentos_ferramentas": null
+        },
+        "depreciacao_acumulada": null,
+        "outras_contas_imobilizado": []
+      },
+      "diferido": null,
+      "diferido_detalhado": {
+        "gastos": null
+      },
+      "conta_compensacao_ativo": null,
+      "conta_compensacao_ativo_detalhado": {
+        "servicos_contratados_ativo": null,
+        "garantias_diversas_ativo": null,
+        "comodato_de_bens_ativo": null
+      },
+      "total_passivo": 2370629,
+      "passivo_circulante": 943324,
+      "passivos_detalhados": {
+        "duplicatas_descontadas": null,
+        "emprestimos_financiamentos": 690291,
+        "debentures": null,
+        "fornecedores": 205304,
+        "dividas_empresas_ligadas": null,
+        "dividendos_pagar": 0,
+        "salarios_encargos_tributos_contribuicoes": [
+          {
+            "nome": "Salários e encargos sociais",
+            "valor": 31009
+          },
+          {
+            "nome": "Impostos a recolher",
+            "valor": 3453
+          }
+        ]
+      },
+      "provisoes_para_contingencias": [],
+      "provisoes_circulante": [],
+      "outras_contas_passivo_circulante": [
+        {
+          "nome": "Adiantamentos de clientes",
+          "valor": 6300
+        },
+        {
+          "nome": "Outras contas a pagar",
+          "valor": 6967
+        }
+      ],
+      "exigivel_longo_prazo": 461998,
+      "exigivel_longo_prazo_detalhado": {
+        "emprestimos_financiamentos": 452711,
+        "debentures": null,
+        "dividas_empresas_ligadas": null,
+        "provisoes_contingencias": null,
+        "impostos_parcelados": null,
+        "resultados_exercicios_futuros": null,
+        "participacoes_minoritarios": null,
+        "outras_contas_exigivel_longo_prazo": [
+          {
+            "nome": "Adiantamento de clientes",
+            "valor": 3890
+          },
+          {
+            "nome": "Instrumentos financeiros derivativos",
+            "valor": 4644
+          },
+          {
+            "nome": "Imposto de renda e contribuição social diferidos",
+            "valor": 753
+          }
+        ]
+      },
+      "conta_compensacao_passivo": null,
+      "conta_compensacao_passivo_detalhado": {
+        "servicos_contratados_passivo": null,
+        "garantias_diversas_passivo": null,
+        "comodato_de_bens_passivo": null
+      },
+      "patrimonio_liquido": 965307,
+      "patrimonio_liquido_detalhado": {
+        "capital_social_realizado_integralizado": 815102,
+        "capital_social_subscrito": null,
+        "reservas_capital": 0,
+        "reservas_lucros": 149471,
+        "reservas_reavaliacao": null,
+        "lucros_prejuizos_acumulados": null,
+        "outras_contas_patrimonio_liquido": [
+          {
+            "nome": "Ajustes de avaliação patrimonial",
+            "valor": 734
+          }
+        ]
+      },
+      "indicadores_financeiros": {
+        "rentabilidade_do_patrimonio": 0.11726581569963232,
+        "liquidez_corrente": 1.7680557253160898,
+        "liquidez_seca": 1.1133434316715203,
+        "liquidez_imediata": null,
+        "indice_de_solvencia_geral": 1,
+        "rentabilidade_do_ativo": 0.04774978771662449,
+        "pendencia_comodato": false
+      }
+    }
+  ]
+}
