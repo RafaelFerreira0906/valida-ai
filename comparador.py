@@ -3,11 +3,13 @@ import re
 from copy import deepcopy  
 from decimal import Decimal, InvalidOperation  
 from datetime import datetime  
+from zoneinfo import ZoneInfo  
   
 from reportlab.lib import colors  
 from reportlab.lib.pagesizes import A4, landscape  
 from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle  
 from reportlab.lib.units import mm  
+from reportlab.pdfgen import canvas  
 from reportlab.platypus import (  
     SimpleDocTemplate,  
     Paragraph,  
@@ -18,6 +20,8 @@ from reportlab.platypus import (
 )  
   
 ALLOWED_EXTENSIONS = (".json",)  
+  
+TIMEZONE_SISTEMA = ZoneInfo("America/Fortaleza")  
   
 MAPEAMENTO_TIPOS = {  
     "e_analise_granulometrica": ("Análise Granulométrica", "analise_granulometrica"),  
@@ -446,7 +450,14 @@ def comparar_jsons(esperado, recebido, path="", diferencas=None, estatisticas=No
         estatisticas["campos_divergentes"] += 1  
         estatisticas["peso_total"] += peso  
         estatisticas["peso_divergente"] += peso  
-        registrar_diferenca(diferencas, path or "$", "tipo_diferente", nome_tipo(esperado), nome_tipo(recebido), float(peso))  
+        registrar_diferenca(  
+            diferencas,  
+            path or "$",  
+            "tipo_diferente",  
+            nome_tipo(esperado),  
+            nome_tipo(recebido),  
+            float(peso)  
+        )  
         return diferencas, estatisticas  
   
     if isinstance(esperado, dict):  
@@ -720,6 +731,41 @@ def calcular_campos_criticos_divergentes(diferencas):
     return sum(1 for d in diferencas if float(d.get("peso", 0)) >= 8)  
   
   
+def gerar_parecer_final(analise):  
+    percentual = analise["resumo"]["percentual_acuracia"]  
+    total_diferencas = analise["resumo"]["total_diferencas"]  
+    risco = analise["resumo"]["nivel_risco"]  
+    criticos = analise["resumo"]["campos_criticos_divergentes"]  
+  
+    if percentual == 100.0 and total_diferencas == 0:  
+        return (  
+            "Parecer automático: documento aprovado integralmente, com aderência total ao gabarito "  
+            "e sem necessidade de ajustes adicionais."  
+        )  
+  
+    if percentual >= 95 and criticos == 0:  
+        return (  
+            "Parecer automático: documento com alta aderência ao gabarito. "  
+            "Recomenda-se revisão pontual das divergências antes da conclusão do processo."  
+        )  
+  
+    if percentual > 80:  
+        return (  
+            "Parecer automático: documento com ressalvas. "  
+            "Há divergências relevantes que devem ser corrigidas para reduzir risco operacional e elevar a conformidade."  
+        )  
+  
+    if risco == "alto" or criticos > 0:  
+        return (  
+            "Parecer automático: documento não aderente ao padrão esperado, com risco operacional elevado. "  
+            "É recomendada correção obrigatória antes do prosseguimento."  
+        )  
+  
+    return (  
+        "Parecer automático: documento com inconsistências que exigem revisão antes da aprovação final."  
+    )  
+  
+  
 def analisar_comparacao_completa(  
     esperado,  
     recebido,  
@@ -774,7 +820,7 @@ def analisar_comparacao_completa(
   
     chaves_match_utilizadas = sorted(list(estatisticas["chaves_match_utilizadas"]))  
   
-    return {  
+    analise = {  
         "metadata": {  
             "tipo_documental": tipo_documental,  
             "tipo_documental_legivel": tipo_documental_legivel,  
@@ -783,7 +829,7 @@ def analisar_comparacao_completa(
             "gabarito_path": gabarito_path,  
             "origem_entrada": origem_entrada,  
             "tempo_processamento_ms": tempo_processamento_ms,  
-            "data_processamento": datetime.now().strftime("%d/%m/%Y %H:%M:%S")  
+            "data_processamento": datetime.now(TIMEZONE_SISTEMA).strftime("%d/%m/%Y %H:%M:%S"),  
         },  
         "resumo": {  
             "status": status,  
@@ -824,101 +870,348 @@ def analisar_comparacao_completa(
         "diferencas": diferencas  
     }  
   
+    analise["resumo"]["parecer_final"] = gerar_parecer_final(analise)  
+    return analise  
+  
+  
+class NumberedCanvas(canvas.Canvas):  
+    def __init__(self, *args, **kwargs):  
+        super().__init__(*args, **kwargs)  
+        self._saved_page_states = []  
+  
+    def showPage(self):  
+        self._saved_page_states.append(dict(self.__dict__))  
+        self._startPage()  
+  
+    def save(self):  
+        total_pages = len(self._saved_page_states)  
+        for state in self._saved_page_states:  
+            self.__dict__.update(state)  
+            self.draw_header_footer(total_pages)  
+            super().showPage()  
+        super().save()  
+  
+    def draw_header_footer(self, total_pages):  
+        width, height = landscape(A4)  
+  
+        self.setStrokeColor(colors.HexColor("#E6D6CA"))  
+        self.setLineWidth(0.6)  
+        self.line(10 * mm, height - 10 * mm, width - 10 * mm, height - 10 * mm)  
+  
+        self.setFont("Helvetica-Bold", 10)  
+        self.setFillColor(colors.HexColor("#8E1414"))  
+        self.drawString(12 * mm, height - 7.2 * mm, "Valida AI")  
+  
+        self.setFont("Helvetica", 8)  
+        self.setFillColor(colors.HexColor("#6B625D"))  
+        self.drawRightString(width - 12 * mm, height - 7.2 * mm, "Relatório executivo de validação documental")  
+  
+        self.setStrokeColor(colors.HexColor("#E6D6CA"))  
+        self.line(10 * mm, 10 * mm, width - 10 * mm, 10 * mm)  
+  
+        self.setFont("Helvetica", 8)  
+        self.setFillColor(colors.HexColor("#6B625D"))  
+        self.drawString(12 * mm, 6.5 * mm, "Valida AI - uso interno")  
+        self.drawCentredString(width / 2, 6.5 * mm, datetime.now(TIMEZONE_SISTEMA).strftime("%d/%m/%Y %H:%M:%S"))  
+        self.drawRightString(width - 12 * mm, 6.5 * mm, f"Página {self._pageNumber} de {total_pages}")  
+  
   
 def gerar_pdf_relatorio(analise, caminho_saida):  
     doc = SimpleDocTemplate(  
         caminho_saida,  
         pagesize=landscape(A4),  
-        leftMargin=10 * mm,  
-        rightMargin=10 * mm,  
-        topMargin=10 * mm,  
-        bottomMargin=10 * mm  
+        leftMargin=12 * mm,  
+        rightMargin=12 * mm,  
+        topMargin=18 * mm,  
+        bottomMargin=16 * mm  
     )  
   
     styles = getSampleStyleSheet()  
-    title_style = styles["Title"]  
-    normal = styles["BodyText"]  
-    heading = styles["Heading2"]  
   
-    small = ParagraphStyle(  
-        "Small",  
-        parent=normal,  
-        fontSize=8,  
-        leading=10  
+    titulo_style = ParagraphStyle(  
+        "TituloCustom",  
+        parent=styles["Title"],  
+        fontName="Helvetica-Bold",  
+        fontSize=24,  
+        leading=28,  
+        textColor=colors.HexColor("#8E1414"),  
+        spaceAfter=4  
     )  
   
-    # Paleta aproximada inspirada em vermelho/laranja corporativo  
+    subtitulo_style = ParagraphStyle(  
+        "SubtituloCustom",  
+        parent=styles["Normal"],  
+        fontName="Helvetica",  
+        fontSize=10,  
+        leading=13,  
+        textColor=colors.HexColor("#6B625D"),  
+        spaceAfter=14  
+    )  
+  
+    secao_style = ParagraphStyle(  
+        "SecaoCustom",  
+        parent=styles["Heading2"],  
+        fontName="Helvetica-Bold",  
+        fontSize=13,  
+        leading=16,  
+        textColor=colors.HexColor("#8E1414"),  
+        spaceBefore=6,  
+        spaceAfter=8  
+    )  
+  
+    normal = ParagraphStyle(  
+        "NormalCustom",  
+        parent=styles["BodyText"],  
+        fontName="Helvetica",  
+        fontSize=9,  
+        leading=12,  
+        textColor=colors.HexColor("#2F2A27")  
+    )  
+  
+    small = ParagraphStyle(  
+        "SmallCustom",  
+        parent=normal,  
+        fontSize=7.8,  
+        leading=9.5  
+    )  
+  
+    small_center = ParagraphStyle(  
+        "SmallCenterCustom",  
+        parent=small,  
+        alignment=1  
+    )  
+  
+    destaque = ParagraphStyle(  
+        "DestaqueCustom",  
+        parent=normal,  
+        fontName="Helvetica-Bold",  
+        fontSize=11,  
+        leading=13,  
+        textColor=colors.white,  
+        alignment=1  
+    )  
+  
+    parecer_style = ParagraphStyle(  
+        "ParecerStyle",  
+        parent=normal,  
+        fontName="Helvetica-Bold",  
+        fontSize=10,  
+        leading=14,  
+        textColor=colors.HexColor("#2F2A27")  
+    )  
+  
     cor_vermelho = colors.HexColor("#B71C1C")  
+    cor_vermelho_escuro = colors.HexColor("#8E1414")  
     cor_laranja = colors.HexColor("#F57C00")  
     cor_laranja_claro = colors.HexColor("#FFF3E0")  
     cor_neutro = colors.HexColor("#F8F5F2")  
+    cor_fundo = colors.HexColor("#FCFAF8")  
+    cor_borda = colors.HexColor("#DDCFC5")  
+    cor_texto = colors.HexColor("#2F2A27")  
+    cor_verde = colors.HexColor("#2E7D32")  
+    cor_verde_claro = colors.HexColor("#E8F5E9")  
+    cor_verde_escuro = colors.HexColor("#1B5E20")  
+  
+    percentual = analise["resumo"]["percentual_acuracia"]  
+    status = analise["resumo"]["status"]  
+    nivel_risco = analise["resumo"]["nivel_risco"]  
+  
+    aprovado_100 = percentual == 100.0 and analise["resumo"]["total_diferencas"] == 0  
+  
+    if aprovado_100:  
+        cor_status = cor_verde  
+        cor_status_bg = cor_verde_claro  
+        cor_status_dark = cor_verde_escuro  
+        texto_status = "DOCUMENTO APROVADO - 100% DE ADERÊNCIA"  
+    elif percentual > 80:  
+        cor_status = cor_laranja  
+        cor_status_bg = cor_laranja_claro  
+        cor_status_dark = cor_laranja  
+        texto_status = f"DOCUMENTO COM RESSALVAS - {percentual}% DE ADERÊNCIA"  
+    else:  
+        cor_status = cor_vermelho  
+        cor_status_bg = colors.HexColor("#FDECEA")  
+        cor_status_dark = cor_vermelho_escuro  
+        texto_status = f"DOCUMENTO REPROVADO - {percentual}% DE ADERÊNCIA"  
+  
+    if nivel_risco == "baixo":  
+        cor_risco = cor_verde  
+    elif nivel_risco == "medio":  
+        cor_risco = cor_laranja  
+    else:  
+        cor_risco = cor_vermelho  
+  
+    origem_legivel = "Arquivo enviado" if analise["metadata"]["origem_entrada"] == "arquivo_upload" else "JSON colado"  
+    chaves_match = ", ".join(analise["listas"]["chaves_match_utilizadas"]) if analise["listas"]["chaves_match_utilizadas"] else "Nenhuma chave inteligente utilizada"  
   
     elements = []  
   
-    elements.append(Paragraph("Valida AI - Relatório de Validação", title_style))  
+    elements.append(Spacer(1, 6))  
+    elements.append(Paragraph("Valida AI", titulo_style))  
+    elements.append(Paragraph("Relatório executivo de validação documental", subtitulo_style))  
+  
+    banner_table = Table(  
+        [[Paragraph(texto_status, destaque)]],  
+        colWidths=[273 * mm]  
+    )  
+    banner_table.setStyle(TableStyle([  
+        ("BACKGROUND", (0, 0), (-1, -1), cor_status),  
+        ("TOPPADDING", (0, 0), (-1, -1), 11),  
+        ("BOTTOMPADDING", (0, 0), (-1, -1), 11),  
+        ("LEFTPADDING", (0, 0), (-1, -1), 10),  
+        ("RIGHTPADDING", (0, 0), (-1, -1), 10),  
+    ]))  
+    elements.append(banner_table)  
     elements.append(Spacer(1, 8))  
   
+    cards_topo = [[  
+        Paragraph(f"<b>ID do documento</b><br/>{analise['metadata']['id_documento']}", normal),  
+        Paragraph(f"<b>Tipo documental</b><br/>{analise['metadata']['tipo_documental_legivel']}", normal),  
+        Paragraph(f"<b>Status</b><br/>{status}", normal),  
+        Paragraph(f"<b>Acurácia</b><br/>{percentual}%", normal),  
+        Paragraph(f"<b>Nível de risco</b><br/><font color='{cor_risco}'>{nivel_risco.upper()}</font>", normal),  
+    ]]  
+    cards_topo_table = Table(  
+        cards_topo,  
+        colWidths=[48 * mm, 77 * mm, 32 * mm, 32 * mm, 48 * mm]  
+    )  
+    cards_topo_table.setStyle(TableStyle([  
+        ("BACKGROUND", (0, 0), (-1, -1), cor_fundo),  
+        ("BOX", (0, 0), (-1, -1), 0.5, cor_borda),  
+        ("INNERGRID", (0, 0), (-1, -1), 0.35, cor_borda),  
+        ("VALIGN", (0, 0), (-1, -1), "TOP"),  
+        ("TOPPADDING", (0, 0), (-1, -1), 8),  
+        ("BOTTOMPADDING", (0, 0), (-1, -1), 8),  
+    ]))  
+    elements.append(cards_topo_table)  
+    elements.append(Spacer(1, 10))  
+  
+    elements.append(Paragraph("Parecer final automático", secao_style))  
+    parecer_table = Table(  
+        [[Paragraph(analise["resumo"]["parecer_final"], parecer_style)]],  
+        colWidths=[273 * mm]  
+    )  
+    parecer_table.setStyle(TableStyle([  
+        ("BACKGROUND", (0, 0), (-1, -1), cor_status_bg),  
+        ("BOX", (0, 0), (-1, -1), 0.8, cor_status),  
+        ("LEFTPADDING", (0, 0), (-1, -1), 12),  
+        ("RIGHTPADDING", (0, 0), (-1, -1), 12),  
+        ("TOPPADDING", (0, 0), (-1, -1), 11),  
+        ("BOTTOMPADDING", (0, 0), (-1, -1), 11),  
+    ]))  
+    elements.append(parecer_table)  
+    elements.append(Spacer(1, 10))  
+  
+    elements.append(Paragraph("Resumo executivo", secao_style))  
+    resumo_exec_table = Table(  
+        [[Paragraph(analise["resumo"]["resumo_executivo"], normal)]],  
+        colWidths=[273 * mm]  
+    )  
+    resumo_exec_table.setStyle(TableStyle([  
+        ("BACKGROUND", (0, 0), (-1, -1), cor_neutro),  
+        ("BOX", (0, 0), (-1, -1), 0.5, cor_borda),  
+        ("LEFTPADDING", (0, 0), (-1, -1), 12),  
+        ("RIGHTPADDING", (0, 0), (-1, -1), 12),  
+        ("TOPPADDING", (0, 0), (-1, -1), 10),  
+        ("BOTTOMPADDING", (0, 0), (-1, -1), 10),  
+    ]))  
+    elements.append(resumo_exec_table)  
+    elements.append(Spacer(1, 10))  
+  
+    elements.append(Paragraph("Identificação do processamento", secao_style))  
     meta_data = [  
         ["Campo", "Valor"],  
-        ["Arquivo", analise["metadata"]["nome_arquivo"]],  
+        ["Arquivo analisado", analise["metadata"]["nome_arquivo"]],  
         ["ID do documento", analise["metadata"]["id_documento"]],  
         ["Tipo documental", analise["metadata"]["tipo_documental_legivel"]],  
         ["Chave do documento", analise["metadata"]["tipo_documental"]],  
-        ["Origem da entrada", analise["metadata"]["origem_entrada"]],  
-        ["Gabarito", analise["metadata"]["gabarito_path"]],  
+        ["Origem da entrada", origem_legivel],  
+        ["Gabarito localizado", analise["metadata"]["gabarito_path"]],  
         ["Processado em", analise["metadata"]["data_processamento"]],  
-        ["Tempo de processamento (ms)", str(analise["metadata"]["tempo_processamento_ms"])],  
-        ["Status", analise["resumo"]["status"]],  
-        ["Acurácia (%)", str(analise["resumo"]["percentual_acuracia"])],  
-        ["Nível de risco", str(analise["resumo"]["nivel_risco"])],  
+        ["Tempo de processamento", f"{analise['metadata']['tempo_processamento_ms']} ms"],  
     ]  
-  
-    meta_table = Table(meta_data, colWidths=[70 * mm, 170 * mm])  
+    meta_table = Table(meta_data, colWidths=[78 * mm, 195 * mm])  
     meta_table.setStyle(TableStyle([  
-        ("BACKGROUND", (0, 0), (-1, 0), cor_vermelho),  
+        ("BACKGROUND", (0, 0), (-1, 0), cor_vermelho_escuro),  
         ("TEXTCOLOR", (0, 0), (-1, 0), colors.white),  
         ("FONTNAME", (0, 0), (-1, 0), "Helvetica-Bold"),  
-        ("GRID", (0, 0), (-1, -1), 0.5, colors.grey),  
-        ("BACKGROUND", (0, 1), (-1, -1), cor_neutro),  
+        ("GRID", (0, 0), (-1, -1), 0.35, cor_borda),  
+        ("BACKGROUND", (0, 1), (-1, -1), cor_fundo),  
+        ("VALIGN", (0, 0), (-1, -1), "TOP"),  
+        ("FONTSIZE", (0, 0), (-1, -1), 9),  
     ]))  
     elements.append(meta_table)  
     elements.append(Spacer(1, 10))  
   
-    elements.append(Paragraph("Resumo Executivo", heading))  
-    elements.append(Paragraph(analise["resumo"]["resumo_executivo"], normal))  
-    elements.append(Spacer(1, 10))  
-  
+    elements.append(Paragraph("Indicadores principais", secao_style))  
     indicadores = [  
-        ["Indicador", "Valor"],  
-        ["Campos esperados", str(analise["resumo"]["total_campos_esperados"])],  
-        ["Campos recebidos", str(analise["resumo"]["total_campos_recebidos"])],  
-        ["Campos analisados", str(analise["resumo"]["campos_analisados"])],  
-        ["Campos conformes", str(analise["resumo"]["campos_conformes"])],  
-        ["Campos divergentes", str(analise["resumo"]["campos_divergentes"])],  
-        ["Campos opcionais ignorados", str(analise["resumo"]["campos_opcionais_ignorados"])],  
-        ["Campos críticos divergentes", str(analise["resumo"]["campos_criticos_divergentes"])],  
-        ["Total de divergências", str(analise["resumo"]["total_diferencas"])],  
-        ["Cobertura do conteúdo (%)", str(analise["resumo"]["cobertura_recebimento"])],  
-        ["Densidade de erros (%)", str(analise["resumo"]["densidade_erros"])],  
-        ["Seções afetadas", str(analise["resumo"]["secoes_afetadas"])],  
-        ["Peso total", str(analise["resumo"]["peso_total"])],  
-        ["Peso conforme", str(analise["resumo"]["peso_conforme"])],  
-        ["Peso divergente", str(analise["resumo"]["peso_divergente"])],  
-        ["Penalidade por extras", str(analise["resumo"]["penalidade_extras"])],  
+        ["Indicador", "Valor", "Indicador", "Valor"],  
+        ["Campos esperados", str(analise["resumo"]["total_campos_esperados"]),  
+         "Campos recebidos", str(analise["resumo"]["total_campos_recebidos"])],  
+        ["Campos analisados", str(analise["resumo"]["campos_analisados"]),  
+         "Campos conformes", str(analise["resumo"]["campos_conformes"])],  
+        ["Campos divergentes", str(analise["resumo"]["campos_divergentes"]),  
+         "Total de divergências", str(analise["resumo"]["total_diferencas"])],  
+        ["Campos opcionais ignorados", str(analise["resumo"]["campos_opcionais_ignorados"]),  
+         "Campos críticos divergentes", str(analise["resumo"]["campos_criticos_divergentes"])],  
+        ["Cobertura do conteúdo (%)", str(analise["resumo"]["cobertura_recebimento"]),  
+         "Densidade de erros (%)", str(analise["resumo"]["densidade_erros"])],  
+        ["Seções afetadas", str(analise["resumo"]["secoes_afetadas"]),  
+         "Penalidade por extras", str(analise["resumo"]["penalidade_extras"])],  
+        ["Peso total", str(analise["resumo"]["peso_total"]),  
+         "Peso divergente", str(analise["resumo"]["peso_divergente"])],  
     ]  
-  
-    ind_table = Table(indicadores, colWidths=[90 * mm, 55 * mm])  
+    ind_table = Table(indicadores, colWidths=[70 * mm, 25 * mm, 70 * mm, 25 * mm])  
     ind_table.setStyle(TableStyle([  
         ("BACKGROUND", (0, 0), (-1, 0), cor_laranja),  
         ("TEXTCOLOR", (0, 0), (-1, 0), colors.white),  
         ("FONTNAME", (0, 0), (-1, 0), "Helvetica-Bold"),  
-        ("GRID", (0, 0), (-1, -1), 0.5, colors.grey),  
-        ("BACKGROUND", (0, 1), (-1, -1), cor_laranja_claro),  
+        ("GRID", (0, 0), (-1, -1), 0.35, cor_borda),  
+        ("ROWBACKGROUNDS", (0, 1), (-1, -1), [cor_laranja_claro, colors.white]),  
+        ("VALIGN", (0, 0), (-1, -1), "MIDDLE"),  
+        ("FONTSIZE", (0, 0), (-1, -1), 9),  
     ]))  
     elements.append(ind_table)  
     elements.append(Spacer(1, 10))  
   
-    elements.append(Paragraph("Top Problemas", heading))  
+    elements.append(Paragraph("Inteligência de listas", secao_style))  
+    listas_data = [  
+        ["Indicador", "Valor"],  
+        ["Listas com match inteligente", str(analise["listas"]["listas_com_match_inteligente"])],  
+        ["Chaves de casamento utilizadas", chaves_match],  
+    ]  
+    listas_table = Table(listas_data, colWidths=[90 * mm, 183 * mm])  
+    listas_table.setStyle(TableStyle([  
+        ("BACKGROUND", (0, 0), (-1, 0), cor_vermelho),  
+        ("TEXTCOLOR", (0, 0), (-1, 0), colors.white),  
+        ("FONTNAME", (0, 0), (-1, 0), "Helvetica-Bold"),  
+        ("GRID", (0, 0), (-1, -1), 0.35, cor_borda),  
+        ("ROWBACKGROUNDS", (0, 1), (-1, -1), [cor_fundo, colors.white]),  
+        ("VALIGN", (0, 0), (-1, -1), "TOP"),  
+    ]))  
+    elements.append(listas_table)  
+    elements.append(Spacer(1, 10))  
+  
+    elements.append(Paragraph("Seções com mais erros", secao_style))  
+    secoes_data = [["Seção", "Quantidade de erros"]]  
+    if analise["blocos_com_erros"]:  
+        for bloco in analise["blocos_com_erros"][:10]:  
+            secoes_data.append([str(bloco["bloco"]), str(bloco["quantidade"])])  
+    else:  
+        secoes_data.append(["Nenhuma seção com erro", "0"])  
+  
+    secoes_table = Table(secoes_data, colWidths=[190 * mm, 83 * mm])  
+    secoes_table.setStyle(TableStyle([  
+        ("BACKGROUND", (0, 0), (-1, 0), cor_status_dark),  
+        ("TEXTCOLOR", (0, 0), (-1, 0), colors.white),  
+        ("FONTNAME", (0, 0), (-1, 0), "Helvetica-Bold"),  
+        ("GRID", (0, 0), (-1, -1), 0.35, cor_borda),  
+        ("ROWBACKGROUNDS", (0, 1), (-1, -1), [cor_fundo, colors.white]),  
+    ]))  
+    elements.append(secoes_table)  
+    elements.append(Spacer(1, 10))  
+  
+    elements.append(Paragraph("Top problemas", secao_style))  
     top_data = [["Path", "Tipo", "Severidade", "Peso", "Correção sugerida"]]  
   
     if analise["top_problemas"]:  
@@ -926,30 +1219,88 @@ def gerar_pdf_relatorio(analise, caminho_saida):
             top_data.append([  
                 Paragraph(str(item["path"]), small),  
                 Paragraph(str(item["tipo"]), small),  
-                Paragraph(str(item["severidade"]), small),  
-                Paragraph(str(item["peso"]), small),  
+                Paragraph(str(item["severidade"]).upper(), small_center),  
+                Paragraph(str(item["peso"]), small_center),  
                 Paragraph(str(item["sugestao_correcao"]), small),  
             ])  
     else:  
         top_data.append(["Sem divergências", "-", "-", "-", "-"])  
   
-    top_table = Table(top_data, colWidths=[90 * mm, 40 * mm, 30 * mm, 20 * mm, 90 * mm])  
-    top_table.setStyle(TableStyle([  
-        ("BACKGROUND", (0, 0), (-1, 0), cor_vermelho),  
+    top_table = Table(  
+        top_data,  
+        colWidths=[82 * mm, 36 * mm, 28 * mm, 18 * mm, 109 * mm],  
+        repeatRows=1  
+    )  
+    top_style = TableStyle([  
+        ("BACKGROUND", (0, 0), (-1, 0), cor_vermelho_escuro),  
         ("TEXTCOLOR", (0, 0), (-1, 0), colors.white),  
         ("FONTNAME", (0, 0), (-1, 0), "Helvetica-Bold"),  
-        ("GRID", (0, 0), (-1, -1), 0.5, colors.grey),  
+        ("GRID", (0, 0), (-1, -1), 0.3, cor_borda),  
         ("VALIGN", (0, 0), (-1, -1), "TOP"),  
-        ("BACKGROUND", (0, 1), (-1, -1), cor_neutro),  
-    ]))  
+        ("ROWBACKGROUNDS", (0, 1), (-1, -1), [cor_fundo, colors.white]),  
+        ("FONTSIZE", (0, 0), (-1, -1), 8),  
+    ])  
+  
+    if analise["top_problemas"]:  
+        for row_idx, item in enumerate(analise["top_problemas"], start=1):  
+            sev = item["severidade"]  
+            if sev == "alta":  
+                top_style.add("TEXTCOLOR", (2, row_idx), (2, row_idx), cor_vermelho)  
+                top_style.add("FONTNAME", (2, row_idx), (2, row_idx), "Helvetica-Bold")  
+            elif sev == "media":  
+                top_style.add("TEXTCOLOR", (2, row_idx), (2, row_idx), cor_laranja)  
+                top_style.add("FONTNAME", (2, row_idx), (2, row_idx), "Helvetica-Bold")  
+            else:  
+                top_style.add("TEXTCOLOR", (2, row_idx), (2, row_idx), cor_texto)  
+  
+    top_table.setStyle(top_style)  
     elements.append(top_table)  
+  
     elements.append(PageBreak())  
   
-    elements.append(Paragraph("Relatório Detalhado de Divergências", heading))  
+    elements.append(Paragraph("Possíveis melhorias no sistema", secao_style))  
   
+    melhorias_data = [["Melhoria sugerida"]]  
+    for melhoria in analise["melhorias_globais"]:  
+        melhorias_data.append([Paragraph(melhoria, normal)])  
+    
+    sem_melhorias_criticas = (  
+        aprovado_100 and  
+        len(analise["melhorias_globais"]) == 1 and  
+        "Nenhuma melhoria crítica identificada" in analise["melhorias_globais"][0]  
+    )  
+    
+    if sem_melhorias_criticas:  
+        cor_melhoria_header = cor_verde  
+        cor_melhoria_row_1 = cor_verde_claro  
+        cor_melhoria_row_2 = colors.HexColor("#F4FBF4")  
+    else:  
+        cor_melhoria_header = cor_laranja  
+        cor_melhoria_row_1 = cor_fundo  
+        cor_melhoria_row_2 = colors.white  
+    
+    melhorias_table = Table(melhorias_data, colWidths=[273 * mm])  
+    melhorias_style = TableStyle([  
+        ("BACKGROUND", (0, 0), (-1, 0), cor_melhoria_header),  
+        ("TEXTCOLOR", (0, 0), (-1, 0), colors.white),  
+        ("FONTNAME", (0, 0), (-1, 0), "Helvetica-Bold"),  
+        ("GRID", (0, 0), (-1, -1), 0.3, cor_borda),  
+        ("ROWBACKGROUNDS", (0, 1), (-1, -1), [cor_melhoria_row_1, cor_melhoria_row_2]),  
+        ("VALIGN", (0, 0), (-1, -1), "TOP"),  
+    ])  
+    
+    if sem_melhorias_criticas:  
+        melhorias_style.add("TEXTCOLOR", (0, 1), (-1, -1), cor_verde_escuro)  
+        melhorias_style.add("FONTNAME", (0, 1), (-1, -1), "Helvetica-Bold")  
+    
+    melhorias_table.setStyle(melhorias_style)  
+    elements.append(melhorias_table)  
+    elements.append(Spacer(1, 10))   
+  
+    elements.append(Paragraph("Relatório detalhado de divergências", secao_style))  
     detalhe_data = [[  
         "#", "Path", "Tipo", "Severidade", "Peso",  
-        "Esperado", "Recebido", "Correção"  
+        "Esperado", "Recebido", "Correção sugerida"  
     ]]  
   
     if analise["diferencas"]:  
@@ -958,8 +1309,8 @@ def gerar_pdf_relatorio(analise, caminho_saida):
                 str(idx),  
                 Paragraph(str(item["path"]), small),  
                 Paragraph(str(item["tipo"]), small),  
-                Paragraph(str(item["severidade"]), small),  
-                Paragraph(str(item["peso"]), small),  
+                Paragraph(str(item["severidade"]).upper(), small_center),  
+                Paragraph(str(item["peso"]), small_center),  
                 Paragraph(str(item["esperado"]), small),  
                 Paragraph(str(item["recebido"]), small),  
                 Paragraph(str(item["sugestao_correcao"]), small),  
@@ -969,17 +1320,33 @@ def gerar_pdf_relatorio(analise, caminho_saida):
   
     detalhe_table = Table(  
         detalhe_data,  
-        colWidths=[10 * mm, 55 * mm, 28 * mm, 22 * mm, 15 * mm, 55 * mm, 55 * mm, 60 * mm],  
+        colWidths=[10 * mm, 48 * mm, 27 * mm, 22 * mm, 15 * mm, 47 * mm, 47 * mm, 57 * mm],  
         repeatRows=1  
     )  
-    detalhe_table.setStyle(TableStyle([  
-        ("BACKGROUND", (0, 0), (-1, 0), cor_laranja),  
+  
+    detalhe_style = TableStyle([  
+        ("BACKGROUND", (0, 0), (-1, 0), cor_status_dark),  
         ("TEXTCOLOR", (0, 0), (-1, 0), colors.white),  
         ("FONTNAME", (0, 0), (-1, 0), "Helvetica-Bold"),  
-        ("GRID", (0, 0), (-1, -1), 0.35, colors.grey),  
+        ("GRID", (0, 0), (-1, -1), 0.25, cor_borda),  
         ("VALIGN", (0, 0), (-1, -1), "TOP"),  
-        ("ROWBACKGROUNDS", (0, 1), (-1, -1), [cor_neutro, cor_laranja_claro]),  
-    ]))  
+        ("ROWBACKGROUNDS", (0, 1), (-1, -1), [cor_fundo, colors.white]),  
+        ("FONTSIZE", (0, 0), (-1, -1), 7.5),  
+    ])  
+  
+    if analise["diferencas"]:  
+        for row_idx, item in enumerate(analise["diferencas"], start=1):  
+            sev = item["severidade"]  
+            if sev == "alta":  
+                detalhe_style.add("TEXTCOLOR", (3, row_idx), (3, row_idx), cor_vermelho)  
+                detalhe_style.add("FONTNAME", (3, row_idx), (3, row_idx), "Helvetica-Bold")  
+            elif sev == "media":  
+                detalhe_style.add("TEXTCOLOR", (3, row_idx), (3, row_idx), cor_laranja)  
+                detalhe_style.add("FONTNAME", (3, row_idx), (3, row_idx), "Helvetica-Bold")  
+            else:  
+                detalhe_style.add("TEXTCOLOR", (3, row_idx), (3, row_idx), cor_texto)  
+  
+    detalhe_table.setStyle(detalhe_style)  
     elements.append(detalhe_table)  
   
-    doc.build(elements)  
+    doc.build(elements, canvasmaker=NumberedCanvas)  
