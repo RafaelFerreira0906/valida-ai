@@ -166,5 +166,10 @@
             </div>  
         </form>  
     </div>  
+    <script>  
+    if (!sessionStorage.getItem("sistema_logado")) {  
+        window.location.href = "/force-logout";  
+    }  
+</script>  
 </body>  
 </html>  

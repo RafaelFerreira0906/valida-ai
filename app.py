@@ -20,6 +20,11 @@ from comparador import (
 app = Flask(__name__)  
 app.secret_key = "troque_por_uma_chave_forte"  
   
+app.config["SESSION_PERMANENT"] = False  
+app.config["SESSION_COOKIE_HTTPONLY"] = True  
+app.config["SESSION_COOKIE_SAMESITE"] = "Lax"  
+app.config["SESSION_COOKIE_SECURE"] = False  
+  
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))  
 UPLOAD_FOLDER = os.path.join("/tmp", "uploads")  
 REPORTS_FOLDER = os.path.join("/tmp", "reports")  
@@ -31,7 +36,7 @@ os.makedirs(REPORTS_FOLDER, exist_ok=True)
   
 app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER  
 app.config["REPORTS_FOLDER"] = REPORTS_FOLDER  
-app.config["MAX_CONTENT_LENGTH"] = 20 * 1024 * 1024  # 20 MB  
+app.config["MAX_CONTENT_LENGTH"] = 20 * 1024 * 1024  
   
 REPORT_CACHE = {}  
   
@@ -81,13 +86,14 @@ def update_user_credentials(current_username, new_username, new_password):
             break  
   
     with open(CREDENTIALS_FILE, "w", encoding="utf-8") as f:  
-        json.dump(creds, f, indent=4)   
+        json.dump(creds, f, indent=4)  
   
   
 def login_required(func):  
     @wraps(func)  
     def wrapper(*args, **kwargs):  
         if not session.get("logged_in"):  
+            flash("Faça login para acessar o sistema.", "error")  
             return redirect(url_for("login"))  
         return func(*args, **kwargs)  
     return wrapper  
@@ -102,20 +108,33 @@ def login():
         username = request.form.get("username", "").strip()  
         password = request.form.get("password", "").strip()  
   
+        if not username or not password:  
+            flash("Informe login e senha.", "error")  
+            return render_template("login.html")  
+  
         user = find_user(username)  
   
         if user and check_password_hash(user["password_hash"], password):  
+            session.clear()  
+            session.permanent = False  
             session["logged_in"] = True  
             session["username"] = username  
             return redirect(url_for("index"))  
         else:  
             flash("Login ou senha inválidos.", "error")  
   
-    return render_template("login.html")   
+    return render_template("login.html")  
   
   
 @app.route("/logout")  
 def logout():  
+    session.clear()  
+    flash("Logout realizado com sucesso.", "success")  
+    return redirect(url_for("login"))  
+  
+  
+@app.route("/force-logout")  
+def force_logout():  
     session.clear()  
     return redirect(url_for("login"))  
   
@@ -149,7 +168,7 @@ def alterar_credenciais():
         flash("Credenciais alteradas com sucesso.", "success")  
         return redirect(url_for("index"))  
   
-    return render_template("alterar_credenciais.html")   
+    return render_template("alterar_credenciais.html")  
   
   
 @app.route("/", methods=["GET", "POST"])  
@@ -182,7 +201,6 @@ def index():
         caminho_upload = None  
   
         try:  
-            # Prioridade para JSON colado  
             if json_texto:  
                 origem_entrada = "json_colado"  
   

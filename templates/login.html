@@ -124,7 +124,7 @@
             {% endif %}  
         {% endwith %}  
   
-        <form method="POST">  
+        <form method="POST" id="loginForm">   
             <label for="username">Login</label>  
             <input type="text" id="username" name="username" required>  
   
@@ -134,5 +134,10 @@
             <button type="submit">Entrar</button>  
         </form>          
     </div>  
+    <script>  
+    document.getElementById("loginForm").addEventListener("submit", function () {  
+        sessionStorage.setItem("sistema_logado", "1");  
+    });  
+</script>  
 </body>  
 </html>  

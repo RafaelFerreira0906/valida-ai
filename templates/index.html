@@ -42,7 +42,7 @@
             margin: 0;  
             padding: 24px;  
             font-family: Arial, Helvetica, sans-serif;  
-            background: linear-gradient(180deg, #fcf6f1 0%, #f7efe9 100%);  
+            background: linear-gradient(180deg, #ff0000 0%, #2c0303 100%);  
             color: var(--text);  
         }  
   
@@ -443,7 +443,7 @@
             display: inline-block;  
             background: #fff3e8;  
             color: #9a4f10;  
-            border: 1px solid #f3d7ba;  
+            border: 1px solid #ef8206;  
             border-radius: 999px;  
             padding: 8px 12px;  
             font-size: 13px;  
@@ -815,6 +815,11 @@
             {% endif %}  
         </div>  
         {% endif %}  
-    </div>  
+    </div> 
+    <script>  
+    if (!sessionStorage.getItem("sistema_logado")) {  
+        window.location.href = "/force-logout";  
+    }  
+</script>   
 </body>  
 </html>  
