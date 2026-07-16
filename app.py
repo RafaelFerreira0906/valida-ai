@@ -39,8 +39,20 @@ REPORT_CACHE = {}
 def init_credentials():  
     if not os.path.exists(CREDENTIALS_FILE):  
         data = {  
-            "username": "admin",  
-            "password_hash": generate_password_hash("admin")  
+            "users": [  
+                {  
+                    "username": "D004028",  
+                    "password_hash": generate_password_hash("maylin031112")  
+                },  
+                {  
+                    "username": "D004391",  
+                    "password_hash": generate_password_hash("jessica123")  
+                },  
+                {  
+                    "username": "D004433",  
+                    "password_hash": generate_password_hash("samyra123")  
+                }  
+            ]  
         }  
         with open(CREDENTIALS_FILE, "w", encoding="utf-8") as f:  
             json.dump(data, f, indent=4)  
@@ -51,13 +63,25 @@ def load_credentials():
         return json.load(f)  
   
   
-def save_credentials(new_username, new_password):  
-    data = {  
-        "username": new_username,  
-        "password_hash": generate_password_hash(new_password)  
-    }  
+def find_user(username):  
+    creds = load_credentials()  
+    for user in creds.get("users", []):  
+        if user["username"] == username:  
+            return user  
+    return None  
+  
+  
+def update_user_credentials(current_username, new_username, new_password):  
+    creds = load_credentials()  
+  
+    for user in creds.get("users", []):  
+        if user["username"] == current_username:  
+            user["username"] = new_username  
+            user["password_hash"] = generate_password_hash(new_password)  
+            break  
+  
     with open(CREDENTIALS_FILE, "w", encoding="utf-8") as f:  
-        json.dump(data, f, indent=4)  
+        json.dump(creds, f, indent=4)   
   
   
 def login_required(func):  
@@ -78,16 +102,16 @@ def login():
         username = request.form.get("username", "").strip()  
         password = request.form.get("password", "").strip()  
   
-        creds = load_credentials()  
+        user = find_user(username)  
   
-        if username == creds["username"] and check_password_hash(creds["password_hash"], password):  
+        if user and check_password_hash(user["password_hash"], password):  
             session["logged_in"] = True  
             session["username"] = username  
             return redirect(url_for("index"))  
         else:  
             flash("Login ou senha inválidos.", "error")  
   
-    return render_template("login.html")  
+    return render_template("login.html")   
   
   
 @app.route("/logout")  
@@ -109,23 +133,23 @@ def alterar_credenciais():
             flash("Preencha todos os campos.", "error")  
             return redirect(url_for("alterar_credenciais"))  
   
-        creds = load_credentials()  
+        user = find_user(current_username)  
   
-        if current_username != creds["username"]:  
+        if not user:  
             flash("Login atual inválido.", "error")  
             return redirect(url_for("alterar_credenciais"))  
   
-        if not check_password_hash(creds["password_hash"], current_password):  
+        if not check_password_hash(user["password_hash"], current_password):  
             flash("Senha atual inválida.", "error")  
             return redirect(url_for("alterar_credenciais"))  
   
-        save_credentials(new_username, new_password)  
+        update_user_credentials(current_username, new_username, new_password)  
         session["username"] = new_username  
   
         flash("Credenciais alteradas com sucesso.", "success")  
         return redirect(url_for("index"))  
   
-    return render_template("alterar_credenciais.html")  
+    return render_template("alterar_credenciais.html")   
   
   
 @app.route("/", methods=["GET", "POST"])  
