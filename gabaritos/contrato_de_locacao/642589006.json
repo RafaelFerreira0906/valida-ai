@@ -1,0 +1,188 @@
+{
+  "e_contrato_de_locacao": true,
+  "nomes_que_possuem_selo_carimbo_de_firma_reconhecida": [
+    "ANA CLÁUDIA TARGINO DE VASCONCELOS",
+    "ALLYSON DE MENESES COELHO"
+  ],
+  "todos_os_envolvidos_no_contrato": [
+    {
+      "nome": "ADRIANO ALBERTO DALL'OLIO",
+      "endereco": "Fortaleza-Ceará",
+      "CPF_ou_CNPJ": "051.670.433-87",
+      "locador": true,
+      "locatario": false,
+      "fiador_ou_avalista": false,
+      "e_procurador_ou_representante_do_locador": false,
+      "e_procurador_ou_representante_do_locatario": false,
+      "e_procurador_ou_representante_do_fiador": false,
+      "possui_procurador_ou_representante": true,
+      "casado": true,
+      "venia_conjugal": false,
+      "assinatura_reconhecida_ou_digital": {
+        "reconhecimento_de_firma": {
+          "existe_nome_da_pessoa_ou_do_seu_representante_no_selo_firma": false,
+          "existe_carimbo_de_assinatura_confere_com_a_original_gerente_banco": false,
+          "matricula_gerente": "",
+          "nome_gerente_carimbo": "",
+          "registro_titulos_e_documentos_livro_3_firma_reconhecida": false,
+          "nome_pessoa_firma_reconhecida_e_locador_ou_locataria_ou_fiador": "",
+          "nome_pessoa_firma_reconhecida_e_procurador_ou_representante": "",
+          "numero_selo_cartorario": "",
+          "numero_selo_digital": "",
+          "site_consulta_selo": ""
+        },
+        "assinatura_digital": {
+          "existe_nome_da_pessoa_ou_do_seu_representante_no_selo_digital": false,
+          "nome_da_assinatura_digital_e_locador_ou_locataria_ou_fiador": "",
+          "nome_da_assinatura_digital_e_procurador_ou_representante": "",
+          "numero_selo_digital": "",
+          "site_autenticacao": ""
+        }
+      }
+    },
+    {
+      "nome": "MARCOS RABBY ROMCY",
+      "endereco": "Rua Torres Camara 974 sala 03 Aldeota Fortaleza Ceará",
+      "CPF_ou_CNPJ": "Não Localizado",
+      "locador": false,
+      "locatario": false,
+      "fiador_ou_avalista": false,
+      "e_procurador_ou_representante_do_locador": true,
+      "e_procurador_ou_representante_do_locatario": false,
+      "e_procurador_ou_representante_do_fiador": false,
+      "possui_procurador_ou_representante": false,
+      "casado": false,
+      "venia_conjugal": false,
+      "assinatura_reconhecida_ou_digital": {
+        "reconhecimento_de_firma": {
+          "existe_nome_da_pessoa_ou_do_seu_representante_no_selo_firma": false,
+          "existe_carimbo_de_assinatura_confere_com_a_original_gerente_banco": false,
+          "matricula_gerente": "",
+          "nome_gerente_carimbo": "",
+          "registro_titulos_e_documentos_livro_3_firma_reconhecida": false,
+          "nome_pessoa_firma_reconhecida_e_locador_ou_locataria_ou_fiador": "",
+          "nome_pessoa_firma_reconhecida_e_procurador_ou_representante": "",
+          "numero_selo_cartorario": "",
+          "numero_selo_digital": "",
+          "site_consulta_selo": ""
+        },
+        "assinatura_digital": {
+          "existe_nome_da_pessoa_ou_do_seu_representante_no_selo_digital": false,
+          "nome_da_assinatura_digital_e_locador_ou_locataria_ou_fiador": "",
+          "nome_da_assinatura_digital_e_procurador_ou_representante": "",
+          "numero_selo_digital": "",
+          "site_autenticacao": ""
+        }
+      }
+    },
+    {
+      "nome": "ALLYSON DE MENESES COELHO",
+      "endereco": "Rua Costa Sousa no. 100 apto. 1301 Benfica, Fortaleza Ceará, CEP 60020300, Torre 1 condomínio Vitral",
+      "CPF_ou_CNPJ": "827.304.073-91",
+      "locador": false,
+      "locatario": true,
+      "fiador_ou_avalista": true,
+      "e_procurador_ou_representante_do_locador": false,
+      "e_procurador_ou_representante_do_locatario": false,
+      "e_procurador_ou_representante_do_fiador": false,
+      "possui_procurador_ou_representante": false,
+      "casado": true,
+      "venia_conjugal": false,
+      "assinatura_reconhecida_ou_digital": {
+        "reconhecimento_de_firma": {
+          "existe_nome_da_pessoa_ou_do_seu_representante_no_selo_firma": true,
+          "existe_carimbo_de_assinatura_confere_com_a_original_gerente_banco": false,
+          "matricula_gerente": "",
+          "nome_gerente_carimbo": "",
+          "registro_titulos_e_documentos_livro_3_firma_reconhecida": false,
+          "nome_pessoa_firma_reconhecida_e_locador_ou_locataria_ou_fiador": "ALLYSON DE MENESES COELHO",
+          "nome_pessoa_firma_reconhecida_e_procurador_ou_representante": "",
+          "numero_selo_cartorario": "",
+          "numero_selo_digital": "",
+          "site_consulta_selo": ""
+        },
+        "assinatura_digital": {
+          "existe_nome_da_pessoa_ou_do_seu_representante_no_selo_digital": false,
+          "nome_da_assinatura_digital_e_locador_ou_locataria_ou_fiador": "",
+          "nome_da_assinatura_digital_e_procurador_ou_representante": "",
+          "numero_selo_digital": "",
+          "site_autenticacao": ""
+        }
+      }
+    },
+    {
+      "nome": "ANA CLÁUDIA TARGINO DE VASCONCELOS",
+      "endereco": "Não Localizado",
+      "CPF_ou_CNPJ": "795.613.143-04",
+      "locador": false,
+      "locatario": false,
+      "fiador_ou_avalista": true,
+      "e_procurador_ou_representante_do_locador": false,
+      "e_procurador_ou_representante_do_locatario": false,
+      "e_procurador_ou_representante_do_fiador": false,
+      "possui_procurador_ou_representante": false,
+      "casado": false,
+      "venia_conjugal": false,
+      "assinatura_reconhecida_ou_digital": {
+        "reconhecimento_de_firma": {
+          "existe_nome_da_pessoa_ou_do_seu_representante_no_selo_firma": true,
+          "existe_carimbo_de_assinatura_confere_com_a_original_gerente_banco": false,
+          "matricula_gerente": "",
+          "nome_gerente_carimbo": "",
+          "registro_titulos_e_documentos_livro_3_firma_reconhecida": false,
+          "nome_pessoa_firma_reconhecida_e_locador_ou_locataria_ou_fiador": "ANA CLÁUDIA TARGINO DE VASCONCELOS",
+          "nome_pessoa_firma_reconhecida_e_procurador_ou_representante": "",
+          "numero_selo_cartorario": "",
+          "numero_selo_digital": "",
+          "site_consulta_selo": ""
+        },
+        "assinatura_digital": {
+          "existe_nome_da_pessoa_ou_do_seu_representante_no_selo_digital": false,
+          "nome_da_assinatura_digital_e_locador_ou_locataria_ou_fiador": "",
+          "nome_da_assinatura_digital_e_procurador_ou_representante": "",
+          "numero_selo_digital": "",
+          "site_autenticacao": ""
+        }
+      }
+    }
+  ],
+  "imovel": {
+    "imovel_urbano": true,
+    "endereco_do_imovel": "AV. MONSENHOR TABOSA, no. 451, Centro, Fortaleza - Ceará",
+    "tipo_do_imovel": "Loja comercial",
+    "area_do_imovel": ""
+  },
+  "atividades_permitidas": [
+    "Finalidade não residencial",
+    "Uso exclusivo como loja comercial",
+    "Vedada mudança de destinação sem autorização",
+    "Vedada sublocação, empréstimo, cessão ou transferência sem consentimento por escrito do locador"
+  ],
+  "termos_locacao": {
+    "data_inicio": "2024-09-01",
+    "duracao_em_dias": 760,
+    "duracao_do_contrato_e_maior_ou_igual_a_dez_anos": false,
+    "data_vencimento_aluguel": ""
+  },
+  "clausula_autorizacao_construcao_reforma": "O LOCATÁRIO obriga-se a não fazer modificações ou alterações no imóvel, sem a expressa concordância e autorização do LOCADOR.",
+  "clausula_vigencia": true,
+  "registro_livro2_cartorio": false,
+  "registro_titulos_e_documentos_livro_3": false,
+  "observacoes": {
+    "inventario_bens": "",
+    "valor_aluguel": "R$ 1.500,00 por mês, para os primeiros 12 meses de locação",
+    "substituicao_fiador_garantia": "",
+    "obrigacoes_locador": "Responder pelas taxas extraordinárias de condomínio referentes a modificações e/ou conservação estrutural das áreas comuns do condomínio; permitir a prorrogação da vigência nas hipóteses contratuais e legais.",
+    "obrigacoes_locatario": "Pagar aluguel até o dia 05 de cada mês; pagar taxa condominial, IPTU, água, energia elétrica, TV a cabo e demais encargos; não sublocar, emprestar, ceder ou transferir o contrato sem consentimento escrito; restituir o imóvel desocupado e no mesmo estado em que recebeu; comunicar desocupação com antecedência mínima de 30 dias; entregar comprovantes de negativa de débito de energia e água, além de IPTU e condomínio; entregar documentos relativos ao imóvel ao locador; transferir ou pedir ligação de energia elétrica e água em seu nome; conservar o imóvel e atender exigências dos poderes públicos a que der causa.",
+    "responsavel_manutencao_reparos": "O LOCATÁRIO responde por todas as obras e conservação do imóvel, salvo as obras que importem na segurança do imóvel. O LOCADOR responde pelas taxas extraordinárias de condomínio referentes a modificações e/ou conservação estrutural das áreas comuns.",
+    "multa_rescisao": "",
+    "aviso_previo": "30 dias para restituição do imóvel",
+    "outras_penalidades": "Multa de 10% por atraso no pagamento do aluguel; juros de 1% ao mês; correção monetária pelo IPC-FIPE; reembolso de despesas administrativas de cobrança, notificações extrajudiciais, cartas com AR e honorários advocatícios; possibilidade de protesto em cartório e negativação junto a SERASA e SPC; benfeitorias sem direito de retenção ou indenização.",
+    "direito_preferencia": "",
+    "renovacao_automatica": "Caso o locatário continue no imóvel depois de vencido o prazo contratual, com a expressa concordância do locador, ou por disposição de lei, prorrogar-se-á a vigência de todas as condições pactuadas.",
+    "aditivos_clausulas_especiais": "Cobrança dos aluguéis por ficha de compensação bancária, incluindo taxa bancária e condomínio; locador poderá vistoriar o imóvel a qualquer tempo, em horário comercial, mediante prévio agendamento; foro eleito de Fortaleza-Ceará.",
+    "comentario_sobre_clausulas_contraditorias": "Há divergência entre o prazo indicado como '24 meses' e as datas informadas '01 de Setembro de 2024' a '30 de Setembro de 2026', que correspondem a período superior a 24 meses. Há também variação de grafia do nome do locatário/fiador: 'ALLYSON' e 'ALYSSON'.",
+    "comentario_sobre_informacoes_ilegiveis": "Trechos das cláusulas finais e selos/cartórios estão parcialmente ilegíveis, inclusive parte da cláusula de fiança e eventuais números de selo cartorário.",
+    "dados_duplicados": "O CPF 827.304.073-91 aparece para a mesma pessoa, ALLYSON/ALYSSON DE MENESES COELHO, qualificado como locatário e também como fiador."
+  }
+}
