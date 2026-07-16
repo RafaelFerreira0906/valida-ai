@@ -70,13 +70,11 @@
             o tipo documental e o GED pelo nome do arquivo.
         </div>
 
-        /validar
-
-            <p>JSON Resultado IA</p>
-
-            <input
-                type="file"
-                name="json"
+        <form
+            action="/validar"
+            method="POST"
+            enctype="multipart/form-data"
+       name="json"
                 accept=".json"
                 required
             >

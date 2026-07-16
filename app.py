@@ -55,12 +55,14 @@ def validar():
 <head>
 <meta charset="utf-8">
 <title>Erro - Valida AI</title>
+
 <style>
 body {{
     font-family: 'Segoe UI', Arial, sans-serif;
     background: #f4f4f4;
     padding: 50px;
 }}
+
 .card {{
     background: white;
     max-width: 800px;
@@ -69,15 +71,18 @@ body {{
     border-radius: 10px;
     box-shadow: 0 2px 10px rgba(0,0,0,.1);
 }}
+
 h1 {{
     color: #AC123B;
 }}
+
 pre {{
     background: #f5f5f5;
     padding: 15px;
     border-radius: 6px;
     white-space: pre-wrap;
 }}
+
 button {{
     background: #AC123B;
     color: white;
@@ -85,14 +90,19 @@ button {{
     padding: 12px 25px;
     border-radius: 5px;
     cursor: pointer;
+    font-weight: bold;
 }}
 </style>
 </head>
+
 <body>
 <div class="card">
     <h1>Erro na validação</h1>
     <pre>{str(erro)}</pre>
-    <button onclick="window.location.href='/'">Voltar</button>
+
+    <button onclick="window.location.href='/'">
+        Voltar
+    </button>
 </div>
 </body>
 </html>
