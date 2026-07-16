@@ -1,97 +1,392 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-
-<head>
-    <meta charset="utf-8">
-    <title>Valida AI</title>
-
-    <style>
-        body {
-            font-family: 'Segoe UI', Arial, sans-serif;
-            background: #f4f4f4;
-            padding: 50px;
-        }
-
-        .card {
-            background: white;
-            max-width: 600px;
-            margin: auto;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 2px 10px rgba(0,0,0,.1);
-        }
-
-        h1 {
-            color: #AC123B;
-            margin-top: 0;
-        }
-
-        .info {
-            background: #f8f8f8;
-            border-left: 4px solid #AC123B;
-            padding: 12px;
-            margin-bottom: 20px;
-            font-size: 14px;
-        }
-
-        label {
-            font-weight: bold;
-            display: block;
-            margin-bottom: 8px;
-        }
-
-        input[type="file"] {
-            width: 100%;
-            margin-bottom: 20px;
-        }
-
-        button {
-            background: #AC123B;
-            color: white;
-            border: none;
-            padding: 12px 25px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-weight: bold;
-        }
-
-        button:hover {
-            opacity: .9;
-        }
-    </style>
-</head>
-
-<body>
-
-    <div class="card">
-
-        <h1>Valida AI</h1>
-
-        <div class="info">
-            Selecione o JSON retornado pela IA. O sistema identificará automaticamente
-            o tipo documental e o GED pelo nome do arquivo.
-        </div>
-
-        /validar
-
-            <label for="json">Importar JSON</label>
-
-            <input
-                type="file"
-                id="json"
-                name="json"
-                accept=".json"
-                required
-            >
-
-            <button type="submit">
-                VALIDAR
-            </button>
-
-        </form>
-
-    </div>
-
-</body>
-
-</html>
+<!DOCTYPE html>  
+<html lang="pt-BR">  
+<head>  
+    <meta charset="UTF-8">  
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">  
+    <title>Valida AI - Comparador JSON x JSON</title>  
+    <style>  
+        :root {  
+            --bg: #f4f7fb;  
+            --card: #ffffff;  
+            --text: #1f2937;  
+            --muted: #6b7280;  
+            --primary: #2563eb;  
+            --primary-hover: #1d4ed8;  
+            --success: #16a34a;  
+            --success-bg: #dcfce7;  
+            --error: #dc2626;  
+            --error-bg: #fee2e2;  
+            --warning: #d97706;  
+            --warning-bg: #fef3c7;  
+            --border: #e5e7eb;  
+            --table-header: #eff6ff;  
+            --row-alt: #f9fafb;  
+            --approved: #15803d;  
+            --approved-bg: #dcfce7;  
+            --reproved: #b91c1c;  
+            --reproved-bg: #fee2e2;  
+        }  
+  
+        * {  
+            box-sizing: border-box;  
+        }  
+  
+        body {  
+            margin: 0;  
+            padding: 24px;  
+            font-family: Arial, Helvetica, sans-serif;  
+            background: var(--bg);  
+            color: var(--text);  
+        }  
+  
+        .container {  
+            max-width: 1200px;  
+            margin: 0 auto;  
+        }  
+  
+        .card {  
+            background: var(--card);  
+            border-radius: 14px;  
+            box-shadow: 0 4px 18px rgba(0, 0, 0, 0.06);  
+            padding: 24px;  
+            margin-bottom: 24px;  
+        }  
+  
+        h1, h2, h3 {  
+            margin-top: 0;  
+        }  
+  
+        h1 {  
+            font-size: 28px;  
+            margin-bottom: 8px;  
+        }  
+  
+        .subtitle {  
+            color: var(--muted);  
+            margin-bottom: 24px;  
+        }  
+  
+        .form-group {  
+            margin-bottom: 16px;  
+        }  
+  
+        label {  
+            display: block;  
+            font-weight: bold;  
+            margin-bottom: 8px;  
+        }  
+  
+        input[type="file"] {  
+            width: 100%;  
+            padding: 12px;  
+            border: 1px solid var(--border);  
+            border-radius: 10px;  
+            background: white;  
+        }  
+  
+        .btn {  
+            display: inline-block;  
+            border: none;  
+            border-radius: 10px;  
+            padding: 12px 20px;  
+            font-size: 15px;  
+            font-weight: bold;  
+            cursor: pointer;  
+            background: var(--primary);  
+            color: white;  
+            transition: 0.2s;  
+        }  
+  
+        .btn:hover {  
+            background: var(--primary-hover);  
+        }  
+  
+        .alert {  
+            padding: 14px 16px;  
+            border-radius: 10px;  
+            margin-bottom: 20px;  
+            font-weight: 600;  
+        }  
+  
+        .alert-success {  
+            background: var(--success-bg);  
+            color: var(--success);  
+        }  
+  
+        .alert-error {  
+            background: var(--error-bg);  
+            color: var(--error);  
+        }  
+  
+        .meta-grid {  
+            display: grid;  
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));  
+            gap: 16px;  
+            margin-top: 16px;  
+        }  
+  
+        .meta-item {  
+            border: 1px solid var(--border);  
+            border-radius: 12px;  
+            padding: 16px;  
+            background: #fafafa;  
+        }  
+  
+        .meta-label {  
+            font-size: 12px;  
+            text-transform: uppercase;  
+            color: var(--muted);  
+            margin-bottom: 6px;  
+            letter-spacing: 0.4px;  
+        }  
+  
+        .meta-value {  
+            font-size: 16px;  
+            font-weight: bold;  
+            word-break: break-word;  
+        }  
+  
+        .status-box {  
+            display: inline-block;  
+            padding: 10px 16px;  
+            border-radius: 999px;  
+            font-weight: bold;  
+            margin-top: 12px;  
+        }  
+  
+        .status-aprovado {  
+            background: var(--approved-bg);  
+            color: var(--approved);  
+        }  
+  
+        .status-reprovado {  
+            background: var(--reproved-bg);  
+            color: var(--reproved);  
+        }  
+  
+        .summary-grid {  
+            display: grid;  
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));  
+            gap: 14px;  
+            margin-top: 20px;  
+        }  
+  
+        .summary-card {  
+            border: 1px solid var(--border);  
+            border-radius: 12px;  
+            padding: 16px;  
+            background: white;  
+        }  
+  
+        .summary-number {  
+            font-size: 26px;  
+            font-weight: bold;  
+            margin-bottom: 6px;  
+        }  
+  
+        .summary-label {  
+            color: var(--muted);  
+            font-size: 14px;  
+        }  
+  
+        .table-wrapper {  
+            overflow-x: auto;  
+            margin-top: 20px;  
+        }  
+  
+        table {  
+            width: 100%;  
+            border-collapse: collapse;  
+            min-width: 900px;  
+        }  
+  
+        th, td {  
+            border: 1px solid var(--border);  
+            padding: 12px;  
+            text-align: left;  
+            vertical-align: top;  
+            font-size: 14px;  
+        }  
+  
+        th {  
+            background: var(--table-header);  
+        }  
+  
+        tr:nth-child(even) td {  
+            background: var(--row-alt);  
+        }  
+  
+        .badge {  
+            display: inline-block;  
+            padding: 6px 10px;  
+            border-radius: 999px;  
+            font-size: 12px;  
+            font-weight: bold;  
+            background: var(--warning-bg);  
+            color: var(--warning);  
+            white-space: nowrap;  
+        }  
+  
+        .empty-state {  
+            padding: 18px;  
+            border-radius: 12px;  
+            background: var(--success-bg);  
+            color: var(--success);  
+            font-weight: bold;  
+            margin-top: 16px;  
+        }  
+  
+        pre {  
+            margin: 0;  
+            white-space: pre-wrap;  
+            word-break: break-word;  
+            font-family: Consolas, Monaco, monospace;  
+            font-size: 12px;  
+        }  
+    </style>  
+</head>  
+<body>  
+    <div class="container">  
+        <div class="card">  
+            <h1>Valida AI</h1>  
+            <div class="subtitle">Comparação automática de JSON enviado x JSON gabarito</div>  
+  
+            {% if erro %}  
+                <div class="alert alert-error">{{ erro }}</div>  
+            {% endif %}  
+  
+            {% if sucesso %}  
+                <div class="alert alert-success">{{ sucesso }}</div>  
+            {% endif %}  
+  
+            <form method="POST" enctype="multipart/form-data">  
+                <div class="form-group">  
+                    <label for="arquivo_json">Enviar arquivo JSON</label>  
+                    <input type="file" id="arquivo_json" name="arquivo_json" accept=".json" required>  
+                </div>  
+  
+                <button type="submit" class="btn">Comparar JSON</button>  
+            </form>  
+        </div>  
+  
+        {% if tipo_documental %}  
+        <div class="card">  
+            <h2>Metadados identificados</h2>  
+  
+            <div class="meta-grid">  
+                <div class="meta-item">  
+                    <div class="meta-label">Arquivo enviado</div>  
+                    <div class="meta-value">{{ nome_arquivo }}</div>  
+                </div>  
+  
+                <div class="meta-item">  
+                    <div class="meta-label">GED</div>  
+                    <div class="meta-value">{{ ged }}</div>  
+                </div>  
+  
+                <div class="meta-item">  
+                    <div class="meta-label">Tipo documental</div>  
+                    <div class="meta-value">{{ tipo_documental_legivel }}</div>  
+                </div>  
+  
+                <div class="meta-item">  
+                    <div class="meta-label">Chave do tipo documental</div>  
+                    <div class="meta-value">{{ tipo_documental }}</div>  
+                </div>  
+  
+                <div class="meta-item">  
+                    <div class="meta-label">Gabarito localizado</div>  
+                    <div class="meta-value">{{ gabarito_path }}</div>  
+                </div>  
+            </div>  
+  
+            {% if resumo %}  
+                <div class="status-box {% if resumo.status == 'APROVADO' %}status-aprovado{% else %}status-reprovado{% endif %}">  
+                    Status final: {{ resumo.status }}  
+                </div>  
+            {% endif %}  
+        </div>  
+        {% endif %}  
+  
+        {% if resumo %}  
+        <div class="card">  
+            <h2>Resumo da comparação</h2>  
+  
+            <div class="summary-grid">  
+                <div class="summary-card">  
+                    <div class="summary-number">{{ resumo.total_diferencas }}</div>  
+                    <div class="summary-label">Total de diferenças</div>  
+                </div>  
+  
+                <div class="summary-card">  
+                    <div class="summary-number">{{ resumo.valor_diferente }}</div>  
+                    <div class="summary-label">Valores diferentes</div>  
+                </div>  
+  
+                <div class="summary-card">  
+                    <div class="summary-number">{{ resumo.faltando_no_recebido }}</div>  
+                    <div class="summary-label">Campos faltando</div>  
+                </div>  
+  
+                <div class="summary-card">  
+                    <div class="summary-number">{{ resumo.campo_extra_no_recebido }}</div>  
+                    <div class="summary-label">Campos extras</div>  
+                </div>  
+  
+                <div class="summary-card">  
+                    <div class="summary-number">{{ resumo.tipo_diferente }}</div>  
+                    <div class="summary-label">Tipos diferentes</div>  
+                </div>  
+  
+                <div class="summary-card">  
+                    <div class="summary-number">{{ resumo.item_faltando_no_recebido }}</div>  
+                    <div class="summary-label">Itens faltando em listas</div>  
+                </div>  
+  
+                <div class="summary-card">  
+                    <div class="summary-number">{{ resumo.item_extra_no_recebido }}</div>  
+                    <div class="summary-label">Itens extras em listas</div>  
+                </div>  
+            </div>  
+        </div>  
+        {% endif %}  
+  
+        {% if resultado is not none %}  
+        <div class="card">  
+            <h2>Relatório detalhado</h2>  
+  
+            {% if resultado|length == 0 %}  
+                <div class="empty-state">  
+                    Nenhuma divergência encontrada. O JSON recebido está igual ao gabarito.  
+                </div>  
+            {% else %}  
+                <div class="table-wrapper">  
+                    <table>  
+                        <thead>  
+                            <tr>  
+                                <th>#</th>  
+                                <th>Caminho</th>  
+                                <th>Tipo de divergência</th>  
+                                <th>Esperado</th>  
+                                <th>Recebido</th>  
+                            </tr>  
+                        </thead>  
+                        <tbody>  
+                            {% for item in resultado %}  
+                            <tr>  
+                                <td>{{ loop.index }}</td>  
+                                <td><strong>{{ item.path }}</strong></td>  
+                                <td><span class="badge">{{ item.tipo }}</span></td>  
+                                <td><pre>{{ item.esperado | tojson(indent=2) if item.esperado is not none else 'null' }}</pre></td>  
+                                <td><pre>{{ item.recebido | tojson(indent=2) if item.recebido is not none else 'null' }}</pre></td>  
+                            </tr>  
+                            {% endfor %}  
+                        </tbody>  
+                    </table>  
+                </div>  
+            {% endif %}  
+        </div>  
+        {% endif %}  
+    </div>  
+</body>  
+</html>  
