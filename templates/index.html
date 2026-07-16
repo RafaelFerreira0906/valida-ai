@@ -2,15 +2,13 @@
 <html lang="pt-BR">
 
 <head>
-
 <meta charset="utf-8">
-
 <title>Valida AI</title>
 
 <style>
 
 body{
-    font-family:Segoe UI;
+    font-family:Segoe UI, Arial, sans-serif;
     background:#f4f4f4;
     padding:50px;
 }
@@ -37,6 +35,10 @@ button{
     cursor:pointer;
 }
 
+button:hover{
+    opacity:0.9;
+}
+
 input[type=file]{
     width:100%;
 }
@@ -49,25 +51,26 @@ input[type=file]{
 
 <div class="card">
 
-<h1>Valida AI</h1>
+    <h1>Valida AI</h1>
 
-/validar
+    /validar
 
-<p>JSON (Resultado IA)</p>
+        <p>JSON (Resultado IA)</p>
 
-<input
-type="file"
-name="json"
-accept=".json"
-required>
+        <input
+            type="file"
+            name="json"
+            accept=".json"
+            required
+        >
 
-<br><br>
+        <br><br>
 
-<button type="submit">
-VALIDAR
-</button>
+        <button type="submit">
+            VALIDAR
+        </button>
 
-</form>
+    </form>
 
 </div>
 
