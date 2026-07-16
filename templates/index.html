@@ -2,97 +2,94 @@
 <html lang="pt-BR">
 
 <head>
+    <meta charset="utf-8">
+    <title>Valida AI</title>
 
-<meta charset="utf-8">
-<title>Valida AI</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: #f4f4f4;
+            padding: 50px;
+        }
 
-<style>
+        .card {
+            background: white;
+            max-width: 600px;
+            margin: auto;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,.1);
+        }
 
-body {
-    font-family: 'Segoe UI', Arial, sans-serif;
-    background: #f4f4f4;
-    padding: 50px;
-}
+        h1 {
+            color: #AC123B;
+            margin-top: 0;
+        }
 
-.card {
-    background: white;
-    max-width: 600px;
-    margin: auto;
-    padding: 30px;
-    border-radius: 10px;
-    box-shadow: 0 2px 10px rgba(0,0,0,.1);
-}
+        p {
+            margin-bottom: 8px;
+        }
 
-h1 {
-    color: #AC123B;
-    margin-top: 0;
-}
+        input[type=file] {
+            width: 100%;
+            padding: 10px 0;
+        }
 
-p {
-    margin-bottom: 8px;
-}
+        button {
+            background: #AC123B;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+        }
 
-input[type=file] {
-    width: 100%;
-    padding: 10px 0;
-}
+        button:hover {
+            opacity: .9;
+        }
 
-button {
-    background: #AC123B;
-    color: white;
-    border: none;
-    padding: 12px 25px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-weight: bold;
-}
-
-button:hover {
-    opacity: .9;
-}
-
-.info {
-    background: #f8f8f8;
-    border-left: 4px solid #AC123B;
-    padding: 12px;
-    margin-bottom: 20px;
-    font-size: 14px;
-}
-
-</style>
-
+        .info {
+            background: #f8f8f8;
+            border-left: 4px solid #AC123B;
+            padding: 12px;
+            margin-bottom: 20px;
+            font-size: 14px;
+        }
+    </style>
 </head>
 
 <body>
 
-<div class="card">
+    <div class="card">
 
-    <h1>Valida AI</h1>
+        <h1>Valida AI</h1>
 
-    <div class="info">
-        Envie o JSON retornado pela IA. O sistema identificará automaticamente
-        o tipo documental e o GED pelo nome do arquivo.
-    </div>
+        <div class="info">
+            Envie o JSON retornado pela IA. O sistema identificará automaticamente
+            o tipo documental e o GED pelo nome do arquivo.
+        </div>
 
-    <form
+        /validar
+
             <p>JSON Resultado IA</p>
 
-        <input
-            type="file"
-            name="json"
-            accept=".json"
-            required
-        >
+            <input
+                type="file"
+                name="json"
+                accept=".json"
+                required
+            >
 
-        <br><br>
+            <br><br>
 
-        <button type="submit">
-            VALIDAR
-        </button>
+            <button type="submit">
+                VALIDAR
+            </button>
 
-    </form>
+        </form>
 
-</div>
+    </div>
 
 </body>
 
