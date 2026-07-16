@@ -6,24 +6,35 @@
     <title>Valida AI</title>  
     <style>  
         :root {  
-            --bg: #f3f6fb;  
+            /* Paleta inspirada em vermelho + laranja corporativo */  
+            --bg: #f9f4f0;  
             --card: #ffffff;  
-            --text: #1f2937;  
-            --muted: #6b7280;  
-            --border: #e5e7eb;  
-            --blue: #2563eb;  
-            --blue-hover: #1d4ed8;  
-            --green: #15803d;  
-            --green-bg: #dcfce7;  
-            --orange: #c2410c;  
-            --orange-bg: #ffedd5;  
-            --red: #b91c1c;  
-            --red-bg: #fee2e2;  
-            --yellow: #92400e;  
-            --yellow-bg: #fef3c7;  
-            --gray-bg: #f9fafb;  
-            --thead: #eff6ff;  
-            --row-alt: #fafafa;  
+            --text: #2b2b2b;  
+            --muted: #7a6f68;  
+            --border: #eadfd7;  
+  
+            --bnb-red: #b71c1c;  
+            --bnb-red-dark: #8e1414;  
+            --bnb-red-soft: #fde8e7;  
+  
+            --bnb-orange: #f57c00;  
+            --bnb-orange-dark: #d96d00;  
+            --bnb-orange-soft: #fff1e2;  
+  
+            --bnb-cream: #fff8f2;  
+            --bnb-surface: #fffdfb;  
+  
+            --success: #2e7d32;  
+            --success-bg: #e8f5e9;  
+  
+            --warning: #ad5a00;  
+            --warning-bg: #fff3e0;  
+  
+            --error: #b71c1c;  
+            --error-bg: #fde8e7;  
+  
+            --thead: #fff1e2;  
+            --row-alt: #fffaf6;  
         }  
   
         * { box-sizing: border-box; }  
@@ -32,18 +43,27 @@
             margin: 0;  
             padding: 24px;  
             font-family: Arial, Helvetica, sans-serif;  
-            background: var(--bg);  
+            background: linear-gradient(180deg, #fcf6f1 0%, #f7efe9 100%);  
             color: var(--text);  
         }  
   
-        .container { max-width: 1450px; margin: 0 auto; }  
+        .container {  
+            max-width: 1450px;  
+            margin: 0 auto;  
+        }  
   
         .card {  
             background: var(--card);  
-            border-radius: 16px;  
-            box-shadow: 0 6px 20px rgba(0,0,0,0.06);  
+            border-radius: 18px;  
+            border: 1px solid var(--border);  
+            box-shadow: 0 8px 24px rgba(154, 60, 20, 0.08);  
             padding: 24px;  
             margin-bottom: 24px;  
+        }  
+  
+        h1, h2, h3 {  
+            margin-top: 0;  
+            color: var(--bnb-red);  
         }  
   
         .subtitle {  
@@ -56,16 +76,19 @@
             border-radius: 12px;  
             font-weight: bold;  
             margin-bottom: 18px;  
+            border: 1px solid transparent;  
         }  
   
         .alert-success {  
-            background: var(--green-bg);  
-            color: var(--green);  
+            background: var(--success-bg);  
+            color: var(--success);  
+            border-color: #c8e6c9;  
         }  
   
         .alert-error {  
-            background: var(--red-bg);  
-            color: var(--red);  
+            background: var(--error-bg);  
+            color: var(--error);  
+            border-color: #f5c6c3;  
         }  
   
         .form-group { margin-bottom: 16px; }  
@@ -74,15 +97,17 @@
             display: block;  
             font-weight: bold;  
             margin-bottom: 8px;  
+            color: var(--bnb-red);  
         }  
   
         input[type="file"], input[type="text"], textarea {  
             width: 100%;  
             border: 1px solid var(--border);  
-            border-radius: 10px;  
+            border-radius: 12px;  
             padding: 12px;  
-            background: white;  
+            background: var(--bnb-surface);  
             font-family: inherit;  
+            color: var(--text);  
         }  
   
         textarea {  
@@ -95,21 +120,24 @@
             display: inline-block;  
             text-decoration: none;  
             border: none;  
-            border-radius: 10px;  
+            border-radius: 12px;  
             padding: 12px 18px;  
             font-weight: bold;  
             cursor: pointer;  
+            transition: 0.2s ease;  
         }  
   
         .btn {  
-            background: var(--blue);  
+            background: linear-gradient(135deg, var(--bnb-red), var(--bnb-orange));  
             color: white;  
         }  
   
-        .btn:hover { background: var(--blue-hover); }  
+        .btn:hover {  
+            filter: brightness(0.96);  
+        }  
   
         .btn-secondary {  
-            background: #111827;  
+            background: #5f2b20;  
             color: white;  
         }  
   
@@ -129,16 +157,19 @@
             border: 1px solid var(--border);  
             border-radius: 14px;  
             padding: 16px;  
-            background: white;  
+            background: var(--bnb-surface);  
         }  
   
-        .info-box { background: var(--gray-bg); }  
+        .info-box {  
+            background: var(--bnb-cream);  
+        }  
   
         .info-label {  
             font-size: 12px;  
             text-transform: uppercase;  
             color: var(--muted);  
             margin-bottom: 6px;  
+            letter-spacing: .4px;  
         }  
   
         .info-value {  
@@ -158,24 +189,34 @@
         }  
   
         .score-panel {  
-            border-radius: 18px;  
+            border-radius: 20px;  
             padding: 24px;  
             color: white;  
+            box-shadow: inset 0 0 0 1px rgba(255,255,255,0.08);  
         }  
   
-        .score-verde { background: linear-gradient(135deg, #15803d, #16a34a); }  
-        .score-laranja { background: linear-gradient(135deg, #c2410c, #ea580c); }  
-        .score-vermelho { background: linear-gradient(135deg, #b91c1c, #dc2626); }  
+        .score-verde {  
+            background: linear-gradient(135deg, #2e7d32, #43a047);  
+        }  
+  
+        .score-laranja {  
+            background: linear-gradient(135deg, var(--bnb-orange), #ff9800);  
+        }  
+  
+        .score-vermelho {  
+            background: linear-gradient(135deg, var(--bnb-red), #d32f2f);  
+        }  
   
         .score-title {  
             font-size: 13px;  
             text-transform: uppercase;  
-            opacity: .9;  
+            opacity: .95;  
             margin-bottom: 10px;  
+            letter-spacing: .5px;  
         }  
   
         .score-value {  
-            font-size: 54px;  
+            font-size: 56px;  
             font-weight: bold;  
             line-height: 1;  
             margin-bottom: 10px;  
@@ -193,6 +234,7 @@
         .metric-number {  
             font-size: 30px;  
             font-weight: bold;  
+            color: var(--bnb-red);  
         }  
   
         .metric-label {  
@@ -203,11 +245,11 @@
   
         .executive-summary {  
             margin-top: 20px;  
-            border-left: 6px solid var(--blue);  
-            background: #eff6ff;  
+            border-left: 6px solid var(--bnb-orange);  
+            background: var(--bnb-orange-soft);  
             border-radius: 12px;  
             padding: 18px;  
-            line-height: 1.6;  
+            line-height: 1.7;  
         }  
   
         .badge {  
@@ -216,37 +258,45 @@
             border-radius: 999px;  
             font-size: 12px;  
             font-weight: bold;  
+            margin-right: 6px;  
+            margin-bottom: 6px;  
         }  
   
         .badge-tipo {  
-            background: #dbeafe;  
-            color: #1d4ed8;  
+            background: var(--bnb-orange-soft);  
+            color: var(--bnb-orange-dark);  
         }  
   
         .badge-alta {  
-            background: var(--red-bg);  
-            color: var(--red);  
+            background: var(--bnb-red-soft);  
+            color: var(--bnb-red);  
         }  
   
         .badge-media {  
-            background: var(--yellow-bg);  
-            color: var(--yellow);  
+            background: #fff3cd;  
+            color: #8a5200;  
         }  
   
         .badge-baixa {  
-            background: #e5e7eb;  
-            color: #374151;  
+            background: #efe7de;  
+            color: #6d5b4f;  
+        }  
+  
+        .badge-soft {  
+            background: #f4ece6;  
+            color: #7d5c48;  
         }  
   
         .path {  
             font-family: Consolas, Monaco, monospace;  
             font-size: 13px;  
-            color: #111827;  
-            background: #f3f4f6;  
+            color: #4b2c22;  
+            background: #fff4ec;  
             padding: 6px 8px;  
             border-radius: 8px;  
             display: inline-block;  
             word-break: break-word;  
+            border: 1px solid #f4dfcf;  
         }  
   
         .small {  
@@ -260,12 +310,17 @@
             padding-left: 20px;  
         }  
   
+        .list-clean li {  
+            margin-bottom: 10px;  
+        }  
+  
         .empty-state {  
-            background: var(--green-bg);  
-            color: var(--green);  
+            background: var(--success-bg);  
+            color: var(--success);  
             padding: 18px;  
             border-radius: 12px;  
             font-weight: bold;  
+            border: 1px solid #cde7ce;  
         }  
   
         .table-wrapper {  
@@ -275,7 +330,7 @@
   
         table {  
             width: 100%;  
-            min-width: 1500px;  
+            min-width: 1600px;  
             border-collapse: collapse;  
         }  
   
@@ -287,8 +342,14 @@
             font-size: 14px;  
         }  
   
-        th { background: var(--thead); }  
-        tr:nth-child(even) td { background: var(--row-alt); }  
+        th {  
+            background: linear-gradient(180deg, #fff4ea 0%, #ffe9d0 100%);  
+            color: var(--bnb-red);  
+        }  
+  
+        tr:nth-child(even) td {  
+            background: var(--row-alt);  
+        }  
   
         pre {  
             margin: 0;  
@@ -306,7 +367,34 @@
   
         .separator {  
             margin: 20px 0;  
-            border-top: 1px dashed var(--border);  
+            border-top: 1px dashed #e7c7b2;  
+        }  
+  
+        .risk-alto {  
+            color: var(--bnb-red);  
+            font-weight: bold;  
+        }  
+  
+        .risk-medio {  
+            color: var(--bnb-orange-dark);  
+            font-weight: bold;  
+        }  
+  
+        .risk-baixo {  
+            color: var(--success);  
+            font-weight: bold;  
+        }  
+  
+        .section-chip {  
+            display: inline-block;  
+            background: #fff3e8;  
+            color: #9a4f10;  
+            border: 1px solid #f3d7ba;  
+            border-radius: 999px;  
+            padding: 8px 12px;  
+            font-size: 13px;  
+            font-weight: bold;  
+            margin: 4px 8px 4px 0;  
         }  
     </style>  
 </head>  
@@ -316,7 +404,7 @@
         <div class="card">  
             <h1>Valida AI</h1>  
             <div class="subtitle">  
-                Validação JSON x JSON com upload de arquivo ou colagem direta do conteúdo JSON.  
+                Validação JSON x JSON com leitura por arquivo ou texto colado, análise ponderada, risco operacional e diagnóstico detalhado.  
             </div>  
   
             {% if erro %}  
@@ -333,14 +421,14 @@
                         <div class="form-group">  
                             <label for="arquivo_json">Enviar arquivo JSON</label>  
                             <input type="file" id="arquivo_json" name="arquivo_json" accept=".json">  
-                            <div class="helper">Se enviar arquivo, o ID GED será obtido pelo nome do arquivo.</div>  
+                            <div class="helper">Se enviar arquivo, o ID do documento será obtido pelo nome do arquivo.</div>  
                         </div>  
                     </div>  
   
                     <div>  
                         <div class="form-group">  
-                            <label for="ged_manual">Insira o ID GED manualmente</label>  
-                            <input type="text" id="ged_manual" name="ged_manual" value="{{ ged_manual }}" placeholder="Ex: 552776635">  
+                            <label for="id_documento_manual">ID do documento</label>  
+                            <input type="text" id="id_documento_manual" name="id_documento_manual" value="{{ id_documento_manual }}" placeholder="Ex: 552776635">  
                             <div class="helper">Obrigatório quando usar JSON colado no campo abaixo.</div>  
                         </div>  
                     </div>  
@@ -373,14 +461,14 @@
         {% if analise %}  
         <div class="card">  
             <h2>Identificação automática</h2>  
-            <div class="grid grid-3">  
+            <div class="grid grid-4">  
                 <div class="info-box">  
                     <div class="info-label">Arquivo de referência</div>  
                     <div class="info-value">{{ analise.metadata.nome_arquivo }}</div>  
                 </div>  
                 <div class="info-box">  
-                    <div class="info-label">GED</div>  
-                    <div class="info-value">{{ analise.metadata.ged }}</div>  
+                    <div class="info-label">ID do documento</div>  
+                    <div class="info-value">{{ analise.metadata.id_documento }}</div>  
                 </div>  
                 <div class="info-box">  
                     <div class="info-label">Tipo documental</div>  
@@ -391,8 +479,22 @@
                     <div class="info-value">{{ analise.metadata.tipo_documental }}</div>  
                 </div>  
                 <div class="info-box">  
+                    <div class="info-label">Origem da entrada</div>  
+                    <div class="info-value">  
+                        {% if analise.metadata.origem_entrada == 'arquivo_upload' %}  
+                            Arquivo enviado  
+                        {% else %}  
+                            JSON colado  
+                        {% endif %}  
+                    </div>  
+                </div>  
+                <div class="info-box">  
                     <div class="info-label">Gabarito localizado</div>  
                     <div class="info-value">{{ analise.metadata.gabarito_path }}</div>  
+                </div>  
+                <div class="info-box">  
+                    <div class="info-label">Tempo de processamento</div>  
+                    <div class="info-value">{{ analise.metadata.tempo_processamento_ms }} ms</div>  
                 </div>  
                 <div class="info-box">  
                     <div class="info-label">Processado em</div>  
@@ -437,10 +539,165 @@
         </div>  
   
         <div class="card">  
+            <h2>Indicadores ampliados</h2>  
+            <div class="grid grid-4">  
+                <div class="metric-card">  
+                    <div class="metric-number">{{ analise.resumo.total_campos_esperados }}</div>  
+                    <div class="metric-label">Campos esperados</div>  
+                </div>  
+                <div class="metric-card">  
+                    <div class="metric-number">{{ analise.resumo.total_campos_recebidos }}</div>  
+                    <div class="metric-label">Campos recebidos</div>  
+                </div>  
+                <div class="metric-card">  
+                    <div class="metric-number">{{ analise.resumo.campos_opcionais_ignorados }}</div>  
+                    <div class="metric-label">Campos opcionais ignorados</div>  
+                </div>  
+                <div class="metric-card">  
+                    <div class="metric-number">{{ analise.resumo.campos_criticos_divergentes }}</div>  
+                    <div class="metric-label">Campos críticos divergentes</div>  
+                </div>  
+                <div class="metric-card">  
+                    <div class="metric-number">{{ analise.resumo.cobertura_recebimento }}%</div>  
+                    <div class="metric-label">Cobertura do conteúdo</div>  
+                </div>  
+                <div class="metric-card">  
+                    <div class="metric-number">{{ analise.resumo.densidade_erros }}%</div>  
+                    <div class="metric-label">Densidade de erros</div>  
+                </div>  
+                <div class="metric-card">  
+                    <div class="metric-number">{{ analise.resumo.secoes_afetadas }}</div>  
+                    <div class="metric-label">Seções afetadas</div>  
+                </div>  
+                <div class="metric-card">  
+                    <div class="metric-number {% if analise.resumo.nivel_risco == 'alto' %}risk-alto{% elif analise.resumo.nivel_risco == 'medio' %}risk-medio{% else %}risk-baixo{% endif %}">  
+                        {{ analise.resumo.nivel_risco|upper }}  
+                    </div>  
+                    <div class="metric-label">Nível de risco</div>  
+                </div>  
+            </div>  
+        </div>  
+  
+        <div class="card">  
+            <h2>Indicadores por categoria</h2>  
+            <div class="grid grid-4">  
+                <div class="metric-card">  
+                    <div class="metric-number">{{ analise.contadores.valor_diferente }}</div>  
+                    <div class="metric-label">Valores diferentes</div>  
+                </div>  
+                <div class="metric-card">  
+                    <div class="metric-number">{{ analise.contadores.faltando_no_recebido }}</div>  
+                    <div class="metric-label">Campos faltando</div>  
+                </div>  
+                <div class="metric-card">  
+                    <div class="metric-number">{{ analise.contadores.campo_extra_no_recebido }}</div>  
+                    <div class="metric-label">Campos extras</div>  
+                </div>  
+                <div class="metric-card">  
+                    <div class="metric-number">{{ analise.contadores.tipo_diferente }}</div>  
+                    <div class="metric-label">Tipos diferentes</div>  
+                </div>  
+                <div class="metric-card">  
+                    <div class="metric-number">{{ analise.contadores.item_faltando_no_recebido }}</div>  
+                    <div class="metric-label">Itens faltando em listas</div>  
+                </div>  
+                <div class="metric-card">  
+                    <div class="metric-number">{{ analise.contadores.item_extra_no_recebido }}</div>  
+                    <div class="metric-label">Itens extras em listas</div>  
+                </div>  
+                <div class="metric-card">  
+                    <div class="metric-number">{{ analise.contadores.alta }}</div>  
+                    <div class="metric-label">Alta severidade</div>  
+                </div>  
+                <div class="metric-card">  
+                    <div class="metric-number">{{ analise.contadores.media + analise.contadores.baixa }}</div>  
+                    <div class="metric-label">Média + baixa severidade</div>  
+                </div>  
+            </div>  
+        </div>  
+  
+        <div class="card">  
+            <h2>Inteligência de listas</h2>  
+            <div class="grid grid-3">  
+                <div class="metric-card">  
+                    <div class="metric-number">{{ analise.listas.listas_com_match_inteligente }}</div>  
+                    <div class="metric-label">Listas com match inteligente</div>  
+                </div>  
+                <div class="metric-card" style="grid-column: span 2;">  
+                    <div class="info-label">Chaves de casamento utilizadas</div>  
+                    <div class="info-value">  
+                        {% if analise.listas.chaves_match_utilizadas %}  
+                            {{ analise.listas.chaves_match_utilizadas | join(', ') }}  
+                        {% else %}  
+                            Nenhuma chave inteligente utilizada  
+                        {% endif %}  
+                    </div>  
+                </div>  
+            </div>  
+        </div>  
+  
+        <div class="card">  
+            <h2>Seções com mais erros</h2>  
+            {% if analise.blocos_com_erros %}  
+                {% for bloco in analise.blocos_com_erros %}  
+                    <span class="section-chip">{{ bloco.bloco }}: {{ bloco.quantidade }}</span>  
+                {% endfor %}  
+            {% else %}  
+                <div class="empty-state">Nenhuma seção com erro identificada.</div>  
+            {% endif %}  
+        </div>  
+  
+        <div class="card">  
+            <h2>Top problemas críticos</h2>  
+  
+            {% if analise.top_problemas|length == 0 %}  
+                <div class="empty-state">  
+                    Nenhuma divergência encontrada. Documento aderente ao gabarito.  
+                </div>  
+            {% else %}  
+                <div class="grid grid-2">  
+                    {% for item in analise.top_problemas %}  
+                    <div class="top-error-card">  
+                        <div style="margin-bottom: 10px;">  
+                            <span class="badge badge-tipo">{{ item.tipo }}</span>  
+                            <span class="badge badge-{{ item.severidade }}">{{ item.severidade }}</span>  
+                            <span class="badge badge-soft">peso {{ item.peso }}</span>  
+                        </div>  
+  
+                        <div style="margin-bottom: 10px;">  
+                            <strong>Onde está o erro:</strong><br>  
+                            <span class="path">{{ item.path }}</span>  
+                        </div>  
+  
+                        <div class="small" style="margin-bottom: 8px;">  
+                            <strong>Correção sugerida:</strong> {{ item.sugestao_correcao }}  
+                        </div>  
+  
+                        <div class="small">  
+                            <strong>Melhoria sugerida:</strong> {{ item.melhoria_sistema }}  
+                        </div>  
+                    </div>  
+                    {% endfor %}  
+                </div>  
+            {% endif %}  
+        </div>  
+  
+        <div class="card">  
+            <h2>Possíveis melhorias no sistema</h2>  
+            <ul class="list-clean">  
+                {% for melhoria in analise.melhorias_globais %}  
+                    <li>{{ melhoria }}</li>  
+                {% endfor %}  
+            </ul>  
+        </div>  
+  
+        <div class="card">  
             <h2>Relatório detalhado de divergências</h2>  
   
             {% if analise.diferencas|length == 0 %}  
-                <div class="empty-state">Nenhuma divergência encontrada.</div>  
+                <div class="empty-state">  
+                    Nenhuma divergência encontrada. O JSON recebido está aderente ao gabarito.  
+                </div>  
             {% else %}  
                 <div class="table-wrapper">  
                     <table>  
@@ -454,6 +711,7 @@
                                 <th>Esperado</th>  
                                 <th>Recebido</th>  
                                 <th>Correção sugerida</th>  
+                                <th>Melhoria sugerida</th>  
                             </tr>  
                         </thead>  
                         <tbody>  
@@ -467,6 +725,7 @@
                                 <td><pre>{{ item.esperado | tojson(indent=2) if item.esperado is not none else 'null' }}</pre></td>  
                                 <td><pre>{{ item.recebido | tojson(indent=2) if item.recebido is not none else 'null' }}</pre></td>  
                                 <td>{{ item.sugestao_correcao }}</td>  
+                                <td>{{ item.melhoria_sistema }}</td>  
                             </tr>  
                             {% endfor %}  
                         </tbody>  

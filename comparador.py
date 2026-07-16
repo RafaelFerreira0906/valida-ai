@@ -71,7 +71,7 @@ HEAVY_WEIGHT_KEYWORDS = {
     "capital_social": 9,  
     "vigencia": 8,  
     "tipo_documento": 8,  
-    "ged": 10,  
+    "id_documento": 10,  
 }  
   
 LOW_WEIGHT_KEYWORDS = {  
@@ -111,21 +111,21 @@ def detectar_tipo_documental(json_data):
     return primeira_chave, nome_legivel, pasta_gabarito  
   
   
-def obter_ged_do_arquivo(nome_arquivo):  
+def obter_id_documento_do_arquivo(nome_arquivo):  
     base, ext = os.path.splitext(nome_arquivo)  
     if ext.lower() != ".json":  
         raise ValueError("O arquivo enviado deve ter extensão .json.")  
-    ged = base.strip()  
-    if not ged:  
-        raise ValueError("Não foi possível identificar o GED pelo nome do arquivo.")  
-    return ged  
+    id_documento = base.strip()  
+    if not id_documento:  
+        raise ValueError("Não foi possível identificar o ID do documento pelo nome do arquivo.")  
+    return id_documento  
   
   
-def localizar_gabarito(base_gabaritos, pasta_gabarito, ged):  
-    caminho = os.path.join(base_gabaritos, pasta_gabarito, f"{ged}.json")  
+def localizar_gabarito(base_gabaritos, pasta_gabarito, id_documento):  
+    caminho = os.path.join(base_gabaritos, pasta_gabarito, f"{id_documento}.json")  
     if not os.path.exists(caminho):  
         raise FileNotFoundError(  
-            f"Gabarito não encontrado para o GED '{ged}' em '{caminho}'."  
+            f"Gabarito não encontrado para o ID do documento '{id_documento}' em '{caminho}'."  
         )  
     return caminho  
   
@@ -203,6 +203,7 @@ def normalizar_cpf_cnpj(valor):
 def parse_decimal_brasil(valor):  
     if valor is None:  
         return None  
+  
     if isinstance(valor, (int, float, Decimal)) and not isinstance(valor, bool):  
         return Decimal(str(valor))  
   
@@ -306,6 +307,20 @@ def valores_equivalentes(path, esperado, recebido):
             pass  
   
     return normalizado_esperado == normalizado_recebido  
+  
+  
+def contar_folhas_simples(data):  
+    if isinstance(data, dict):  
+        if not data:  
+            return 1  
+        return sum(contar_folhas_simples(v) for v in data.values())  
+  
+    if isinstance(data, list):  
+        if not data:  
+            return 1  
+        return sum(contar_folhas_simples(item) for item in data)  
+  
+    return 1  
   
   
 def contar_folhas_ponderadas(data, path=""):  
@@ -419,7 +434,10 @@ def comparar_jsons(esperado, recebido, path="", diferencas=None, estatisticas=No
             "peso_total": Decimal("0"),  
             "peso_conforme": Decimal("0"),  
             "peso_divergente": Decimal("0"),  
-            "penalidade_extras": Decimal("0")  
+            "penalidade_extras": Decimal("0"),  
+            "campos_opcionais_ignorados": 0,  
+            "listas_com_match_inteligente": 0,  
+            "chaves_match_utilizadas": set()  
         }  
   
     if type(esperado) != type(recebido):  
@@ -442,7 +460,9 @@ def comparar_jsons(esperado, recebido, path="", diferencas=None, estatisticas=No
         for chave in faltando:  
             novo_path = f"{path}.{chave}" if path else chave  
             if eh_opcional(novo_path):  
+                estatisticas["campos_opcionais_ignorados"] += 1  
                 continue  
+  
             peso = Decimal(str(contar_folhas_ponderadas(esperado[chave], novo_path)))  
             estatisticas["campos_analisados"] += 1  
             estatisticas["campos_divergentes"] += 1  
@@ -470,6 +490,9 @@ def comparar_jsons(esperado, recebido, path="", diferencas=None, estatisticas=No
         chave_match = escolher_chave_match_lista(esperado, recebido)  
   
         if chave_match:  
+            estatisticas["listas_com_match_inteligente"] += 1  
+            estatisticas["chaves_match_utilizadas"].add(chave_match)  
+  
             mapa_esperado = {}  
             mapa_recebido = {}  
             usados_fallback_esp = 0  
@@ -574,6 +597,7 @@ def gerar_contadores(diferencas):
             contadores[tipo] += 1  
         if sev in contadores:  
             contadores[sev] += 1  
+  
     return contadores  
   
   
@@ -585,14 +609,44 @@ def classificar_acuracia(percentual):
     return {"faixa": "critica", "cor": "vermelho", "descricao": "Baixa aderência ao gabarito"}  
   
   
-def gerar_resumo_executivo(percentual, total_diferencas, campos_analisados, campos_conformes):  
+def determinar_nivel_risco(percentual, campos_criticos_divergentes, total_diferencas):  
+    if campos_criticos_divergentes > 0 and percentual <= 80:  
+        return "alto"  
+    if percentual <= 80 or total_diferencas >= 10:  
+        return "alto"  
+    if percentual <= 95 or campos_criticos_divergentes > 0:  
+        return "medio"  
+    return "baixo"  
+  
+  
+def gerar_resumo_executivo(percentual, total_diferencas, campos_analisados, campos_conformes, nivel_risco):  
     if total_diferencas == 0:  
-        return f"O documento foi validado com sucesso. Foram analisados {campos_analisados} campos e todos estão conformes com o gabarito."  
+        return (  
+            f"O documento foi validado com sucesso. Foram analisados {campos_analisados} campos, "  
+            f"todos conformes, sem divergências identificadas e com risco operacional {nivel_risco}."  
+        )  
+  
     if percentual > 95:  
-        return f"O documento apresenta excelente aderência. Foram analisados {campos_analisados} campos, com {campos_conformes} conformes e apenas {total_diferencas} divergências."  
+        return (  
+            f"O documento apresenta excelente aderência ao gabarito. "  
+            f"Foram analisados {campos_analisados} campos, com {campos_conformes} conformes "  
+            f"e {total_diferencas} divergências pontuais. O risco operacional foi classificado como {nivel_risco}."  
+        )  
+  
     if percentual > 80:  
-        return f"O documento apresenta boa aderência, porém com necessidade de revisão. Foram analisados {campos_analisados} campos, com {campos_conformes} conformes e {total_diferencas} divergências."  
-    return f"O documento apresenta baixa aderência ao gabarito. Foram analisados {campos_analisados} campos, com {campos_conformes} conformes e {total_diferencas} divergências relevantes."  
+        return (  
+            f"O documento apresenta aderência intermediária. "  
+            f"Foram analisados {campos_analisados} campos, com {campos_conformes} conformes "  
+            f"e {total_diferencas} divergências que exigem revisão antes de conclusão. "  
+            f"O risco operacional foi classificado como {nivel_risco}."  
+        )  
+  
+    return (  
+        f"O documento apresenta baixa aderência ao gabarito. "  
+        f"Foram analisados {campos_analisados} campos, com {campos_conformes} conformes "  
+        f"e {total_diferencas} divergências relevantes. "  
+        f"O risco operacional foi classificado como {nivel_risco}."  
+    )  
   
   
 def top_paths_com_problema(diferencas, limite=10):  
@@ -610,17 +664,22 @@ def gerar_melhorias_globais(diferencas, contadores):
     melhorias = []  
   
     if contadores["faltando_no_recebido"] > 0 or contadores["item_faltando_no_recebido"] > 0:  
-        melhorias.append("Implementar validação de obrigatoriedade antes do upload do JSON.")  
+        melhorias.append("Implementar validação de obrigatoriedade antes do envio do JSON.")  
+  
     if contadores["tipo_diferente"] > 0:  
-        melhorias.append("Aplicar schema validation com coerção automática de tipos.")  
+        melhorias.append("Aplicar validação de schema com coerção automática de tipos.")  
+  
     if contadores["valor_diferente"] > 0:  
-        melhorias.append("Reforçar normalização de texto, data, CPF/CNPJ e valores monetários.")  
+        melhorias.append("Reforçar a normalização de texto, data, CPF/CNPJ e valores monetários.")  
+  
     if contadores["campo_extra_no_recebido"] > 0 or contadores["item_extra_no_recebido"] > 0:  
         melhorias.append("Criar camada de saneamento para remover campos não previstos no payload.")  
+  
     if any("[" in d.get("path", "") for d in diferencas):  
-        melhorias.append("Aprimorar o matcher de listas com chave identificadora por tipo documental.")  
+        melhorias.append("Aprimorar regras de comparação de listas por chave identificadora específica do tipo documental.")  
+  
     if not melhorias:  
-        melhorias.append("Nenhuma melhoria crítica identificada. Documento altamente aderente.")  
+        melhorias.append("Nenhuma melhoria crítica identificada. Documento altamente aderente ao gabarito.")  
   
     return melhorias  
   
@@ -635,14 +694,42 @@ def enriquecer_diferencas(diferencas):
     return enriquecidas  
   
   
+def agrupar_erros_por_bloco(diferencas):  
+    blocos = {}  
+    for item in diferencas:  
+        path = item.get("path", "")  
+        if not path:  
+            bloco = "$"  
+        else:  
+            partes = path.split(".")  
+            if len(partes) >= 2:  
+                bloco = partes[1].split("[")[0]  
+            else:  
+                bloco = partes[0].split("[")[0]  
+  
+        blocos[bloco] = blocos.get(bloco, 0) + 1  
+  
+    return sorted(  
+        [{"bloco": k, "quantidade": v} for k, v in blocos.items()],  
+        key=lambda x: x["quantidade"],  
+        reverse=True  
+    )  
+  
+  
+def calcular_campos_criticos_divergentes(diferencas):  
+    return sum(1 for d in diferencas if float(d.get("peso", 0)) >= 8)  
+  
+  
 def analisar_comparacao_completa(  
     esperado,  
     recebido,  
     tipo_documental,  
     tipo_documental_legivel,  
-    ged,  
+    id_documento,  
     nome_arquivo,  
-    gabarito_path  
+    gabarito_path,  
+    origem_entrada,  
+    tempo_processamento_ms  
 ):  
     diferencas, estatisticas = comparar_jsons(esperado, recebido)  
     diferencas = enriquecer_diferencas(diferencas)  
@@ -653,6 +740,9 @@ def analisar_comparacao_completa(
     campos_conformes = estatisticas["campos_conformes"]  
     campos_divergentes = estatisticas["campos_divergentes"]  
   
+    total_campos_esperados = contar_folhas_simples(esperado)  
+    total_campos_recebidos = contar_folhas_simples(recebido)  
+  
     peso_total = float(estatisticas["peso_total"]) if estatisticas["peso_total"] else 0.0  
     peso_conforme = float(estatisticas["peso_conforme"]) if estatisticas["peso_conforme"] else 0.0  
     peso_divergente = float(estatisticas["peso_divergente"]) if estatisticas["peso_divergente"] else 0.0  
@@ -662,13 +752,37 @@ def analisar_comparacao_completa(
     classificacao = classificar_acuracia(percentual_acuracia)  
     status = "APROVADO" if len(diferencas) == 0 else "REPROVADO"  
   
+    campos_opcionais_ignorados = estatisticas["campos_opcionais_ignorados"]  
+    campos_criticos_divergentes = calcular_campos_criticos_divergentes(diferencas)  
+  
+    cobertura_recebimento = round(  
+        (min(total_campos_recebidos, total_campos_esperados) / total_campos_esperados) * 100, 2  
+    ) if total_campos_esperados > 0 else 0.0  
+  
+    densidade_erros = round(  
+        (len(diferencas) / campos_analisados) * 100, 2  
+    ) if campos_analisados > 0 else 0.0  
+  
+    blocos_com_erros = agrupar_erros_por_bloco(diferencas)  
+    secoes_afetadas = len(blocos_com_erros)  
+  
+    nivel_risco = determinar_nivel_risco(  
+        percentual_acuracia,  
+        campos_criticos_divergentes,  
+        len(diferencas)  
+    )  
+  
+    chaves_match_utilizadas = sorted(list(estatisticas["chaves_match_utilizadas"]))  
+  
     return {  
         "metadata": {  
             "tipo_documental": tipo_documental,  
             "tipo_documental_legivel": tipo_documental_legivel,  
-            "ged": ged,  
+            "id_documento": id_documento,  
             "nome_arquivo": nome_arquivo,  
             "gabarito_path": gabarito_path,  
+            "origem_entrada": origem_entrada,  
+            "tempo_processamento_ms": tempo_processamento_ms,  
             "data_processamento": datetime.now().strftime("%d/%m/%Y %H:%M:%S")  
         },  
         "resumo": {  
@@ -683,14 +797,28 @@ def analisar_comparacao_completa(
             "peso_conforme": round(peso_conforme, 2),  
             "peso_divergente": round(peso_divergente, 2),  
             "penalidade_extras": round(penalidade_extras, 2),  
+            "total_campos_esperados": total_campos_esperados,  
+            "total_campos_recebidos": total_campos_recebidos,  
+            "campos_opcionais_ignorados": campos_opcionais_ignorados,  
+            "campos_criticos_divergentes": campos_criticos_divergentes,  
+            "cobertura_recebimento": cobertura_recebimento,  
+            "densidade_erros": densidade_erros,  
+            "secoes_afetadas": secoes_afetadas,  
+            "nivel_risco": nivel_risco,  
             "resumo_executivo": gerar_resumo_executivo(  
                 percentual_acuracia,  
                 len(diferencas),  
                 campos_analisados,  
-                campos_conformes  
+                campos_conformes,  
+                nivel_risco  
             )  
         },  
         "contadores": contadores,  
+        "listas": {  
+            "listas_com_match_inteligente": estatisticas["listas_com_match_inteligente"],  
+            "chaves_match_utilizadas": chaves_match_utilizadas  
+        },  
+        "blocos_com_erros": blocos_com_erros,  
         "top_problemas": top_paths_com_problema(diferencas, limite=10),  
         "melhorias_globais": gerar_melhorias_globais(diferencas, contadores),  
         "diferencas": diferencas  
@@ -719,6 +847,12 @@ def gerar_pdf_relatorio(analise, caminho_saida):
         leading=10  
     )  
   
+    # Paleta aproximada inspirada em vermelho/laranja corporativo  
+    cor_vermelho = colors.HexColor("#B71C1C")  
+    cor_laranja = colors.HexColor("#F57C00")  
+    cor_laranja_claro = colors.HexColor("#FFF3E0")  
+    cor_neutro = colors.HexColor("#F8F5F2")  
+  
     elements = []  
   
     elements.append(Paragraph("Valida AI - Relatório de Validação", title_style))  
@@ -727,22 +861,25 @@ def gerar_pdf_relatorio(analise, caminho_saida):
     meta_data = [  
         ["Campo", "Valor"],  
         ["Arquivo", analise["metadata"]["nome_arquivo"]],  
-        ["GED", analise["metadata"]["ged"]],  
+        ["ID do documento", analise["metadata"]["id_documento"]],  
         ["Tipo documental", analise["metadata"]["tipo_documental_legivel"]],  
         ["Chave do documento", analise["metadata"]["tipo_documental"]],  
+        ["Origem da entrada", analise["metadata"]["origem_entrada"]],  
         ["Gabarito", analise["metadata"]["gabarito_path"]],  
         ["Processado em", analise["metadata"]["data_processamento"]],  
+        ["Tempo de processamento (ms)", str(analise["metadata"]["tempo_processamento_ms"])],  
         ["Status", analise["resumo"]["status"]],  
         ["Acurácia (%)", str(analise["resumo"]["percentual_acuracia"])],  
+        ["Nível de risco", str(analise["resumo"]["nivel_risco"])],  
     ]  
   
-    meta_table = Table(meta_data, colWidths=[60 * mm, 180 * mm])  
+    meta_table = Table(meta_data, colWidths=[70 * mm, 170 * mm])  
     meta_table.setStyle(TableStyle([  
-        ("BACKGROUND", (0, 0), (-1, 0), colors.HexColor("#1D4ED8")),  
+        ("BACKGROUND", (0, 0), (-1, 0), cor_vermelho),  
         ("TEXTCOLOR", (0, 0), (-1, 0), colors.white),  
         ("FONTNAME", (0, 0), (-1, 0), "Helvetica-Bold"),  
         ("GRID", (0, 0), (-1, -1), 0.5, colors.grey),  
-        ("BACKGROUND", (0, 1), (-1, -1), colors.whitesmoke),  
+        ("BACKGROUND", (0, 1), (-1, -1), cor_neutro),  
     ]))  
     elements.append(meta_table)  
     elements.append(Spacer(1, 10))  
@@ -753,23 +890,30 @@ def gerar_pdf_relatorio(analise, caminho_saida):
   
     indicadores = [  
         ["Indicador", "Valor"],  
+        ["Campos esperados", str(analise["resumo"]["total_campos_esperados"])],  
+        ["Campos recebidos", str(analise["resumo"]["total_campos_recebidos"])],  
         ["Campos analisados", str(analise["resumo"]["campos_analisados"])],  
         ["Campos conformes", str(analise["resumo"]["campos_conformes"])],  
         ["Campos divergentes", str(analise["resumo"]["campos_divergentes"])],  
+        ["Campos opcionais ignorados", str(analise["resumo"]["campos_opcionais_ignorados"])],  
+        ["Campos críticos divergentes", str(analise["resumo"]["campos_criticos_divergentes"])],  
         ["Total de divergências", str(analise["resumo"]["total_diferencas"])],  
+        ["Cobertura do conteúdo (%)", str(analise["resumo"]["cobertura_recebimento"])],  
+        ["Densidade de erros (%)", str(analise["resumo"]["densidade_erros"])],  
+        ["Seções afetadas", str(analise["resumo"]["secoes_afetadas"])],  
         ["Peso total", str(analise["resumo"]["peso_total"])],  
         ["Peso conforme", str(analise["resumo"]["peso_conforme"])],  
         ["Peso divergente", str(analise["resumo"]["peso_divergente"])],  
         ["Penalidade por extras", str(analise["resumo"]["penalidade_extras"])],  
     ]  
   
-    ind_table = Table(indicadores, colWidths=[80 * mm, 50 * mm])  
+    ind_table = Table(indicadores, colWidths=[90 * mm, 55 * mm])  
     ind_table.setStyle(TableStyle([  
-        ("BACKGROUND", (0, 0), (-1, 0), colors.HexColor("#0F766E")),  
+        ("BACKGROUND", (0, 0), (-1, 0), cor_laranja),  
         ("TEXTCOLOR", (0, 0), (-1, 0), colors.white),  
         ("FONTNAME", (0, 0), (-1, 0), "Helvetica-Bold"),  
         ("GRID", (0, 0), (-1, -1), 0.5, colors.grey),  
-        ("BACKGROUND", (0, 1), (-1, -1), colors.beige),  
+        ("BACKGROUND", (0, 1), (-1, -1), cor_laranja_claro),  
     ]))  
     elements.append(ind_table)  
     elements.append(Spacer(1, 10))  
@@ -791,11 +935,12 @@ def gerar_pdf_relatorio(analise, caminho_saida):
   
     top_table = Table(top_data, colWidths=[90 * mm, 40 * mm, 30 * mm, 20 * mm, 90 * mm])  
     top_table.setStyle(TableStyle([  
-        ("BACKGROUND", (0, 0), (-1, 0), colors.HexColor("#7C3AED")),  
+        ("BACKGROUND", (0, 0), (-1, 0), cor_vermelho),  
         ("TEXTCOLOR", (0, 0), (-1, 0), colors.white),  
         ("FONTNAME", (0, 0), (-1, 0), "Helvetica-Bold"),  
         ("GRID", (0, 0), (-1, -1), 0.5, colors.grey),  
         ("VALIGN", (0, 0), (-1, -1), "TOP"),  
+        ("BACKGROUND", (0, 1), (-1, -1), cor_neutro),  
     ]))  
     elements.append(top_table)  
     elements.append(PageBreak())  
@@ -828,12 +973,12 @@ def gerar_pdf_relatorio(analise, caminho_saida):
         repeatRows=1  
     )  
     detalhe_table.setStyle(TableStyle([  
-        ("BACKGROUND", (0, 0), (-1, 0), colors.HexColor("#1D4ED8")),  
+        ("BACKGROUND", (0, 0), (-1, 0), cor_laranja),  
         ("TEXTCOLOR", (0, 0), (-1, 0), colors.white),  
         ("FONTNAME", (0, 0), (-1, 0), "Helvetica-Bold"),  
         ("GRID", (0, 0), (-1, -1), 0.35, colors.grey),  
         ("VALIGN", (0, 0), (-1, -1), "TOP"),  
-        ("ROWBACKGROUNDS", (0, 1), (-1, -1), [colors.whitesmoke, colors.lightgrey]),  
+        ("ROWBACKGROUNDS", (0, 1), (-1, -1), [cor_neutro, cor_laranja_claro]),  
     ]))  
     elements.append(detalhe_table)  
   

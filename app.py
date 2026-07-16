@@ -1,13 +1,15 @@
 import os  
 import json  
 import uuid  
+import time  
+  
 from flask import Flask, render_template, request, send_file  
 from werkzeug.utils import secure_filename  
   
 from comparador import (  
     ALLOWED_EXTENSIONS,  
     detectar_tipo_documental,  
-    obter_ged_do_arquivo,  
+    obter_id_documento_do_arquivo,  
     localizar_gabarito,  
     analisar_comparacao_completa,  
     gerar_pdf_relatorio  
@@ -38,53 +40,58 @@ def index():
         "analise": None,  
         "report_id": None,  
         "json_texto": "",  
-        "ged_manual": ""  
+        "id_documento_manual": ""  
     }  
   
     if request.method == "POST":  
+        inicio = time.perf_counter()  
+  
         arquivo = request.files.get("arquivo_json")  
         json_texto = request.form.get("json_texto", "").strip()  
-        ged_manual = request.form.get("ged_manual", "").strip()  
+        id_documento_manual = request.form.get("id_documento_manual", "").strip()  
   
         contexto["json_texto"] = json_texto  
-        contexto["ged_manual"] = ged_manual  
+        contexto["id_documento_manual"] = id_documento_manual  
   
         json_enviado = None  
         nome_arquivo_original = None  
-        ged = None  
+        id_documento = None  
+        origem_entrada = None  
   
         try:  
-            # Prioridade: JSON colado  
+            # Prioridade para JSON colado  
             if json_texto:  
+                origem_entrada = "json_colado"  
+  
                 try:  
                     json_enviado = json.loads(json_texto)  
                 except json.JSONDecodeError as e:  
                     contexto["erro"] = f"JSON colado inválido: {str(e)}"  
                     return render_template("index.html", **contexto)  
   
-                if not ged_manual:  
-                    contexto["erro"] = "Ao colar o JSON, informe também o GED."  
+                if not id_documento_manual:  
+                    contexto["erro"] = "Ao colar o JSON, informe também o ID do documento."  
                     return render_template("index.html", **contexto)  
   
-                ged = ged_manual  
-                nome_arquivo_original = f"{ged}.json"  
+                id_documento = id_documento_manual  
+                nome_arquivo_original = f"{id_documento}.json"  
   
             else:  
                 if not arquivo or arquivo.filename == "":  
                     contexto["erro"] = "Envie um arquivo JSON ou cole o conteúdo do JSON no campo de texto."  
                     return render_template("index.html", **contexto)  
   
+                origem_entrada = "arquivo_upload"  
                 nome_arquivo_original = secure_filename(arquivo.filename)  
   
                 if not nome_arquivo_original.lower().endswith(ALLOWED_EXTENSIONS):  
                     contexto["erro"] = "Arquivo inválido. Envie um arquivo .json."  
                     return render_template("index.html", **contexto)  
   
-                ged = obter_ged_do_arquivo(nome_arquivo_original)  
+                id_documento = obter_id_documento_do_arquivo(nome_arquivo_original)  
   
                 nome_interno = f"{uuid.uuid4()}_{nome_arquivo_original}"  
                 caminho_upload = os.path.join(app.config["UPLOAD_FOLDER"], nome_interno)  
-  
                 arquivo.save(caminho_upload)  
   
                 try:  
@@ -95,41 +102,43 @@ def index():
                     return render_template("index.html", **contexto)  
   
             tipo_documental, tipo_documental_legivel, pasta_gabarito = detectar_tipo_documental(json_enviado)  
-            caminho_gabarito = localizar_gabarito(GABARITOS_DIR, pasta_gabarito, ged)  
+            caminho_gabarito = localizar_gabarito(GABARITOS_DIR, pasta_gabarito, id_documento)  
   
             with open(caminho_gabarito, "r", encoding="utf-8") as f:  
                 json_gabarito = json.load(f)  
+  
+            tempo_processamento_ms = round((time.perf_counter() - inicio) * 1000, 2)  
   
             analise = analisar_comparacao_completa(  
                 esperado=json_gabarito,  
                 recebido=json_enviado,  
                 tipo_documental=tipo_documental,  
                 tipo_documental_legivel=tipo_documental_legivel,  
-                ged=ged,  
+                id_documento=id_documento,  
                 nome_arquivo=nome_arquivo_original,  
-                gabarito_path=os.path.relpath(caminho_gabarito, BASE_DIR)  
+                gabarito_path=os.path.relpath(caminho_gabarito, BASE_DIR),  
+                origem_entrada=origem_entrada,  
+                tempo_processamento_ms=tempo_processamento_ms  
             )  
   
             report_id = str(uuid.uuid4())  
             pdf_path = os.path.join(  
                 app.config["REPORTS_FOLDER"],  
-                f"relatorio_{ged}_{report_id}.pdf"  
+                f"relatorio_{id_documento}_{report_id}.pdf"  
             )  
   
             gerar_pdf_relatorio(analise, pdf_path)  
   
             REPORT_CACHE[report_id] = {  
                 "pdf_path": pdf_path,  
-                "filename": f"relatorio_validacao_{ged}.pdf"  
+                "filename": f"relatorio_validacao_{id_documento}.pdf"  
             }  
   
             contexto["analise"] = analise  
             contexto["report_id"] = report_id  
             contexto["sucesso"] = "Comparação realizada com sucesso."  
-  
-            # limpa campos após sucesso  
             contexto["json_texto"] = ""  
-            contexto["ged_manual"] = ""  
+            contexto["id_documento_manual"] = ""  
   
         except FileNotFoundError as e:  
             contexto["erro"] = str(e)  
