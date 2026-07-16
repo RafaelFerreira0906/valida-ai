@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request
 import os
+
 import comparador
 
 app = Flask(__name__)
@@ -27,21 +28,30 @@ def validar():
 
     try:
 
-        if "json" not in request.files:
-            raise Exception(
-                "Nenhum arquivo JSON enviado."
-            )
+        arquivo_json = request.files.get(
+            "json"
+        )
 
-        arquivo_json = request.files["json"]
-
-        if arquivo_json.filename == "":
+        if not arquivo_json:
             raise Exception(
-                "Selecione um arquivo JSON."
+                "Nenhum arquivo JSON foi enviado."
             )
 
         nome_arquivo = os.path.basename(
             arquivo_json.filename
         )
+
+        if nome_arquivo == "":
+            raise Exception(
+                "Nenhum arquivo foi selecionado."
+            )
+
+        if not nome_arquivo.lower().endswith(
+            ".json"
+        ):
+            raise Exception(
+                "O arquivo enviado deve ser JSON."
+            )
 
         caminho_json = os.path.join(
             UPLOAD_FOLDER,
@@ -64,15 +74,25 @@ def validar():
 
         return f"""
         <html>
-            <body style="font-family:Segoe UI;padding:40px">
-                <h2>Erro na validação</h2>
-                <pre>{str(erro)}</pre>
-            </body>
+        <body style="font-family:Segoe UI;padding:40px">
+
+            <h2>Erro na validação</h2>
+
+            <pre>{str(erro)}</pre>
+
+            <br>
+
+            <button onclick="history.back()">
+                Voltar
+            </button>
+
+        </body>
         </html>
         """, 500
 
 
 if __name__ == "__main__":
+
     app.run(
         host="0.0.0.0",
         port=5000,

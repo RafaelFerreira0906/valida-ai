@@ -5,86 +5,61 @@ import unicodedata
 
 from difflib import SequenceMatcher
 
-
 SIMILARIDADE_MINIMA = 0.75
 
-
-MAPA_DOCUMENTOS = {
-    "e_analise_granulometrica":
-        "Análise Granulométrica",
-
-    "e_certidao_inteiro_teor":
-        "Certidão de Inteiro Teor",
-
-    "e_contrato_de_locacao":
-        "Contrato de Locação",
-
-    "e_contrato_social":
-        "Contrato Social",
-
-    "e_declaracao_posse_terceiros":
-        "Declaração de Posse",
-
-    "e_demonstracoes_contabeis":
-        "Demonstrações Contábeis",
-
-    "e_fianca_bancaria":
-        "Fiança Bancária",
-
-    "e_aditivo_fianca_bancaria":
-        "Aditivo de Fiança Bancária",
-
-    "e_orcamento_fne_sol":
-        "Orçamento FNE SOL",
-
-    "e_parecer_gerencial":
-        "Parecer Gerencial",
-
-    "e_procuracao":
-        "Procuração",
-
-    "e_titulo_dominio":
-        "Título de Domínio"
+CAMPOS_IGNORADOS = {
+    "id_documento"
 }
 
-
-MAPA_PASTAS = {
-
-    "e_analise_granulometrica":
-        "analise_granulometrica",
-
-    "e_certidao_inteiro_teor":
-        "certidao_inteiro_teor",
-
-    "e_contrato_de_locacao":
-        "contrato_locacao",
-
-    "e_contrato_social":
-        "contrato_social",
-
-    "e_declaracao_posse_terceiros":
-        "declaracao_posse",
-
-    "e_demonstracoes_contabeis":
-        "demonstracoes_contabeis",
-
-    "e_fianca_bancaria":
-        "fianca_bancaria",
-
-    "e_aditivo_fianca_bancaria":
-        "aditivo_fianca_bancaria",
-
-    "e_orcamento_fne_sol":
-        "orcamento_fne_sol",
-
-    "e_parecer_gerencial":
-        "parecer_gerencial",
-
-    "e_procuracao":
-        "procuracao",
-
-    "e_titulo_dominio":
+MAPA_DOCUMENTOS = {
+    "e_analise_granulometrica": (
+        "Análise Granulométrica",
+        "analise_granulometrica"
+    ),
+    "e_certidao_inteiro_teor": (
+        "Certidão de Inteiro Teor",
+        "certidao_inteiro_teor"
+    ),
+    "e_contrato_de_locacao": (
+        "Contrato de Locação",
+        "contrato_locacao"
+    ),
+    "e_contrato_social": (
+        "Contrato Social",
+        "contrato_social"
+    ),
+    "e_declaracao_posse_terceiros": (
+        "Declaração de Posse",
+        "declaracao_posse"
+    ),
+    "e_demonstracoes_contabeis": (
+        "Demonstrações Contábeis",
+        "demonstracoes_contabeis"
+    ),
+    "e_fianca_bancaria": (
+        "Fiança Bancária",
+        "fianca_bancaria"
+    ),
+    "e_aditivo_fianca_bancaria": (
+        "Aditivo de Fiança Bancária",
+        "aditivo_fianca_bancaria"
+    ),
+    "e_orcamento_fne_sol": (
+        "Orçamento FNE SOL",
+        "orcamento_fne_sol"
+    ),
+    "e_parecer_gerencial": (
+        "Parecer Gerencial",
+        "parecer_gerencial"
+    ),
+    "e_procuracao": (
+        "Procuração",
+        "procuracao"
+    ),
+    "e_titulo_dominio": (
+        "Título de Domínio",
         "titulo_dominio"
+    )
 }
 
 
@@ -101,10 +76,10 @@ def normalizar(texto):
     )
 
     texto = texto.encode(
-        "ascii",
+        "ASCII",
         "ignore"
     ).decode(
-        "ascii"
+        "ASCII"
     )
 
     texto = texto.lower()
@@ -162,10 +137,7 @@ def flatten_json(
 
     resultado = {}
 
-    if isinstance(
-        obj,
-        dict
-    ):
+    if isinstance(obj, dict):
 
         for chave, valor in obj.items():
 
@@ -182,10 +154,7 @@ def flatten_json(
                 )
             )
 
-    elif isinstance(
-        obj,
-        list
-    ):
+    elif isinstance(obj, list):
 
         if len(obj) == 0:
 
@@ -194,8 +163,10 @@ def flatten_json(
         else:
 
             resultado[prefix] = " | ".join(
-                str(item)
-                for item in obj
+                [
+                    str(item)
+                    for item in obj
+                ]
             )
 
     else:
@@ -220,25 +191,29 @@ def carregar_json(
         )
 
 
-def obter_tipo_documental(
-    json_dados
-):
-    return next(
-        iter(json_dados)
-    )
-
-
-def obter_ged(
-    caminho_json
+def localizar_campo_json(
+    campo_gabarito,
+    json_flat
 ):
 
-    nome = os.path.basename(
-        caminho_json
-    )
+    if campo_gabarito in json_flat:
+        return campo_gabarito
 
-    return os.path.splitext(
-        nome
-    )[0]
+    for chave in json_flat.keys():
+
+        if chave.endswith(
+            "." + campo_gabarito
+        ):
+            return chave
+
+    for chave in json_flat.keys():
+
+        ultimo = chave.split(".")[-1]
+
+        if ultimo == campo_gabarito:
+            return chave
+
+    return None
 
 
 def localizar_gabarito(
@@ -246,16 +221,16 @@ def localizar_gabarito(
     ged
 ):
 
-    if tipo_documental not in MAPA_PASTAS:
+    if tipo_documental not in MAPA_DOCUMENTOS:
 
         raise Exception(
             f"Tipo documental não mapeado: "
             f"{tipo_documental}"
         )
 
-    pasta = MAPA_PASTAS[
+    pasta = MAPA_DOCUMENTOS[
         tipo_documental
-    ]
+    ][1]
 
     caminho = os.path.join(
         "gabaritos",
@@ -266,6 +241,7 @@ def localizar_gabarito(
     if not os.path.exists(
         caminho
     ):
+
         raise Exception(
             f"Gabarito não encontrado: {caminho}"
         )
@@ -274,22 +250,22 @@ def localizar_gabarito(
 
 
 def comparar(
-    caminho_json
+    arquivo_json
 ):
 
     json_recebido = carregar_json(
-        caminho_json
+        arquivo_json
     )
 
-    tipo_documental = (
-        obter_tipo_documental(
-            json_recebido
+    tipo_documental = next(
+        iter(json_recebido)
+    )
+
+    ged = os.path.splitext(
+        os.path.basename(
+            arquivo_json
         )
-    )
-
-    ged = obter_ged(
-        caminho_json
-    )
+    )[0]
 
     caminho_gabarito = (
         localizar_gabarito(
@@ -298,22 +274,16 @@ def comparar(
         )
     )
 
-    json_gabarito = (
-        carregar_json(
-            caminho_gabarito
-        )
+    json_gabarito = carregar_json(
+        caminho_gabarito
     )
 
-    json_recebido_flat = (
-        flatten_json(
-            json_recebido
-        )
+    gabarito_flat = flatten_json(
+        json_gabarito
     )
 
-    json_gabarito_flat = (
-        flatten_json(
-            json_gabarito
-        )
+    recebido_flat = flatten_json(
+        json_recebido
     )
 
     total = 0
@@ -323,11 +293,23 @@ def comparar(
     divergencias = []
     nao_encontrados = []
 
-    for campo, esperado in json_gabarito_flat.items():
+    for campo, esperado in gabarito_flat.items():
+
+        ultimo_campo = (
+            campo.split(".")[-1]
+        )
+
+        if ultimo_campo in CAMPOS_IGNORADOS:
+            continue
 
         total += 1
 
-        if campo not in json_recebido_flat:
+        chave_json = localizar_campo_json(
+            campo,
+            recebido_flat
+        )
+
+        if chave_json is None:
 
             erros += 1
 
@@ -337,8 +319,8 @@ def comparar(
 
             continue
 
-        obtido = json_recebido_flat[
-            campo
+        obtido = recebido_flat[
+            chave_json
         ]
 
         if comparar_textos(
@@ -364,8 +346,8 @@ def comparar(
 
             divergencias.append(
                 {
-                    "campo_excel": campo,
-                    "campo_json": campo,
+                    "campo_gabarito": campo,
+                    "campo_json": chave_json,
                     "esperado": esperado,
                     "obtido": obtido,
                     "similaridade": round(
@@ -382,10 +364,9 @@ def comparar(
     )
 
     tipo_documento = (
-        MAPA_DOCUMENTOS.get(
-            tipo_documental,
+        MAPA_DOCUMENTOS[
             tipo_documental
-        )
+        ][0]
     )
 
     return {
@@ -412,13 +393,11 @@ def gerar_relatorio_html(
 ):
 
     if percentual >= 95:
-        cor = "#09FA96"
-
+        cor_acuracia = "#09FA96"
     elif percentual >= 80:
-        cor = "#FF9800"
-
+        cor_acuracia = "#FF9800"
     else:
-        cor = "#D32F2F"
+        cor_acuracia = "#D32F2F"
 
     linhas_divergencias = ""
 
@@ -426,7 +405,7 @@ def gerar_relatorio_html(
 
         linhas_divergencias += f"""
         <tr>
-            <td>{item['campo_excel']}</td>
+            <td>{item['campo_gabarito']}</td>
             <td>{item['campo_json']}</td>
             <td>{item['esperado']}</td>
             <td>{item['obtido']}</td>
@@ -448,11 +427,8 @@ def gerar_relatorio_html(
     return f"""
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
-
 <meta charset="utf-8">
-
 <title>Valida AI</title>
 
 <style>
@@ -460,7 +436,7 @@ def gerar_relatorio_html(
 body {{
     margin:0;
     background:#F5F5F5;
-    font-family:'Segoe UI', Arial;
+    font-family:'Segoe UI', Arial, sans-serif;
 }}
 
 .topo {{
@@ -479,7 +455,7 @@ body {{
     margin-top:20px;
     padding:20px;
     border-radius:8px;
-    box-shadow:0 2px 5px rgba(0,0,0,.1);
+    box-shadow:0 2px 4px rgba(0,0,0,.10);
 }}
 
 .indicadores {{
@@ -491,15 +467,15 @@ body {{
 .barra {{
     width:100%;
     height:35px;
-    background:#ddd;
-    border-radius:8px;
+    background:#DDD;
     margin-top:20px;
+    border-radius:8px;
 }}
 
 .barra-interna {{
     width:{percentual}%;
     height:100%;
-    background:{cor};
+    background:{cor_acuracia};
 }}
 
 table {{
@@ -513,7 +489,7 @@ th {{
 }}
 
 th, td {{
-    border:1px solid #ddd;
+    border:1px solid #DDD;
     padding:10px;
     text-align:center;
 }}
@@ -527,16 +503,13 @@ th, td {{
     cursor:pointer;
 }}
 
-.footer {{
-    margin-top:40px;
-    border-top:1px solid #ddd;
-    padding:20px;
-    display:flex;
-    justify-content:space-between;
+@media print {{
+    .btn {{
+        display:none;
+    }}
 }}
 
 </style>
-
 </head>
 
 <body>
@@ -627,23 +600,13 @@ th, td {{
 
 </div>
 
-<div style="text-align:center;margin:30px">
+<div style="text-align:center;margin:30px;">
+
 <button
 class="btn"
 onclick="window.print()">
 📄 Exportar PDF
 </button>
-</div>
-
-<div class="footer">
-
-<div>
-Valida AI - Resultado da Validação
-</div>
-
-<div>
-Desenvolvido por Rafael Ferreira
-</div>
 
 </div>
 
