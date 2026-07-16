@@ -3,7 +3,7 @@
 <head>  
     <meta charset="UTF-8">  
     <meta name="viewport" content="width=device-width, initial-scale=1.0">  
-    <title>Valida AI - V2 Profissional</title>  
+    <title>Valida AI</title>  
     <style>  
         :root {  
             --bg: #f3f6fb;  
@@ -36,10 +36,7 @@
             color: var(--text);  
         }  
   
-        .container {  
-            max-width: 1450px;  
-            margin: 0 auto;  
-        }  
+        .container { max-width: 1450px; margin: 0 auto; }  
   
         .card {  
             background: var(--card);  
@@ -48,8 +45,6 @@
             padding: 24px;  
             margin-bottom: 24px;  
         }  
-  
-        h1, h2, h3 { margin-top: 0; }  
   
         .subtitle {  
             color: var(--muted);  
@@ -81,12 +76,19 @@
             margin-bottom: 8px;  
         }  
   
-        input[type="file"] {  
+        input[type="file"], input[type="text"], textarea {  
             width: 100%;  
             border: 1px solid var(--border);  
             border-radius: 10px;  
             padding: 12px;  
             background: white;  
+            font-family: inherit;  
+        }  
+  
+        textarea {  
+            min-height: 240px;  
+            resize: vertical;  
+            font-family: Consolas, Monaco, monospace;  
         }  
   
         .btn, .btn-secondary {  
@@ -104,9 +106,7 @@
             color: white;  
         }  
   
-        .btn:hover {  
-            background: var(--blue-hover);  
-        }  
+        .btn:hover { background: var(--blue-hover); }  
   
         .btn-secondary {  
             background: #111827;  
@@ -139,7 +139,6 @@
             text-transform: uppercase;  
             color: var(--muted);  
             margin-bottom: 6px;  
-            letter-spacing: .3px;  
         }  
   
         .info-value {  
@@ -173,7 +172,6 @@
             text-transform: uppercase;  
             opacity: .9;  
             margin-bottom: 10px;  
-            letter-spacing: .5px;  
         }  
   
         .score-value {  
@@ -181,11 +179,6 @@
             font-weight: bold;  
             line-height: 1;  
             margin-bottom: 10px;  
-        }  
-  
-        .score-sub {  
-            font-size: 16px;  
-            opacity: .95;  
         }  
   
         .status-chip {  
@@ -223,7 +216,6 @@
             border-radius: 999px;  
             font-size: 12px;  
             font-weight: bold;  
-            white-space: nowrap;  
         }  
   
         .badge-tipo {  
@@ -268,10 +260,6 @@
             padding-left: 20px;  
         }  
   
-        .list-clean li {  
-            margin-bottom: 10px;  
-        }  
-  
         .empty-state {  
             background: var(--green-bg);  
             color: var(--green);  
@@ -300,10 +288,7 @@
         }  
   
         th { background: var(--thead); }  
-  
-        tr:nth-child(even) td {  
-            background: var(--row-alt);  
-        }  
+        tr:nth-child(even) td { background: var(--row-alt); }  
   
         pre {  
             margin: 0;  
@@ -313,16 +298,16 @@
             font-family: Consolas, Monaco, monospace;  
         }  
   
-        .pill {  
-            display: inline-block;  
-            padding: 8px 12px;  
-            border-radius: 999px;  
-            font-weight: bold;  
+        .helper {  
+            font-size: 13px;  
+            color: var(--muted);  
+            margin-top: 6px;  
         }  
   
-        .pill-green { background: var(--green-bg); color: var(--green); }  
-        .pill-orange { background: var(--orange-bg); color: var(--orange); }  
-        .pill-red { background: var(--red-bg); color: var(--red); }  
+        .separator {  
+            margin: 20px 0;  
+            border-top: 1px dashed var(--border);  
+        }  
     </style>  
 </head>  
 <body>  
@@ -331,7 +316,7 @@
         <div class="card">  
             <h1>Valida AI</h1>  
             <div class="subtitle">  
-                Validação JSON x JSON com score ponderado, normalização inteligente, penalização por extras, diagnóstico detalhado e exportação em Excel.  
+                Validação JSON x JSON com upload de arquivo ou colagem direta do conteúdo JSON.  
             </div>  
   
             {% if erro %}  
@@ -343,9 +328,34 @@
             {% endif %}  
   
             <form method="POST" enctype="multipart/form-data">  
+                <div class="grid grid-2">  
+                    <div>  
+                        <div class="form-group">  
+                            <label for="arquivo_json">Enviar arquivo JSON</label>  
+                            <input type="file" id="arquivo_json" name="arquivo_json" accept=".json">  
+                            <div class="helper">Se enviar arquivo, o GED será obtido pelo nome do arquivo.</div>  
+                        </div>  
+                    </div>  
+  
+                    <div>  
+                        <div class="form-group">  
+                            <label for="ged_manual">GED manual</label>  
+                            <input type="text" id="ged_manual" name="ged_manual" value="{{ ged_manual }}" placeholder="Ex: 552776635">  
+                            <div class="helper">Obrigatório quando usar JSON colado no campo abaixo.</div>  
+                        </div>  
+                    </div>  
+                </div>  
+  
+                <div class="separator"></div>  
+  
                 <div class="form-group">  
-                    <label for="arquivo_json">Enviar arquivo JSON</label>  
-                    <input type="file" id="arquivo_json" name="arquivo_json" accept=".json" required>  
+                    <label for="json_texto">Ou cole o JSON aqui</label>  
+                    <textarea id="json_texto" name="json_texto" placeholder='{  
+  "e_contrato_social": {  
+    "campo": "valor"  
+  }  
+}'>{{ json_texto }}</textarea>  
+                    <div class="helper">Se o campo acima for preenchido, ele terá prioridade sobre o arquivo enviado.</div>  
                 </div>  
   
                 <button type="submit" class="btn">Validar documento</button>  
@@ -353,8 +363,8 @@
   
             {% if report_id %}  
             <div class="actions">  
-                <a class="btn-secondary" href="{{ url_for('download_excel', report_id=report_id) }}">  
-                    Baixar relatório em Excel  
+                <a class="btn-secondary" href="{{ url_for('download_pdf', report_id=report_id) }}">  
+                    Baixar relatório em PDF  
                 </a>  
             </div>  
             {% endif %}  
@@ -365,7 +375,7 @@
             <h2>Identificação automática</h2>  
             <div class="grid grid-3">  
                 <div class="info-box">  
-                    <div class="info-label">Arquivo enviado</div>  
+                    <div class="info-label">Arquivo de referência</div>  
                     <div class="info-value">{{ analise.metadata.nome_arquivo }}</div>  
                 </div>  
                 <div class="info-box">  
@@ -396,7 +406,7 @@
                 <div class="score-panel score-{{ analise.resumo.classificacao.cor }}">  
                     <div class="score-title">Acurácia ponderada</div>  
                     <div class="score-value">{{ analise.resumo.percentual_acuracia }}%</div>  
-                    <div class="score-sub">{{ analise.resumo.classificacao.descricao }}</div>  
+                    <div>{{ analise.resumo.classificacao.descricao }}</div>  
                     <div class="status-chip">Status: {{ analise.resumo.status }}</div>  
                 </div>  
   
@@ -424,116 +434,13 @@
                 <strong>Resumo executivo:</strong><br>  
                 {{ analise.resumo.resumo_executivo }}  
             </div>  
-  
-            <div style="margin-top: 16px;" class="grid grid-4">  
-                <div class="metric-card">  
-                    <div class="metric-number">{{ analise.resumo.peso_total }}</div>  
-                    <div class="metric-label">Peso total analisado</div>  
-                </div>  
-                <div class="metric-card">  
-                    <div class="metric-number">{{ analise.resumo.peso_conforme }}</div>  
-                    <div class="metric-label">Peso conforme</div>  
-                </div>  
-                <div class="metric-card">  
-                    <div class="metric-number">{{ analise.resumo.peso_divergente }}</div>  
-                    <div class="metric-label">Peso divergente</div>  
-                </div>  
-                <div class="metric-card">  
-                    <div class="metric-number">{{ analise.resumo.penalidade_extras }}</div>  
-                    <div class="metric-label">Penalidade por extras</div>  
-                </div>  
-            </div>  
-        </div>  
-  
-        <div class="card">  
-            <h2>Indicadores por categoria</h2>  
-            <div class="grid grid-4">  
-                <div class="metric-card">  
-                    <div class="metric-number">{{ analise.contadores.valor_diferente }}</div>  
-                    <div class="metric-label">Valores diferentes</div>  
-                </div>  
-                <div class="metric-card">  
-                    <div class="metric-number">{{ analise.contadores.faltando_no_recebido }}</div>  
-                    <div class="metric-label">Campos faltando</div>  
-                </div>  
-                <div class="metric-card">  
-                    <div class="metric-number">{{ analise.contadores.campo_extra_no_recebido }}</div>  
-                    <div class="metric-label">Campos extras</div>  
-                </div>  
-                <div class="metric-card">  
-                    <div class="metric-number">{{ analise.contadores.tipo_diferente }}</div>  
-                    <div class="metric-label">Tipos diferentes</div>  
-                </div>  
-                <div class="metric-card">  
-                    <div class="metric-number">{{ analise.contadores.item_faltando_no_recebido }}</div>  
-                    <div class="metric-label">Itens faltando em listas</div>  
-                </div>  
-                <div class="metric-card">  
-                    <div class="metric-number">{{ analise.contadores.item_extra_no_recebido }}</div>  
-                    <div class="metric-label">Itens extras em listas</div>  
-                </div>  
-                <div class="metric-card">  
-                    <div class="metric-number">{{ analise.contadores.alta }}</div>  
-                    <div class="metric-label">Alta severidade</div>  
-                </div>  
-                <div class="metric-card">  
-                    <div class="metric-number">{{ analise.contadores.media + analise.contadores.baixa }}</div>  
-                    <div class="metric-label">Média + baixa severidade</div>  
-                </div>  
-            </div>  
-        </div>  
-  
-        <div class="card">  
-            <h2>Top problemas críticos</h2>  
-  
-            {% if analise.top_problemas|length == 0 %}  
-                <div class="empty-state">  
-                    Nenhuma divergência encontrada. Documento aderente ao gabarito.  
-                </div>  
-            {% else %}  
-                <div class="grid grid-2">  
-                    {% for item in analise.top_problemas %}  
-                    <div class="top-error-card">  
-                        <div style="margin-bottom: 10px;">  
-                            <span class="badge badge-tipo">{{ item.tipo }}</span>  
-                            <span class="badge badge-{{ item.severidade }}">{{ item.severidade }}</span>  
-                            <span class="badge">peso {{ item.peso }}</span>  
-                        </div>  
-  
-                        <div style="margin-bottom: 10px;">  
-                            <strong>Onde está o erro:</strong><br>  
-                            <span class="path">{{ item.path }}</span>  
-                        </div>  
-  
-                        <div class="small" style="margin-bottom: 8px;">  
-                            <strong>Correção sugerida:</strong> {{ item.sugestao_correcao }}  
-                        </div>  
-  
-                        <div class="small">  
-                            <strong>Melhoria sugerida:</strong> {{ item.melhoria_sistema }}  
-                        </div>  
-                    </div>  
-                    {% endfor %}  
-                </div>  
-            {% endif %}  
-        </div>  
-  
-        <div class="card">  
-            <h2>Possíveis melhorias no sistema</h2>  
-            <ul class="list-clean">  
-                {% for melhoria in analise.melhorias_globais %}  
-                    <li>{{ melhoria }}</li>  
-                {% endfor %}  
-            </ul>  
         </div>  
   
         <div class="card">  
             <h2>Relatório detalhado de divergências</h2>  
   
             {% if analise.diferencas|length == 0 %}  
-                <div class="empty-state">  
-                    Nenhuma divergência encontrada. O JSON recebido está aderente ao gabarito.  
-                </div>  
+                <div class="empty-state">Nenhuma divergência encontrada.</div>  
             {% else %}  
                 <div class="table-wrapper">  
                     <table>  
@@ -547,7 +454,6 @@
                                 <th>Esperado</th>  
                                 <th>Recebido</th>  
                                 <th>Correção sugerida</th>  
-                                <th>Melhoria sugerida</th>  
                             </tr>  
                         </thead>  
                         <tbody>  
@@ -561,7 +467,6 @@
                                 <td><pre>{{ item.esperado | tojson(indent=2) if item.esperado is not none else 'null' }}</pre></td>  
                                 <td><pre>{{ item.recebido | tojson(indent=2) if item.recebido is not none else 'null' }}</pre></td>  
                                 <td>{{ item.sugestao_correcao }}</td>  
-                                <td>{{ item.melhoria_sistema }}</td>  
                             </tr>  
                             {% endfor %}  
                         </tbody>  

@@ -4,9 +4,18 @@ from copy import deepcopy
 from decimal import Decimal, InvalidOperation  
 from datetime import datetime  
   
-from openpyxl import Workbook  
-from openpyxl.styles import Font, PatternFill, Alignment  
-  
+from reportlab.lib import colors  
+from reportlab.lib.pagesizes import A4, landscape  
+from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle  
+from reportlab.lib.units import mm  
+from reportlab.platypus import (  
+    SimpleDocTemplate,  
+    Paragraph,  
+    Spacer,  
+    Table,  
+    TableStyle,  
+    PageBreak  
+)  
   
 ALLOWED_EXTENSIONS = (".json",)  
   
@@ -25,7 +34,6 @@ MAPEAMENTO_TIPOS = {
     "e_titulo_dominio": ("Título de Domínio", "titulo_dominio"),  
 }  
   
-# caminhos opcionais explícitos - você pode expandir depois  
 OPTIONAL_EXACT_PATHS = {  
     "complemento",  
     "observacao",  
@@ -91,18 +99,13 @@ LIST_MATCH_KEYS = [
 def detectar_tipo_documental(json_data):  
     if not isinstance(json_data, dict):  
         raise ValueError("O JSON enviado precisa ser um objeto na raiz.")  
-  
     if not json_data:  
         raise ValueError("O JSON enviado está vazio.")  
   
     primeira_chave = next(iter(json_data.keys()))  
   
     if primeira_chave not in MAPEAMENTO_TIPOS:  
-        chaves_validas = ", ".join(MAPEAMENTO_TIPOS.keys())  
-        raise ValueError(  
-            f"Tipo documental não mapeado: '{primeira_chave}'. "  
-            f"Tipos aceitos: {chaves_validas}"  
-        )  
+        raise ValueError(f"Tipo documental não mapeado: '{primeira_chave}'.")  
   
     nome_legivel, pasta_gabarito = MAPEAMENTO_TIPOS[primeira_chave]  
     return primeira_chave, nome_legivel, pasta_gabarito  
@@ -110,26 +113,20 @@ def detectar_tipo_documental(json_data):
   
 def obter_ged_do_arquivo(nome_arquivo):  
     base, ext = os.path.splitext(nome_arquivo)  
-  
     if ext.lower() != ".json":  
         raise ValueError("O arquivo enviado deve ter extensão .json.")  
-  
     ged = base.strip()  
-  
     if not ged:  
         raise ValueError("Não foi possível identificar o GED pelo nome do arquivo.")  
-  
     return ged  
   
   
 def localizar_gabarito(base_gabaritos, pasta_gabarito, ged):  
     caminho = os.path.join(base_gabaritos, pasta_gabarito, f"{ged}.json")  
-  
     if not os.path.exists(caminho):  
         raise FileNotFoundError(  
             f"Gabarito não encontrado para o GED '{ged}' em '{caminho}'."  
         )  
-  
     return caminho  
   
   
@@ -167,7 +164,6 @@ def eh_opcional(path):
     campo = extrair_nome_campo(path)  
     if campo in OPTIONAL_EXACT_PATHS:  
         return True  
-  
     path_lower = path.lower()  
     return any(k in path_lower for k in OPTIONAL_KEYWORDS)  
   
@@ -214,19 +210,12 @@ def parse_decimal_brasil(valor):
     if not s:  
         return None  
   
-    # remove símbolo de moeda e espaços  
     s = s.replace("R$", "").replace(" ", "")  
   
-    # se tiver . e , assume formato brasileiro: 1.234,56  
     if "." in s and "," in s:  
         s = s.replace(".", "").replace(",", ".")  
-    else:  
-        # se tiver só vírgula, decimal brasileiro  
-        if "," in s:  
-            s = s.replace(".", "").replace(",", ".")  
-        else:  
-            # mantém ponto decimal padrão  
-            pass  
+    elif "," in s:  
+        s = s.replace(".", "").replace(",", ".")  
   
     try:  
         return Decimal(s)  
@@ -278,7 +267,6 @@ def detectar_normalizador(path, valor):
         return "decimal"  
   
     if isinstance(valor, str):  
-        # heurística: números monetários em string  
         if re.match(r"^\s*R?\$?\s?[\d\.\,]+\s*$", valor):  
             if any(k in path_lower for k in ["valor", "montante", "capital", "preco", "preço", "total"]):  
                 return "decimal"  
@@ -294,17 +282,13 @@ def normalizar_valor_por_regra(path, valor):
   
     if normalizador == "cpf_cnpj":  
         return normalizar_cpf_cnpj(valor)  
-  
     if normalizador == "data":  
         return normalizar_data(valor)  
-  
     if normalizador == "decimal":  
         parsed = parse_decimal_brasil(valor)  
         return str(parsed) if parsed is not None else normalizar_texto(str(valor))  
-  
     if isinstance(valor, str):  
         return normalizar_texto(valor)  
-  
     return valor  
   
   
@@ -312,7 +296,6 @@ def valores_equivalentes(path, esperado, recebido):
     normalizado_esperado = normalizar_valor_por_regra(path, esperado)  
     normalizado_recebido = normalizar_valor_por_regra(path, recebido)  
   
-    # tolerância numérica  
     if isinstance(normalizado_esperado, str) and isinstance(normalizado_recebido, str):  
         try:  
             dec_esp = Decimal(normalizado_esperado)  
@@ -329,20 +312,12 @@ def contar_folhas_ponderadas(data, path=""):
     if isinstance(data, dict):  
         if not data:  
             return peso_por_path(path or "$")  
-        total = 0  
-        for k, v in data.items():  
-            novo = f"{path}.{k}" if path else k  
-            total += contar_folhas_ponderadas(v, novo)  
-        return total  
+        return sum(contar_folhas_ponderadas(v, f"{path}.{k}" if path else k) for k, v in data.items())  
   
     if isinstance(data, list):  
         if not data:  
             return peso_por_path(path or "$")  
-        total = 0  
-        for i, item in enumerate(data):  
-            novo = f"{path}[{i}]"  
-            total += contar_folhas_ponderadas(item, novo)  
-        return total  
+        return sum(contar_folhas_ponderadas(item, f"{path}[{i}]") for i, item in enumerate(data))  
   
     return peso_por_path(path or "$")  
   
@@ -360,22 +335,20 @@ def severidade_por_item(tipo, path, peso):
 def gerar_sugestao(item):  
     tipo = item.get("tipo")  
     path = item.get("path", "")  
-    esperado = item.get("esperado")  
     recebido = item.get("recebido")  
+    esperado = item.get("esperado")  
   
     if tipo == "faltando_no_recebido":  
         return f"Incluir o campo '{path}' com valor compatível ao gabarito."  
     if tipo == "campo_extra_no_recebido":  
-        return f"Remover o campo extra '{path}' ou cadastrá-lo como permitido na regra."  
+        return f"Remover o campo extra '{path}' ou cadastrá-lo como permitido."  
     if tipo == "item_faltando_no_recebido":  
         return f"Incluir o item ausente da lista em '{path}'."  
     if tipo == "item_extra_no_recebido":  
-        return f"Remover o item excedente da lista em '{path}' ou revisar o matcher da coleção."  
+        return f"Remover o item excedente da lista em '{path}'."  
     if tipo == "tipo_diferente":  
         return f"Converter o tipo do campo '{path}' de '{recebido}' para '{esperado}'."  
     if tipo == "valor_diferente":  
-        if esperado is None and recebido in ("", None):  
-            return f"Revisar preenchimento do campo '{path}'."  
         return f"Corrigir o valor do campo '{path}' para o padrão esperado."  
     return f"Revisar a regra de validação do campo '{path}'."  
   
@@ -402,9 +375,6 @@ def escolher_chave_match_lista(lista_esperada, lista_recebida):
     if isinstance(lista_recebida, list):  
         listas.extend(lista_recebida)  
   
-    if not listas:  
-        return None  
-  
     dicts = [x for x in listas if isinstance(x, dict)]  
     if not dicts:  
         return None  
@@ -412,22 +382,17 @@ def escolher_chave_match_lista(lista_esperada, lista_recebida):
     for candidate in LIST_MATCH_KEYS:  
         if all(candidate in d for d in dicts):  
             return candidate  
-  
     return None  
   
   
 def assinatura_item(item, chave_match):  
     if not isinstance(item, dict):  
         return None  
-  
     if chave_match and chave_match in item:  
         return f"{chave_match}:{normalizar_valor_por_regra(chave_match, item.get(chave_match))}"  
-  
-    # fallback simples  
     for k in LIST_MATCH_KEYS:  
         if k in item:  
             return f"{k}:{normalizar_valor_por_regra(k, item.get(k))}"  
-  
     return None  
   
   
@@ -457,24 +422,15 @@ def comparar_jsons(esperado, recebido, path="", diferencas=None, estatisticas=No
             "penalidade_extras": Decimal("0")  
         }  
   
-    # tipo diferente  
     if type(esperado) != type(recebido):  
         peso = Decimal(str(max(contar_folhas_ponderadas(esperado, path), 1)))  
         estatisticas["campos_analisados"] += 1  
         estatisticas["campos_divergentes"] += 1  
         estatisticas["peso_total"] += peso  
         estatisticas["peso_divergente"] += peso  
-        registrar_diferenca(  
-            diferencas,  
-            path or "$",  
-            "tipo_diferente",  
-            nome_tipo(esperado),  
-            nome_tipo(recebido),  
-            float(peso)  
-        )  
+        registrar_diferenca(diferencas, path or "$", "tipo_diferente", nome_tipo(esperado), nome_tipo(recebido), float(peso))  
         return diferencas, estatisticas  
   
-    # dict  
     if isinstance(esperado, dict):  
         chaves_esperadas = set(esperado.keys())  
         chaves_recebidas = set(recebido.keys())  
@@ -487,20 +443,12 @@ def comparar_jsons(esperado, recebido, path="", diferencas=None, estatisticas=No
             novo_path = f"{path}.{chave}" if path else chave  
             if eh_opcional(novo_path):  
                 continue  
-  
             peso = Decimal(str(contar_folhas_ponderadas(esperado[chave], novo_path)))  
             estatisticas["campos_analisados"] += 1  
             estatisticas["campos_divergentes"] += 1  
             estatisticas["peso_total"] += peso  
             estatisticas["peso_divergente"] += peso  
-            registrar_diferenca(  
-                diferencas,  
-                novo_path,  
-                "faltando_no_recebido",  
-                esperado[chave],  
-                None,  
-                float(peso)  
-            )  
+            registrar_diferenca(diferencas, novo_path, "faltando_no_recebido", esperado[chave], None, float(peso))  
   
         for chave in extras:  
             novo_path = f"{path}.{chave}" if path else chave  
@@ -510,35 +458,20 @@ def comparar_jsons(esperado, recebido, path="", diferencas=None, estatisticas=No
             estatisticas["peso_total"] += peso  
             estatisticas["peso_divergente"] += peso  
             estatisticas["penalidade_extras"] += peso  
-            registrar_diferenca(  
-                diferencas,  
-                novo_path,  
-                "campo_extra_no_recebido",  
-                None,  
-                recebido[chave],  
-                float(peso)  
-            )  
+            registrar_diferenca(diferencas, novo_path, "campo_extra_no_recebido", None, recebido[chave], float(peso))  
   
         for chave in comuns:  
             novo_path = f"{path}.{chave}" if path else chave  
-            comparar_jsons(  
-                esperado[chave],  
-                recebido[chave],  
-                novo_path,  
-                diferencas,  
-                estatisticas  
-            )  
+            comparar_jsons(esperado[chave], recebido[chave], novo_path, diferencas, estatisticas)  
   
         return diferencas, estatisticas  
   
-    # list  
     if isinstance(esperado, list):  
         chave_match = escolher_chave_match_lista(esperado, recebido)  
   
         if chave_match:  
             mapa_esperado = {}  
             mapa_recebido = {}  
-  
             usados_fallback_esp = 0  
             usados_fallback_rec = 0  
   
@@ -570,38 +503,22 @@ def comparar_jsons(esperado, recebido, path="", diferencas=None, estatisticas=No
                     estatisticas["peso_total"] += peso  
                     estatisticas["peso_divergente"] += peso  
                     estatisticas["penalidade_extras"] += peso  
-                    registrar_diferenca(  
-                        diferencas,  
-                        novo_path,  
-                        "item_extra_no_recebido",  
-                        None,  
-                        item_rec,  
-                        float(peso)  
-                    )  
+                    registrar_diferenca(diferencas, novo_path, "item_extra_no_recebido", None, item_rec, float(peso))  
                 elif item_rec is None:  
                     peso = Decimal(str(contar_folhas_ponderadas(item_esp, novo_path)))  
                     estatisticas["campos_analisados"] += 1  
                     estatisticas["campos_divergentes"] += 1  
                     estatisticas["peso_total"] += peso  
                     estatisticas["peso_divergente"] += peso  
-                    registrar_diferenca(  
-                        diferencas,  
-                        novo_path,  
-                        "item_faltando_no_recebido",  
-                        item_esp,  
-                        None,  
-                        float(peso)  
-                    )  
+                    registrar_diferenca(diferencas, novo_path, "item_faltando_no_recebido", item_esp, None, float(peso))  
                 else:  
                     comparar_jsons(item_esp, item_rec, novo_path, diferencas, estatisticas)  
   
             return diferencas, estatisticas  
   
-        # fallback por posição  
         maior = max(len(esperado), len(recebido))  
         for i in range(maior):  
             novo_path = f"{path}[{i}]"  
-  
             if i >= len(esperado):  
                 peso = Decimal(str(contar_folhas_ponderadas(recebido[i], novo_path)))  
                 estatisticas["campos_analisados"] += 1  
@@ -609,34 +526,19 @@ def comparar_jsons(esperado, recebido, path="", diferencas=None, estatisticas=No
                 estatisticas["peso_total"] += peso  
                 estatisticas["peso_divergente"] += peso  
                 estatisticas["penalidade_extras"] += peso  
-                registrar_diferenca(  
-                    diferencas,  
-                    novo_path,  
-                    "item_extra_no_recebido",  
-                    None,  
-                    recebido[i],  
-                    float(peso)  
-                )  
+                registrar_diferenca(diferencas, novo_path, "item_extra_no_recebido", None, recebido[i], float(peso))  
             elif i >= len(recebido):  
                 peso = Decimal(str(contar_folhas_ponderadas(esperado[i], novo_path)))  
                 estatisticas["campos_analisados"] += 1  
                 estatisticas["campos_divergentes"] += 1  
                 estatisticas["peso_total"] += peso  
                 estatisticas["peso_divergente"] += peso  
-                registrar_diferenca(  
-                    diferencas,  
-                    novo_path,  
-                    "item_faltando_no_recebido",  
-                    esperado[i],  
-                    None,  
-                    float(peso)  
-                )  
+                registrar_diferenca(diferencas, novo_path, "item_faltando_no_recebido", esperado[i], None, float(peso))  
             else:  
                 comparar_jsons(esperado[i], recebido[i], novo_path, diferencas, estatisticas)  
   
         return diferencas, estatisticas  
   
-    # primitivo  
     peso = Decimal(str(peso_por_path(path or "$")))  
     estatisticas["campos_analisados"] += 1  
     estatisticas["peso_total"] += peso  
@@ -647,14 +549,7 @@ def comparar_jsons(esperado, recebido, path="", diferencas=None, estatisticas=No
     else:  
         estatisticas["campos_divergentes"] += 1  
         estatisticas["peso_divergente"] += peso  
-        registrar_diferenca(  
-            diferencas,  
-            path or "$",  
-            "valor_diferente",  
-            esperado,  
-            recebido,  
-            float(peso)  
-        )  
+        registrar_diferenca(diferencas, path or "$", "valor_diferente", esperado, recebido, float(peso))  
   
     return diferencas, estatisticas  
   
@@ -679,7 +574,6 @@ def gerar_contadores(diferencas):
             contadores[tipo] += 1  
         if sev in contadores:  
             contadores[sev] += 1  
-  
     return contadores  
   
   
@@ -693,28 +587,12 @@ def classificar_acuracia(percentual):
   
 def gerar_resumo_executivo(percentual, total_diferencas, campos_analisados, campos_conformes):  
     if total_diferencas == 0:  
-        return (  
-            f"O documento foi validado com sucesso. Foram analisados {campos_analisados} campos "  
-            f"e todos estão conformes com o gabarito."  
-        )  
-  
+        return f"O documento foi validado com sucesso. Foram analisados {campos_analisados} campos e todos estão conformes com o gabarito."  
     if percentual > 95:  
-        return (  
-            f"O documento apresenta excelente aderência. Foram analisados {campos_analisados} campos, "  
-            f"com {campos_conformes} conformes e apenas {total_diferencas} divergências."  
-        )  
-  
+        return f"O documento apresenta excelente aderência. Foram analisados {campos_analisados} campos, com {campos_conformes} conformes e apenas {total_diferencas} divergências."  
     if percentual > 80:  
-        return (  
-            f"O documento apresenta boa aderência, porém com necessidade de revisão. "  
-            f"Foram analisados {campos_analisados} campos, com {campos_conformes} conformes "  
-            f"e {total_diferencas} divergências."  
-        )  
-  
-    return (  
-        f"O documento apresenta baixa aderência ao gabarito. Foram analisados {campos_analisados} campos, "  
-        f"com {campos_conformes} conformes e {total_diferencas} divergências relevantes."  
-    )  
+        return f"O documento apresenta boa aderência, porém com necessidade de revisão. Foram analisados {campos_analisados} campos, com {campos_conformes} conformes e {total_diferencas} divergências."  
+    return f"O documento apresenta baixa aderência ao gabarito. Foram analisados {campos_analisados} campos, com {campos_conformes} conformes e {total_diferencas} divergências relevantes."  
   
   
 def top_paths_com_problema(diferencas, limite=10):  
@@ -733,19 +611,14 @@ def gerar_melhorias_globais(diferencas, contadores):
   
     if contadores["faltando_no_recebido"] > 0 or contadores["item_faltando_no_recebido"] > 0:  
         melhorias.append("Implementar validação de obrigatoriedade antes do upload do JSON.")  
-  
     if contadores["tipo_diferente"] > 0:  
         melhorias.append("Aplicar schema validation com coerção automática de tipos.")  
-  
     if contadores["valor_diferente"] > 0:  
         melhorias.append("Reforçar normalização de texto, data, CPF/CNPJ e valores monetários.")  
-  
     if contadores["campo_extra_no_recebido"] > 0 or contadores["item_extra_no_recebido"] > 0:  
         melhorias.append("Criar camada de saneamento para remover campos não previstos no payload.")  
-  
     if any("[" in d.get("path", "") for d in diferencas):  
         melhorias.append("Aprimorar o matcher de listas com chave identificadora por tipo documental.")  
-  
     if not melhorias:  
         melhorias.append("Nenhuma melhoria crítica identificada. Documento altamente aderente.")  
   
@@ -785,15 +658,11 @@ def analisar_comparacao_completa(
     peso_divergente = float(estatisticas["peso_divergente"]) if estatisticas["peso_divergente"] else 0.0  
     penalidade_extras = float(estatisticas["penalidade_extras"]) if estatisticas["penalidade_extras"] else 0.0  
   
-    if peso_total > 0:  
-        percentual_acuracia = round((peso_conforme / peso_total) * 100, 2)  
-    else:  
-        percentual_acuracia = 0.0  
-  
+    percentual_acuracia = round((peso_conforme / peso_total) * 100, 2) if peso_total > 0 else 0.0  
     classificacao = classificar_acuracia(percentual_acuracia)  
     status = "APROVADO" if len(diferencas) == 0 else "REPROVADO"  
   
-    analise = {  
+    return {  
         "metadata": {  
             "tipo_documental": tipo_documental,  
             "tipo_documental_legivel": tipo_documental_legivel,  
@@ -827,141 +696,145 @@ def analisar_comparacao_completa(
         "diferencas": diferencas  
     }  
   
-    return analise  
   
+def gerar_pdf_relatorio(analise, caminho_saida):  
+    doc = SimpleDocTemplate(  
+        caminho_saida,  
+        pagesize=landscape(A4),  
+        leftMargin=10 * mm,  
+        rightMargin=10 * mm,  
+        topMargin=10 * mm,  
+        bottomMargin=10 * mm  
+    )  
   
-def gerar_excel_relatorio(analise, caminho_saida):  
-    wb = Workbook()  
+    styles = getSampleStyleSheet()  
+    title_style = styles["Title"]  
+    normal = styles["BodyText"]  
+    heading = styles["Heading2"]  
   
-    ws1 = wb.active  
-    ws1.title = "Resumo"  
+    small = ParagraphStyle(  
+        "Small",  
+        parent=normal,  
+        fontSize=8,  
+        leading=10  
+    )  
   
-    bold = Font(bold=True)  
-    white_bold = Font(color="FFFFFF", bold=True)  
-    fill_blue = PatternFill("solid", fgColor="1D4ED8")  
-    fill_green = PatternFill("solid", fgColor="16A34A")  
-    fill_orange = PatternFill("solid", fgColor="EA580C")  
-    fill_red = PatternFill("solid", fgColor="DC2626")  
+    elements = []  
   
-    ws1["A1"] = "Valida AI - Relatório de Validação"  
-    ws1["A1"].font = Font(bold=True, size=14)  
+    elements.append(Paragraph("Valida AI - Relatório de Validação", title_style))  
+    elements.append(Spacer(1, 8))  
   
-    dados_resumo = [  
-        ("Arquivo", analise["metadata"]["nome_arquivo"]),  
-        ("GED", analise["metadata"]["ged"]),  
-        ("Tipo documental", analise["metadata"]["tipo_documental_legivel"]),  
-        ("Chave do documento", analise["metadata"]["tipo_documental"]),  
-        ("Gabarito", analise["metadata"]["gabarito_path"]),  
-        ("Processado em", analise["metadata"]["data_processamento"]),  
-        ("Status", analise["resumo"]["status"]),  
-        ("Acurácia (%)", analise["resumo"]["percentual_acuracia"]),  
-        ("Campos analisados", analise["resumo"]["campos_analisados"]),  
-        ("Campos conformes", analise["resumo"]["campos_conformes"]),  
-        ("Campos divergentes", analise["resumo"]["campos_divergentes"]),  
-        ("Total de divergências", analise["resumo"]["total_diferencas"]),  
-        ("Peso total", analise["resumo"]["peso_total"]),  
-        ("Peso conforme", analise["resumo"]["peso_conforme"]),  
-        ("Peso divergente", analise["resumo"]["peso_divergente"]),  
-        ("Penalidade por extras", analise["resumo"]["penalidade_extras"]),  
-        ("Resumo executivo", analise["resumo"]["resumo_executivo"]),  
+    meta_data = [  
+        ["Campo", "Valor"],  
+        ["Arquivo", analise["metadata"]["nome_arquivo"]],  
+        ["GED", analise["metadata"]["ged"]],  
+        ["Tipo documental", analise["metadata"]["tipo_documental_legivel"]],  
+        ["Chave do documento", analise["metadata"]["tipo_documental"]],  
+        ["Gabarito", analise["metadata"]["gabarito_path"]],  
+        ["Processado em", analise["metadata"]["data_processamento"]],  
+        ["Status", analise["resumo"]["status"]],  
+        ["Acurácia (%)", str(analise["resumo"]["percentual_acuracia"])],  
     ]  
   
-    row = 3  
-    for chave, valor in dados_resumo:  
-        ws1[f"A{row}"] = chave  
-        ws1[f"A{row}"].font = bold  
-        ws1[f"B{row}"] = str(valor)  
-        row += 1  
+    meta_table = Table(meta_data, colWidths=[60 * mm, 180 * mm])  
+    meta_table.setStyle(TableStyle([  
+        ("BACKGROUND", (0, 0), (-1, 0), colors.HexColor("#1D4ED8")),  
+        ("TEXTCOLOR", (0, 0), (-1, 0), colors.white),  
+        ("FONTNAME", (0, 0), (-1, 0), "Helvetica-Bold"),  
+        ("GRID", (0, 0), (-1, -1), 0.5, colors.grey),  
+        ("BACKGROUND", (0, 1), (-1, -1), colors.whitesmoke),  
+    ]))  
+    elements.append(meta_table)  
+    elements.append(Spacer(1, 10))  
   
-    ws1.column_dimensions["A"].width = 28  
-    ws1.column_dimensions["B"].width = 120  
+    elements.append(Paragraph("Resumo Executivo", heading))  
+    elements.append(Paragraph(analise["resumo"]["resumo_executivo"], normal))  
+    elements.append(Spacer(1, 10))  
   
-    faixa_cor = analise["resumo"]["classificacao"]["cor"]  
-    cell = ws1["B10"]  # campos conformes? vamos destacar acurácia em B10? melhor B10 not consistent  
-    # destaque na célula de acurácia: linha 10? na lista é linha 10 para campos conformes? Vamos fixar linha 10? Não.  
-    # linha real da acurácia = 3 + 7 = 10  
-    cell = ws1["B10"]  
-    if faixa_cor == "verde":  
-        cell.fill = fill_green  
-    elif faixa_cor == "laranja":  
-        cell.fill = fill_orange  
-    else:  
-        cell.fill = fill_red  
-    cell.font = white_bold  
-  
-    ws2 = wb.create_sheet("Divergencias")  
-    headers = [  
-        "#",  
-        "Path",  
-        "Tipo",  
-        "Severidade",  
-        "Peso",  
-        "Esperado",  
-        "Recebido",  
-        "Sugestão de correção",  
-        "Melhoria sugerida"  
-    ]  
-  
-    for col, header in enumerate(headers, start=1):  
-        c = ws2.cell(row=1, column=col, value=header)  
-        c.font = white_bold  
-        c.fill = fill_blue  
-        c.alignment = Alignment(wrap_text=True)  
-  
-    for idx, item in enumerate(analise["diferencas"], start=2):  
-        ws2.cell(row=idx, column=1, value=idx - 1)  
-        ws2.cell(row=idx, column=2, value=item.get("path"))  
-        ws2.cell(row=idx, column=3, value=item.get("tipo"))  
-        ws2.cell(row=idx, column=4, value=item.get("severidade"))  
-        ws2.cell(row=idx, column=5, value=item.get("peso"))  
-        ws2.cell(row=idx, column=6, value=str(item.get("esperado")))  
-        ws2.cell(row=idx, column=7, value=str(item.get("recebido")))  
-        ws2.cell(row=idx, column=8, value=item.get("sugestao_correcao"))  
-        ws2.cell(row=idx, column=9, value=item.get("melhoria_sistema"))  
-  
-        sev_cell = ws2.cell(row=idx, column=4)  
-        if item.get("severidade") == "alta":  
-            sev_cell.fill = fill_red  
-            sev_cell.font = white_bold  
-        elif item.get("severidade") == "media":  
-            sev_cell.fill = fill_orange  
-            sev_cell.font = white_bold  
-        else:  
-            sev_cell.fill = fill_green  
-            sev_cell.font = white_bold  
-  
-    widths = {  
-        "A": 8, "B": 50, "C": 24, "D": 14, "E": 10,  
-        "F": 35, "G": 35, "H": 50, "I": 55  
-    }  
-    for col, width in widths.items():  
-        ws2.column_dimensions[col].width = width  
-  
-    ws3 = wb.create_sheet("Indicadores")  
     indicadores = [  
-        ("Valores diferentes", analise["contadores"]["valor_diferente"]),  
-        ("Campos faltando", analise["contadores"]["faltando_no_recebido"]),  
-        ("Campos extras", analise["contadores"]["campo_extra_no_recebido"]),  
-        ("Tipos diferentes", analise["contadores"]["tipo_diferente"]),  
-        ("Itens faltando em listas", analise["contadores"]["item_faltando_no_recebido"]),  
-        ("Itens extras em listas", analise["contadores"]["item_extra_no_recebido"]),  
-        ("Alta severidade", analise["contadores"]["alta"]),  
-        ("Média severidade", analise["contadores"]["media"]),  
-        ("Baixa severidade", analise["contadores"]["baixa"]),  
+        ["Indicador", "Valor"],  
+        ["Campos analisados", str(analise["resumo"]["campos_analisados"])],  
+        ["Campos conformes", str(analise["resumo"]["campos_conformes"])],  
+        ["Campos divergentes", str(analise["resumo"]["campos_divergentes"])],  
+        ["Total de divergências", str(analise["resumo"]["total_diferencas"])],  
+        ["Peso total", str(analise["resumo"]["peso_total"])],  
+        ["Peso conforme", str(analise["resumo"]["peso_conforme"])],  
+        ["Peso divergente", str(analise["resumo"]["peso_divergente"])],  
+        ["Penalidade por extras", str(analise["resumo"]["penalidade_extras"])],  
     ]  
   
-    ws3["A1"] = "Indicador"  
-    ws3["B1"] = "Quantidade"  
-    ws3["A1"].font = white_bold  
-    ws3["B1"].font = white_bold  
-    ws3["A1"].fill = fill_blue  
-    ws3["B1"].fill = fill_blue  
+    ind_table = Table(indicadores, colWidths=[80 * mm, 50 * mm])  
+    ind_table.setStyle(TableStyle([  
+        ("BACKGROUND", (0, 0), (-1, 0), colors.HexColor("#0F766E")),  
+        ("TEXTCOLOR", (0, 0), (-1, 0), colors.white),  
+        ("FONTNAME", (0, 0), (-1, 0), "Helvetica-Bold"),  
+        ("GRID", (0, 0), (-1, -1), 0.5, colors.grey),  
+        ("BACKGROUND", (0, 1), (-1, -1), colors.beige),  
+    ]))  
+    elements.append(ind_table)  
+    elements.append(Spacer(1, 10))  
   
-    for i, (nome, qtd) in enumerate(indicadores, start=2):  
-        ws3[f"A{i}"] = nome  
-        ws3[f"B{i}"] = qtd  
+    elements.append(Paragraph("Top Problemas", heading))  
+    top_data = [["Path", "Tipo", "Severidade", "Peso", "Correção sugerida"]]  
   
-    ws3.column_dimensions["A"].width = 35  
-    ws3.column_dimensions["B"].width = 18  
+    if analise["top_problemas"]:  
+        for item in analise["top_problemas"]:  
+            top_data.append([  
+                Paragraph(str(item["path"]), small),  
+                Paragraph(str(item["tipo"]), small),  
+                Paragraph(str(item["severidade"]), small),  
+                Paragraph(str(item["peso"]), small),  
+                Paragraph(str(item["sugestao_correcao"]), small),  
+            ])  
+    else:  
+        top_data.append(["Sem divergências", "-", "-", "-", "-"])  
   
-    wb.save(caminho_saida)  
+    top_table = Table(top_data, colWidths=[90 * mm, 40 * mm, 30 * mm, 20 * mm, 90 * mm])  
+    top_table.setStyle(TableStyle([  
+        ("BACKGROUND", (0, 0), (-1, 0), colors.HexColor("#7C3AED")),  
+        ("TEXTCOLOR", (0, 0), (-1, 0), colors.white),  
+        ("FONTNAME", (0, 0), (-1, 0), "Helvetica-Bold"),  
+        ("GRID", (0, 0), (-1, -1), 0.5, colors.grey),  
+        ("VALIGN", (0, 0), (-1, -1), "TOP"),  
+    ]))  
+    elements.append(top_table)  
+    elements.append(PageBreak())  
+  
+    elements.append(Paragraph("Relatório Detalhado de Divergências", heading))  
+  
+    detalhe_data = [[  
+        "#", "Path", "Tipo", "Severidade", "Peso",  
+        "Esperado", "Recebido", "Correção"  
+    ]]  
+  
+    if analise["diferencas"]:  
+        for idx, item in enumerate(analise["diferencas"], start=1):  
+            detalhe_data.append([  
+                str(idx),  
+                Paragraph(str(item["path"]), small),  
+                Paragraph(str(item["tipo"]), small),  
+                Paragraph(str(item["severidade"]), small),  
+                Paragraph(str(item["peso"]), small),  
+                Paragraph(str(item["esperado"]), small),  
+                Paragraph(str(item["recebido"]), small),  
+                Paragraph(str(item["sugestao_correcao"]), small),  
+            ])  
+    else:  
+        detalhe_data.append(["1", "Sem divergências", "-", "-", "-", "-", "-", "-"])  
+  
+    detalhe_table = Table(  
+        detalhe_data,  
+        colWidths=[10 * mm, 55 * mm, 28 * mm, 22 * mm, 15 * mm, 55 * mm, 55 * mm, 60 * mm],  
+        repeatRows=1  
+    )  
+    detalhe_table.setStyle(TableStyle([  
+        ("BACKGROUND", (0, 0), (-1, 0), colors.HexColor("#1D4ED8")),  
+        ("TEXTCOLOR", (0, 0), (-1, 0), colors.white),  
+        ("FONTNAME", (0, 0), (-1, 0), "Helvetica-Bold"),  
+        ("GRID", (0, 0), (-1, -1), 0.35, colors.grey),  
+        ("VALIGN", (0, 0), (-1, -1), "TOP"),  
+        ("ROWBACKGROUNDS", (0, 1), (-1, -1), [colors.whitesmoke, colors.lightgrey]),  
+    ]))  
+    elements.append(detalhe_table)  
+  
+    doc.build(elements)  

@@ -10,7 +10,7 @@ from comparador import (
     obter_ged_do_arquivo,  
     localizar_gabarito,  
     analisar_comparacao_completa,  
-    gerar_excel_relatorio  
+    gerar_pdf_relatorio  
 )  
   
 app = Flask(__name__)  
@@ -36,59 +36,66 @@ def index():
         "erro": None,  
         "sucesso": None,  
         "analise": None,  
-        "tipo_documental": None,  
-        "tipo_documental_legivel": None,  
-        "ged": None,  
-        "gabarito_path": None,  
-        "nome_arquivo": None,  
-        "report_id": None  
+        "report_id": None,  
+        "json_texto": "",  
+        "ged_manual": ""  
     }  
   
     if request.method == "POST":  
-        if "arquivo_json" not in request.files:  
-            contexto["erro"] = "Nenhum arquivo foi enviado."  
-            return render_template("index.html", **contexto)  
+        arquivo = request.files.get("arquivo_json")  
+        json_texto = request.form.get("json_texto", "").strip()  
+        ged_manual = request.form.get("ged_manual", "").strip()  
   
-        arquivo = request.files["arquivo_json"]  
+        contexto["json_texto"] = json_texto  
+        contexto["ged_manual"] = ged_manual  
   
-        if arquivo.filename == "":  
-            contexto["erro"] = "Selecione um arquivo JSON."  
-            return render_template("index.html", **contexto)  
-  
-        nome_arquivo = secure_filename(arquivo.filename)  
-        contexto["nome_arquivo"] = nome_arquivo  
-  
-        if not nome_arquivo.lower().endswith(ALLOWED_EXTENSIONS):  
-            contexto["erro"] = "Arquivo inválido. Envie um arquivo .json."  
-            return render_template("index.html", **contexto)  
-  
-        caminho_upload = os.path.join(app.config["UPLOAD_FOLDER"], nome_arquivo)  
+        json_enviado = None  
+        nome_arquivo_original = None  
+        ged = None  
   
         try:  
-            arquivo.save(caminho_upload)  
-        except Exception as e:  
-            contexto["erro"] = f"Erro ao salvar o arquivo enviado: {str(e)}"  
-            return render_template("index.html", **contexto)  
+            # Prioridade: JSON colado  
+            if json_texto:  
+                try:  
+                    json_enviado = json.loads(json_texto)  
+                except json.JSONDecodeError as e:  
+                    contexto["erro"] = f"JSON colado inválido: {str(e)}"  
+                    return render_template("index.html", **contexto)  
   
-        try:  
-            with open(caminho_upload, "r", encoding="utf-8") as f:  
-                json_enviado = json.load(f)  
-        except json.JSONDecodeError:  
-            contexto["erro"] = "O arquivo enviado não contém um JSON válido."  
-            return render_template("index.html", **contexto)  
-        except Exception as e:  
-            contexto["erro"] = f"Erro ao ler o arquivo enviado: {str(e)}"  
-            return render_template("index.html", **contexto)  
+                if not ged_manual:  
+                    contexto["erro"] = "Ao colar o JSON, informe também o GED."  
+                    return render_template("index.html", **contexto)  
   
-        try:  
+                ged = ged_manual  
+                nome_arquivo_original = f"{ged}.json"  
+  
+            else:  
+                if not arquivo or arquivo.filename == "":  
+                    contexto["erro"] = "Envie um arquivo JSON ou cole o conteúdo do JSON no campo de texto."  
+                    return render_template("index.html", **contexto)  
+  
+                nome_arquivo_original = secure_filename(arquivo.filename)  
+  
+                if not nome_arquivo_original.lower().endswith(ALLOWED_EXTENSIONS):  
+                    contexto["erro"] = "Arquivo inválido. Envie um arquivo .json."  
+                    return render_template("index.html", **contexto)  
+  
+                ged = obter_ged_do_arquivo(nome_arquivo_original)  
+  
+                nome_interno = f"{uuid.uuid4()}_{nome_arquivo_original}"  
+                caminho_upload = os.path.join(app.config["UPLOAD_FOLDER"], nome_interno)  
+  
+                arquivo.save(caminho_upload)  
+  
+                try:  
+                    with open(caminho_upload, "r", encoding="utf-8") as f:  
+                        json_enviado = json.load(f)  
+                except json.JSONDecodeError:  
+                    contexto["erro"] = "O arquivo enviado não contém um JSON válido."  
+                    return render_template("index.html", **contexto)  
+  
             tipo_documental, tipo_documental_legivel, pasta_gabarito = detectar_tipo_documental(json_enviado)  
-            ged = obter_ged_do_arquivo(nome_arquivo)  
             caminho_gabarito = localizar_gabarito(GABARITOS_DIR, pasta_gabarito, ged)  
-  
-            contexto["tipo_documental"] = tipo_documental  
-            contexto["tipo_documental_legivel"] = tipo_documental_legivel  
-            contexto["ged"] = ged  
-            contexto["gabarito_path"] = os.path.relpath(caminho_gabarito, BASE_DIR)  
   
             with open(caminho_gabarito, "r", encoding="utf-8") as f:  
                 json_gabarito = json.load(f)  
@@ -99,25 +106,30 @@ def index():
                 tipo_documental=tipo_documental,  
                 tipo_documental_legivel=tipo_documental_legivel,  
                 ged=ged,  
-                nome_arquivo=nome_arquivo,  
-                gabarito_path=contexto["gabarito_path"]  
+                nome_arquivo=nome_arquivo_original,  
+                gabarito_path=os.path.relpath(caminho_gabarito, BASE_DIR)  
             )  
   
             report_id = str(uuid.uuid4())  
-            arquivo_excel = os.path.join(  
+            pdf_path = os.path.join(  
                 app.config["REPORTS_FOLDER"],  
-                f"relatorio_{ged}_{report_id}.xlsx"  
+                f"relatorio_{ged}_{report_id}.pdf"  
             )  
-            gerar_excel_relatorio(analise, arquivo_excel)  
+  
+            gerar_pdf_relatorio(analise, pdf_path)  
   
             REPORT_CACHE[report_id] = {  
-                "excel_path": arquivo_excel,  
-                "filename": f"relatorio_validacao_{ged}.xlsx"  
+                "pdf_path": pdf_path,  
+                "filename": f"relatorio_validacao_{ged}.pdf"  
             }  
   
             contexto["analise"] = analise  
             contexto["report_id"] = report_id  
             contexto["sucesso"] = "Comparação realizada com sucesso."  
+  
+            # limpa campos após sucesso  
+            contexto["json_texto"] = ""  
+            contexto["ged_manual"] = ""  
   
         except FileNotFoundError as e:  
             contexto["erro"] = str(e)  
@@ -129,24 +141,24 @@ def index():
     return render_template("index.html", **contexto)  
   
   
-@app.route("/download/excel/<report_id>")  
-def download_excel(report_id):  
+@app.route("/download/pdf/<report_id>")  
+def download_pdf(report_id):  
     report = REPORT_CACHE.get(report_id)  
   
     if not report:  
         return "Relatório não encontrado ou expirado.", 404  
   
-    excel_path = report["excel_path"]  
+    pdf_path = report["pdf_path"]  
     download_name = report["filename"]  
   
-    if not os.path.exists(excel_path):  
-        return "Arquivo do relatório não encontrado.", 404  
+    if not os.path.exists(pdf_path):  
+        return "Arquivo PDF não encontrado.", 404  
   
     return send_file(  
-        excel_path,  
+        pdf_path,  
         as_attachment=True,  
         download_name=download_name,  
-        mimetype="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"  
+        mimetype="application/pdf"  
     )  
   
   
