@@ -684,11 +684,17 @@
   
         <div class="card">  
             <h2>Possíveis melhorias no sistema</h2>  
-            <ul class="list-clean">  
-                {% for melhoria in analise.melhorias_globais %}  
-                    <li>{{ melhoria }}</li>  
-                {% endfor %}  
-            </ul>  
+            {% if analise.resumo.percentual_acuracia == 100.0 and analise.resumo.total_diferencas == 0 %}  
+                <div class="empty-state">  
+                    Nenhuma melhoria crítica identificada. Documento altamente aderente ao gabarito.  
+                </div>  
+            {% else %}  
+                <ul class="list-clean">  
+                    {% for melhoria in analise.melhorias_globais %}  
+                        <li>{{ melhoria }}</li>  
+                    {% endfor %}  
+                </ul>  
+            {% endif %}  
         </div>  
   
         <div class="card">  

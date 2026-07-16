@@ -1201,13 +1201,27 @@ def gerar_pdf_relatorio(analise, caminho_saida):
         secoes_data.append(["Nenhuma seção com erro", "0"])  
   
     secoes_table = Table(secoes_data, colWidths=[190 * mm, 83 * mm])  
-    secoes_table.setStyle(TableStyle([  
-        ("BACKGROUND", (0, 0), (-1, 0), cor_status_dark),  
-        ("TEXTCOLOR", (0, 0), (-1, 0), colors.white),  
-        ("FONTNAME", (0, 0), (-1, 0), "Helvetica-Bold"),  
-        ("GRID", (0, 0), (-1, -1), 0.35, cor_borda),  
-        ("ROWBACKGROUNDS", (0, 1), (-1, -1), [cor_fundo, colors.white]),  
-    ]))  
+  
+    if aprovado_100:  
+        secoes_style = TableStyle([  
+            ("BACKGROUND", (0, 0), (-1, 0), cor_verde),  
+            ("TEXTCOLOR", (0, 0), (-1, 0), colors.white),  
+            ("FONTNAME", (0, 0), (-1, 0), "Helvetica-Bold"),  
+            ("GRID", (0, 0), (-1, -1), 0.35, cor_borda),  
+            ("ROWBACKGROUNDS", (0, 1), (-1, -1), [cor_verde_claro, colors.HexColor("#F4FBF4")]),  
+            ("TEXTCOLOR", (0, 1), (-1, -1), cor_verde_escuro),  
+            ("FONTNAME", (0, 1), (-1, -1), "Helvetica-Bold"),  
+        ])  
+    else:  
+        secoes_style = TableStyle([  
+            ("BACKGROUND", (0, 0), (-1, 0), cor_status_dark),  
+            ("TEXTCOLOR", (0, 0), (-1, 0), colors.white),  
+            ("FONTNAME", (0, 0), (-1, 0), "Helvetica-Bold"),  
+            ("GRID", (0, 0), (-1, -1), 0.35, cor_borda),  
+            ("ROWBACKGROUNDS", (0, 1), (-1, -1), [cor_fundo, colors.white]),  
+        ])  
+  
+    secoes_table.setStyle(secoes_style)  
     elements.append(secoes_table)  
     elements.append(Spacer(1, 10))  
   
@@ -1231,27 +1245,40 @@ def gerar_pdf_relatorio(analise, caminho_saida):
         colWidths=[82 * mm, 36 * mm, 28 * mm, 18 * mm, 109 * mm],  
         repeatRows=1  
     )  
-    top_style = TableStyle([  
-        ("BACKGROUND", (0, 0), (-1, 0), cor_vermelho_escuro),  
-        ("TEXTCOLOR", (0, 0), (-1, 0), colors.white),  
-        ("FONTNAME", (0, 0), (-1, 0), "Helvetica-Bold"),  
-        ("GRID", (0, 0), (-1, -1), 0.3, cor_borda),  
-        ("VALIGN", (0, 0), (-1, -1), "TOP"),  
-        ("ROWBACKGROUNDS", (0, 1), (-1, -1), [cor_fundo, colors.white]),  
-        ("FONTSIZE", (0, 0), (-1, -1), 8),  
-    ])  
   
-    if analise["top_problemas"]:  
-        for row_idx, item in enumerate(analise["top_problemas"], start=1):  
-            sev = item["severidade"]  
-            if sev == "alta":  
-                top_style.add("TEXTCOLOR", (2, row_idx), (2, row_idx), cor_vermelho)  
-                top_style.add("FONTNAME", (2, row_idx), (2, row_idx), "Helvetica-Bold")  
-            elif sev == "media":  
-                top_style.add("TEXTCOLOR", (2, row_idx), (2, row_idx), cor_laranja)  
-                top_style.add("FONTNAME", (2, row_idx), (2, row_idx), "Helvetica-Bold")  
-            else:  
-                top_style.add("TEXTCOLOR", (2, row_idx), (2, row_idx), cor_texto)  
+    if aprovado_100:  
+        top_style = TableStyle([  
+            ("BACKGROUND", (0, 0), (-1, 0), cor_verde),  
+            ("TEXTCOLOR", (0, 0), (-1, 0), colors.white),  
+            ("FONTNAME", (0, 0), (-1, 0), "Helvetica-Bold"),  
+            ("GRID", (0, 0), (-1, -1), 0.3, cor_borda),  
+            ("VALIGN", (0, 0), (-1, -1), "TOP"),  
+            ("ROWBACKGROUNDS", (0, 1), (-1, -1), [cor_verde_claro, colors.HexColor("#F4FBF4")]),  
+            ("FONTSIZE", (0, 0), (-1, -1), 8),  
+            ("TEXTCOLOR", (0, 1), (-1, -1), cor_verde_escuro),  
+        ])  
+    else:  
+        top_style = TableStyle([  
+            ("BACKGROUND", (0, 0), (-1, 0), cor_vermelho_escuro),  
+            ("TEXTCOLOR", (0, 0), (-1, 0), colors.white),  
+            ("FONTNAME", (0, 0), (-1, 0), "Helvetica-Bold"),  
+            ("GRID", (0, 0), (-1, -1), 0.3, cor_borda),  
+            ("VALIGN", (0, 0), (-1, -1), "TOP"),  
+            ("ROWBACKGROUNDS", (0, 1), (-1, -1), [cor_fundo, colors.white]),  
+            ("FONTSIZE", (0, 0), (-1, -1), 8),  
+        ])  
+  
+        if analise["top_problemas"]:  
+            for row_idx, item in enumerate(analise["top_problemas"], start=1):  
+                sev = item["severidade"]  
+                if sev == "alta":  
+                    top_style.add("TEXTCOLOR", (2, row_idx), (2, row_idx), cor_vermelho)  
+                    top_style.add("FONTNAME", (2, row_idx), (2, row_idx), "Helvetica-Bold")  
+                elif sev == "media":  
+                    top_style.add("TEXTCOLOR", (2, row_idx), (2, row_idx), cor_laranja)  
+                    top_style.add("FONTNAME", (2, row_idx), (2, row_idx), "Helvetica-Bold")  
+                else:  
+                    top_style.add("TEXTCOLOR", (2, row_idx), (2, row_idx), cor_texto)  
   
     top_table.setStyle(top_style)  
     elements.append(top_table)  
@@ -1263,13 +1290,13 @@ def gerar_pdf_relatorio(analise, caminho_saida):
     melhorias_data = [["Melhoria sugerida"]]  
     for melhoria in analise["melhorias_globais"]:  
         melhorias_data.append([Paragraph(melhoria, normal)])  
-    
+  
     sem_melhorias_criticas = (  
         aprovado_100 and  
         len(analise["melhorias_globais"]) == 1 and  
         "Nenhuma melhoria crítica identificada" in analise["melhorias_globais"][0]  
     )  
-    
+  
     if sem_melhorias_criticas:  
         cor_melhoria_header = cor_verde  
         cor_melhoria_row_1 = cor_verde_claro  
@@ -1278,7 +1305,7 @@ def gerar_pdf_relatorio(analise, caminho_saida):
         cor_melhoria_header = cor_laranja  
         cor_melhoria_row_1 = cor_fundo  
         cor_melhoria_row_2 = colors.white  
-    
+  
     melhorias_table = Table(melhorias_data, colWidths=[273 * mm])  
     melhorias_style = TableStyle([  
         ("BACKGROUND", (0, 0), (-1, 0), cor_melhoria_header),  
@@ -1288,14 +1315,14 @@ def gerar_pdf_relatorio(analise, caminho_saida):
         ("ROWBACKGROUNDS", (0, 1), (-1, -1), [cor_melhoria_row_1, cor_melhoria_row_2]),  
         ("VALIGN", (0, 0), (-1, -1), "TOP"),  
     ])  
-    
+  
     if sem_melhorias_criticas:  
         melhorias_style.add("TEXTCOLOR", (0, 1), (-1, -1), cor_verde_escuro)  
         melhorias_style.add("FONTNAME", (0, 1), (-1, -1), "Helvetica-Bold")  
-    
+  
     melhorias_table.setStyle(melhorias_style)  
     elements.append(melhorias_table)  
-    elements.append(Spacer(1, 10))   
+    elements.append(Spacer(1, 10))  
   
     elements.append(Paragraph("Relatório detalhado de divergências", secao_style))  
     detalhe_data = [[  
@@ -1324,27 +1351,39 @@ def gerar_pdf_relatorio(analise, caminho_saida):
         repeatRows=1  
     )  
   
-    detalhe_style = TableStyle([  
-        ("BACKGROUND", (0, 0), (-1, 0), cor_status_dark),  
-        ("TEXTCOLOR", (0, 0), (-1, 0), colors.white),  
-        ("FONTNAME", (0, 0), (-1, 0), "Helvetica-Bold"),  
-        ("GRID", (0, 0), (-1, -1), 0.25, cor_borda),  
-        ("VALIGN", (0, 0), (-1, -1), "TOP"),  
-        ("ROWBACKGROUNDS", (0, 1), (-1, -1), [cor_fundo, colors.white]),  
-        ("FONTSIZE", (0, 0), (-1, -1), 7.5),  
-    ])  
+    if aprovado_100:  
+        detalhe_style = TableStyle([  
+            ("BACKGROUND", (0, 0), (-1, 0), cor_verde),  
+            ("TEXTCOLOR", (0, 0), (-1, 0), colors.white),  
+            ("FONTNAME", (0, 0), (-1, 0), "Helvetica-Bold"),  
+            ("GRID", (0, 0), (-1, -1), 0.25, cor_borda),  
+            ("VALIGN", (0, 0), (-1, -1), "TOP"),  
+            ("ROWBACKGROUNDS", (0, 1), (-1, -1), [cor_verde_claro, colors.HexColor("#F4FBF4")]),  
+            ("FONTSIZE", (0, 0), (-1, -1), 7.5),  
+            ("TEXTCOLOR", (0, 1), (-1, -1), cor_verde_escuro),  
+        ])  
+    else:  
+        detalhe_style = TableStyle([  
+            ("BACKGROUND", (0, 0), (-1, 0), cor_status_dark),  
+            ("TEXTCOLOR", (0, 0), (-1, 0), colors.white),  
+            ("FONTNAME", (0, 0), (-1, 0), "Helvetica-Bold"),  
+            ("GRID", (0, 0), (-1, -1), 0.25, cor_borda),  
+            ("VALIGN", (0, 0), (-1, -1), "TOP"),  
+            ("ROWBACKGROUNDS", (0, 1), (-1, -1), [cor_fundo, colors.white]),  
+            ("FONTSIZE", (0, 0), (-1, -1), 7.5),  
+        ])  
   
-    if analise["diferencas"]:  
-        for row_idx, item in enumerate(analise["diferencas"], start=1):  
-            sev = item["severidade"]  
-            if sev == "alta":  
-                detalhe_style.add("TEXTCOLOR", (3, row_idx), (3, row_idx), cor_vermelho)  
-                detalhe_style.add("FONTNAME", (3, row_idx), (3, row_idx), "Helvetica-Bold")  
-            elif sev == "media":  
-                detalhe_style.add("TEXTCOLOR", (3, row_idx), (3, row_idx), cor_laranja)  
-                detalhe_style.add("FONTNAME", (3, row_idx), (3, row_idx), "Helvetica-Bold")  
-            else:  
-                detalhe_style.add("TEXTCOLOR", (3, row_idx), (3, row_idx), cor_texto)  
+        if analise["diferencas"]:  
+            for row_idx, item in enumerate(analise["diferencas"], start=1):  
+                sev = item["severidade"]  
+                if sev == "alta":  
+                    detalhe_style.add("TEXTCOLOR", (3, row_idx), (3, row_idx), cor_vermelho)  
+                    detalhe_style.add("FONTNAME", (3, row_idx), (3, row_idx), "Helvetica-Bold")  
+                elif sev == "media":  
+                    detalhe_style.add("TEXTCOLOR", (3, row_idx), (3, row_idx), cor_laranja)  
+                    detalhe_style.add("FONTNAME", (3, row_idx), (3, row_idx), "Helvetica-Bold")  
+                else:  
+                    detalhe_style.add("TEXTCOLOR", (3, row_idx), (3, row_idx), cor_texto)  
   
     detalhe_table.setStyle(detalhe_style)  
     elements.append(detalhe_table)  
