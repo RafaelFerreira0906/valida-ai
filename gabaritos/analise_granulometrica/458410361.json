@@ -1,0 +1,32 @@
+{
+  "e_analise_granulometrica": true,
+  "proprietarios_solicitantes": [
+    {
+      "proprietario_solicitante": "JOÃO VICTOR QUEIROZ LEITE"
+    }
+  ],
+  "cultura": "",
+  "variedade": "",
+  "municipio_cidade": "",
+  "imoveis": [
+    {
+      "denominacao_imovel": "SITIO TIMORANTE",
+      "matricula_imovel": ""
+    }
+  ],
+  "data_analise": "2020-02-28",
+  "distribuicao_particulas": [
+    {
+      "amostra": 381,
+      "areia_total": 75.6,
+      "silte": 14.1,
+      "argila": 10.3,
+      "area/propriedade": "SITIO TIMORANTE",
+      "profundidade": {
+        "minimo": "0",
+        "maximo": "20"
+      }
+    }
+  ],
+  "mensagem": "Classificação baseada nas portarias do ZARC para o cultivo agrícola. O usuário deverá consultar as portarias de Zoneamento Agrícola de Risco Climático no endereço: https://www.gov.br/agricultura/pt-br/assuntos/riscos-seguro/programa-nacional-de-zoneamento-agricola-de-risco-climatico/portarias"
+}

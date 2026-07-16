@@ -1,0 +1,46 @@
+{
+  "e_analise_granulometrica": true,
+  "proprietarios_solicitantes": [
+    {
+      "proprietario_solicitante": "GUNTHER BACHMANN JUNIOR"
+    },
+    {
+      "proprietario_solicitante": "JOSE CARLOS ALVES BACHMANN"
+    }
+  ],
+  "cultura": "",
+  "variedade": "",
+  "municipio_cidade": "BARREIROS-PE",
+  "imoveis": [
+    {
+      "denominacao_imovel": "FAZENDA ESTIVAS",
+      "matricula_imovel": ""
+    }
+  ],
+  "data_analise": "2023-01-10",
+  "distribuicao_particulas": [
+    {
+      "amostra": "003",
+      "areia_total": "90",
+      "silte": "5",
+      "argila": "5",
+      "area/propriedade": "FAZENDA ESTIVAS",
+      "profundidade": {
+        "minimo": "",
+        "maximo": ""
+      }
+    },
+    {
+      "amostra": "002",
+      "areia_total": "92",
+      "silte": "3",
+      "argila": "5",
+      "area/propriedade": "FAZENDA ESTIVAS",
+      "profundidade": {
+        "minimo": "",
+        "maximo": ""
+      }
+    }
+  ],
+  "mensagem": "Classificação baseada nas portarias do ZARC para o cultivo agrícola. O usuário deverá consultar as portarias de Zoneamento Agrícola de Risco Climático no endereço: https://www.gov.br/agricultura/pt-br/assuntos/riscos-seguro/programa-nacional-de-zoneamento-agricola-de-risco-climatico/portarias"
+}

@@ -2,19 +2,14 @@ import os
 import json
 import re
 import unicodedata
-import pandas as pd
 
 from difflib import SequenceMatcher
 
 
 SIMILARIDADE_MINIMA = 0.75
 
-CAMPOS_IGNORADOS = {
-    "id_documento"
-}
 
 MAPA_DOCUMENTOS = {
-
     "e_analise_granulometrica":
         "Análise Granulométrica",
 
@@ -50,7 +45,46 @@ MAPA_DOCUMENTOS = {
 
     "e_titulo_dominio":
         "Título de Domínio"
+}
 
+
+MAPA_PASTAS = {
+
+    "e_analise_granulometrica":
+        "analise_granulometrica",
+
+    "e_certidao_inteiro_teor":
+        "certidao_inteiro_teor",
+
+    "e_contrato_de_locacao":
+        "contrato_locacao",
+
+    "e_contrato_social":
+        "contrato_social",
+
+    "e_declaracao_posse_terceiros":
+        "declaracao_posse",
+
+    "e_demonstracoes_contabeis":
+        "demonstracoes_contabeis",
+
+    "e_fianca_bancaria":
+        "fianca_bancaria",
+
+    "e_aditivo_fianca_bancaria":
+        "aditivo_fianca_bancaria",
+
+    "e_orcamento_fne_sol":
+        "orcamento_fne_sol",
+
+    "e_parecer_gerencial":
+        "parecer_gerencial",
+
+    "e_procuracao":
+        "procuracao",
+
+    "e_titulo_dominio":
+        "titulo_dominio"
 }
 
 
@@ -67,10 +101,10 @@ def normalizar(texto):
     )
 
     texto = texto.encode(
-        "ASCII",
+        "ascii",
         "ignore"
     ).decode(
-        "ASCII"
+        "ascii"
     )
 
     texto = texto.lower()
@@ -128,7 +162,10 @@ def flatten_json(
 
     resultado = {}
 
-    if isinstance(obj, dict):
+    if isinstance(
+        obj,
+        dict
+    ):
 
         for chave, valor in obj.items():
 
@@ -145,7 +182,10 @@ def flatten_json(
                 )
             )
 
-    elif isinstance(obj, list):
+    elif isinstance(
+        obj,
+        list
+    ):
 
         if len(obj) == 0:
 
@@ -154,7 +194,8 @@ def flatten_json(
         else:
 
             resultado[prefix] = " | ".join(
-                [str(x) for x in obj]
+                str(item)
+                for item in obj
             )
 
     else:
@@ -164,108 +205,116 @@ def flatten_json(
     return resultado
 
 
-def carregar_gabarito(
-    arquivo_excel
-):
-
-    df = pd.read_excel(
-        arquivo_excel,
-        engine="openpyxl"
-    )
-
-    if (
-        "Campo" not in df.columns
-        or
-        "Valor" not in df.columns
-    ):
-        raise Exception(
-            "O Excel deve possuir as colunas Campo e Valor."
-        )
-
-    gabarito = {}
-
-    for _, linha in df.iterrows():
-
-        campo = str(
-            linha["Campo"]
-        ).strip()
-
-        valor = ""
-
-        if pd.notna(
-            linha["Valor"]
-        ):
-            valor = str(
-                linha["Valor"]
-            ).strip()
-
-        gabarito[campo] = valor
-
-    return gabarito
-
-
 def carregar_json(
-    arquivo_json
+    caminho
 ):
 
     with open(
-        arquivo_json,
+        caminho,
         "r",
         encoding="utf-8"
-    ) as f:
+    ) as arquivo:
 
-        dados = json.load(f)
+        return json.load(
+            arquivo
+        )
 
-    return flatten_json(
-        dados
+
+def obter_tipo_documental(
+    json_dados
+):
+    return next(
+        iter(json_dados)
     )
 
 
-def localizar_campo_json(
-    campo_excel,
-    json_flat
+def obter_ged(
+    caminho_json
 ):
 
-    if campo_excel in json_flat:
-        return campo_excel
+    nome = os.path.basename(
+        caminho_json
+    )
 
-    for chave in json_flat.keys():
+    return os.path.splitext(
+        nome
+    )[0]
 
-        if chave.endswith(
-            "." + campo_excel
-        ):
-            return chave
 
-    for chave in json_flat.keys():
+def localizar_gabarito(
+    tipo_documental,
+    ged
+):
 
-        ultimo = chave.split(".")[-1]
+    if tipo_documental not in MAPA_PASTAS:
 
-        if ultimo == campo_excel:
-            return chave
+        raise Exception(
+            f"Tipo documental não mapeado: "
+            f"{tipo_documental}"
+        )
 
-    return None
+    pasta = MAPA_PASTAS[
+        tipo_documental
+    ]
+
+    caminho = os.path.join(
+        "gabaritos",
+        pasta,
+        f"{ged}.json"
+    )
+
+    if not os.path.exists(
+        caminho
+    ):
+        raise Exception(
+            f"Gabarito não encontrado: {caminho}"
+        )
+
+    return caminho
 
 
 def comparar(
-    arquivo_excel,
-    arquivo_json
+    caminho_json
 ):
 
-    gabarito = carregar_gabarito(
-        arquivo_excel
+    json_recebido = carregar_json(
+        caminho_json
     )
 
-    resultado_json = carregar_json(
-        arquivo_json
+    tipo_documental = (
+        obter_tipo_documental(
+            json_recebido
+        )
     )
 
-    with open(
-        arquivo_json,
-        "r",
-        encoding="utf-8"
-    ) as f:
+    ged = obter_ged(
+        caminho_json
+    )
 
-        json_original = json.load(f)
+    caminho_gabarito = (
+        localizar_gabarito(
+            tipo_documental,
+            ged
+        )
+    )
+
+    json_gabarito = (
+        carregar_json(
+            caminho_gabarito
+        )
+    )
+
+    json_recebido_flat = (
+        flatten_json(
+            json_recebido
+        )
+    )
+
+    json_gabarito_flat = (
+        flatten_json(
+            json_gabarito
+        )
+    )
 
     total = 0
     acertos = 0
@@ -274,19 +323,11 @@ def comparar(
     divergencias = []
     nao_encontrados = []
 
-    for campo, esperado in gabarito.items():
-
-        if campo in CAMPOS_IGNORADOS:
-            continue
+    for campo, esperado in json_gabarito_flat.items():
 
         total += 1
 
-        chave_json = localizar_campo_json(
-            campo,
-            resultado_json
-        )
-
-        if chave_json is None:
+        if campo not in json_recebido_flat:
 
             erros += 1
 
@@ -296,8 +337,8 @@ def comparar(
 
             continue
 
-        obtido = resultado_json[
-            chave_json
+        obtido = json_recebido_flat[
+            campo
         ]
 
         if comparar_textos(
@@ -324,7 +365,7 @@ def comparar(
             divergencias.append(
                 {
                     "campo_excel": campo,
-                    "campo_json": chave_json,
+                    "campo_json": campo,
                     "esperado": esperado,
                     "obtido": obtido,
                     "similaridade": round(
@@ -340,22 +381,11 @@ def comparar(
         else 0
     )
 
-    id_documento = os.path.splitext(
-        os.path.basename(
-            arquivo_json
+    tipo_documento = (
+        MAPA_DOCUMENTOS.get(
+            tipo_documental,
+            tipo_documental
         )
-    )[0]
-
-    primeira_chave = next(
-        iter(json_original)
-    )
-
-    tipo_documento = MAPA_DOCUMENTOS.get(
-        primeira_chave,
-        primeira_chave
-            .replace("e_", "")
-            .replace("_", " ")
-            .title()
     )
 
     return {
@@ -366,7 +396,7 @@ def comparar(
         "divergencias": divergencias,
         "nao_encontrados": nao_encontrados,
         "tipo_documento": tipo_documento,
-        "id_documento": id_documento
+        "id_documento": ged
     }
 
 
@@ -382,11 +412,13 @@ def gerar_relatorio_html(
 ):
 
     if percentual >= 95:
-        cor_acuracia = "#09FA96"
+        cor = "#09FA96"
+
     elif percentual >= 80:
-        cor_acuracia = "#FF9800"
+        cor = "#FF9800"
+
     else:
-        cor_acuracia = "#D32F2F"
+        cor = "#D32F2F"
 
     linhas_divergencias = ""
 
@@ -428,7 +460,7 @@ def gerar_relatorio_html(
 body {{
     margin:0;
     background:#F5F5F5;
-    font-family:'Segoe UI', Arial, sans-serif;
+    font-family:'Segoe UI', Arial;
 }}
 
 .topo {{
@@ -447,7 +479,7 @@ body {{
     margin-top:20px;
     padding:20px;
     border-radius:8px;
-    box-shadow:0 2px 4px rgba(0,0,0,.10);
+    box-shadow:0 2px 5px rgba(0,0,0,.1);
 }}
 
 .indicadores {{
@@ -459,15 +491,15 @@ body {{
 .barra {{
     width:100%;
     height:35px;
-    background:#DDD;
-    margin-top:20px;
+    background:#ddd;
     border-radius:8px;
+    margin-top:20px;
 }}
 
 .barra-interna {{
     width:{percentual}%;
     height:100%;
-    background:{cor_acuracia};
+    background:{cor};
 }}
 
 table {{
@@ -481,7 +513,7 @@ th {{
 }}
 
 th, td {{
-    border:1px solid #DDD;
+    border:1px solid #ddd;
     padding:10px;
     text-align:center;
 }}
@@ -493,33 +525,14 @@ th, td {{
     padding:14px 30px;
     border-radius:6px;
     cursor:pointer;
-    font-weight:bold;
 }}
 
 .footer {{
+    margin-top:40px;
+    border-top:1px solid #ddd;
+    padding:20px;
     display:flex;
     justify-content:space-between;
-    align-items:center;
-    margin-top:40px;
-    padding:20px;
-    border-top:1px solid #DDD;
-}}
-
-.footer-esquerda {{
-    font-weight:bold;
-}}
-
-.footer-direita {{
-    font-weight:bold;
-    color:#AC123B;
-}}
-
-@media print {{
-
-    .btn {{
-        display:none;
-    }}
-
 }}
 
 </style>
@@ -529,13 +542,8 @@ th, td {{
 <body>
 
 <div class="topo">
-
 <h1>Valida AI</h1>
-
-<h3>
-{tipo_documento} - GED: {id_documento}
-</h3>
-
+<h3>{tipo_documento} - GED: {id_documento}</h3>
 </div>
 
 <div class="container">
@@ -582,7 +590,7 @@ th, td {{
 
 <thead>
 <tr>
-<th>Campo Excel</th>
+<th>Campo Gabarito</th>
 <th>Campo JSON</th>
 <th>Esperado</th>
 <th>Obtido</th>
@@ -591,9 +599,7 @@ th, td {{
 </thead>
 
 <tbody>
-
 {linhas_divergencias}
-
 </tbody>
 
 </table>
@@ -614,33 +620,29 @@ th, td {{
 </thead>
 
 <tbody>
-
 {linhas_nao_encontrados}
-
 </tbody>
 
 </table>
 
 </div>
 
-<div style="text-align:center;margin:30px;">
-
+<div style="text-align:center;margin:30px">
 <button
 class="btn"
 onclick="window.print()">
 📄 Exportar PDF
 </button>
-
 </div>
 
 <div class="footer">
 
-<div class="footer-esquerda">
+<div>
 Valida AI - Resultado da Validação
 </div>
 
-<div class="footer-direita">
-Desenvolvido por: Rafael Ferreira - D004028
+<div>
+Desenvolvido por Rafael Ferreira
 </div>
 
 </div>

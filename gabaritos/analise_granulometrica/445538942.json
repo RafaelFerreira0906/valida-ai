@@ -1,0 +1,32 @@
+{
+  "e_analise_granulometrica": true,
+  "proprietarios_solicitantes": [
+    {
+      "proprietario_solicitante": "OSCAR DA CUNHA FERREIRA"
+    }
+  ],
+  "cultura": "",
+  "variedade": "",
+  "municipio_cidade": "Sirinhaém-PE",
+  "imoveis": [
+    {
+      "denominacao_imovel": "FAZENDA MARAVILHA",
+      "matricula_imovel": ""
+    }
+  ],
+  "data_analise": "2019-01-25",
+  "distribuicao_particulas": [
+    {
+      "amostra": "17",
+      "areia_total": "55",
+      "silte": "19",
+      "argila": "26",
+      "area/propriedade": "FAZENDA MARAVILHA",
+      "profundidade": {
+        "minimo": "",
+        "maximo": ""
+      }
+    }
+  ],
+  "mensagem": "Classificação baseada nas portarias do ZARC para o cultivo agrícola. O usuário deverá consultar as portarias de Zoneamento Agrícola de Risco Climático no endereço: https://www.gov.br/agricultura/pt-br/assuntos/riscos-seguro/programa-nacional-de-zoneamento-agricola-de-risco-climatico/portarias"
+}

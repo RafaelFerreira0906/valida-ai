@@ -1,60 +1,74 @@
 from flask import Flask, render_template, request
 import os
-import uuid
 import comparador
 
 app = Flask(__name__)
 
 UPLOAD_FOLDER = "uploads"
-os.makedirs(UPLOAD_FOLDER, exist_ok=True)
+
+os.makedirs(
+    UPLOAD_FOLDER,
+    exist_ok=True
+)
 
 
 @app.route("/")
 def inicio():
-    return render_template("index.html")
+    return render_template(
+        "index.html"
+    )
 
 
-@app.route("/validar", methods=["POST"])
+@app.route(
+    "/validar",
+    methods=["POST"]
+)
 def validar():
 
     try:
 
-        excel = request.files["excel"]
-        json_file = request.files["json"]
+        if "json" not in request.files:
+            raise Exception(
+                "Nenhum arquivo JSON enviado."
+            )
 
-        identificador = str(uuid.uuid4())
+        arquivo_json = request.files["json"]
 
-        excel_path = os.path.join(
+        if arquivo_json.filename == "":
+            raise Exception(
+                "Selecione um arquivo JSON."
+            )
+
+        nome_arquivo = os.path.basename(
+            arquivo_json.filename
+        )
+
+        caminho_json = os.path.join(
             UPLOAD_FOLDER,
-            f"{identificador}.xlsx"
+            nome_arquivo
         )
 
-       
-        json_path = os.path.join(
-        UPLOAD_FOLDER,
-        json_file.filename
+        arquivo_json.save(
+            caminho_json
         )
-
-
-        excel.save(excel_path)
-        json_file.save(json_path)
 
         resultado = comparador.comparar(
-            excel_path,
-            json_path
+            caminho_json
         )
 
-        html = comparador.gerar_relatorio_html(
+        return comparador.gerar_relatorio_html(
             **resultado
         )
 
-        return html
-
-    except Exception as e:
+    except Exception as erro:
 
         return f"""
-        <h1>Erro na validação</h1>
-        <pre>{str(e)}</pre>
+        <html>
+            <body style="font-family:Segoe UI;padding:40px">
+                <h2>Erro na validação</h2>
+                <pre>{str(erro)}</pre>
+            </body>
+        </html>
         """, 500
 
 

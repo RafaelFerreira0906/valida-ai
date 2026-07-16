@@ -1,0 +1,27 @@
+{
+  "e_analise_granulometrica": true,
+  "proprietarios_solicitantes": [
+    {
+      "proprietario_solicitante": "OTONIVALDO FEIJO FERREIRA"
+    }
+  ],
+  "cultura": "CANA-DE-ACUCAR",
+  "variedade": "",
+  "municipio_cidade": "Sirinhaem-PE",
+  "imoveis": [],
+  "data_analise": "2019-05-07",
+  "distribuicao_particulas": [
+    {
+      "amostra": "171",
+      "areia_total": "72",
+      "silte": "8",
+      "argila": "20",
+      "area/propriedade": "ZAP",
+      "profundidade": {
+        "minimo": "",
+        "maximo": ""
+      }
+    }
+  ],
+  "mensagem": "Classificação baseada nas portarias do ZARC para o cultivo agrícola. O usuário deverá consultar as portarias de Zoneamento Agrícola de Risco Climático no endereço: https://www.gov.br/agricultura/pt-br/assuntos/riscos-seguro/programa-nacional-de-zoneamento-agricola-de-risco-climatico/portarias"
+}
