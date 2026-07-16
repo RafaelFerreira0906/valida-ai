@@ -26,16 +26,35 @@
             margin-top: 0;
         }
 
-        p {
-            margin-bottom: 8px;
+        .info {
+            background: #f8f8f8;
+            border-left: 4px solid #AC123B;
+            padding: 12px;
+            margin-bottom: 20px;
+            font-size: 14px;
         }
 
-        input[type=file] {
-            width: 100%;
-            padding: 10px 0;
+        .arquivo-area {
+            margin-top: 20px;
+            margin-bottom: 20px;
         }
 
-        button {
+        input[type="file"] {
+            display: none;
+        }
+
+        .btn-importar {
+            display: inline-block;
+            background: #F58220;
+            color: white;
+            padding: 12px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        .btn-validar {
             background: #AC123B;
             color: white;
             border: none;
@@ -45,16 +64,16 @@
             font-weight: bold;
         }
 
-        button:hover {
+        .btn-importar:hover,
+        .btn-validar:hover {
             opacity: .9;
         }
 
-        .info {
-            background: #f8f8f8;
-            border-left: 4px solid #AC123B;
-            padding: 12px;
-            margin-bottom: 20px;
+        .nome-arquivo {
+            margin-top: 12px;
+            color: #333;
             font-size: 14px;
+            font-weight: bold;
         }
     </style>
 </head>
@@ -66,28 +85,53 @@
         <h1>Valida AI</h1>
 
         <div class="info">
-            Envie o JSON retornado pela IA. O sistema identificará automaticamente
-            o tipo documental e o GED pelo nome do arquivo.
+            Importe o JSON retornado pela IA. O sistema identificará automaticamente
+            o tipo documental pela primeira chave do JSON e o GED pelo nome do arquivo.
         </div>
 
-        <form
-            action="/validar"
-            method="POST"
-            enctype="multipart/form-data"
-       name="json"
-                accept=".json"
-                required
-            >
+        /validar
 
-            <br><br>
+            <div class="arquivo-area">
 
-            <button type="submit">
+                <label for="json" class="btn-importar">
+                    Importar JSON
+                </label>
+
+                <input
+                    type="file"
+                    id="json"
+                    name="json"
+                    accept=".json"
+                    required
+                    onchange="mostrarNomeArquivo()"
+                >
+
+                <div id="nomeArquivo" class="nome-arquivo">
+                    Nenhum arquivo selecionado.
+                </div>
+
+            </div>
+
+            <button type="submit" class="btn-validar">
                 VALIDAR
             </button>
 
         </form>
 
     </div>
+
+    <script>
+        function mostrarNomeArquivo() {
+            const input = document.getElementById("json");
+            const nomeArquivo = document.getElementById("nomeArquivo");
+
+            if (input.files.length > 0) {
+                nomeArquivo.textContent = "Arquivo selecionado: " + input.files[0].name;
+            } else {
+                nomeArquivo.textContent = "Nenhum arquivo selecionado.";
+            }
+        }
+    </script>
 
 </body>
 
