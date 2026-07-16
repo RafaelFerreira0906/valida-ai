@@ -1,0 +1,147 @@
+{
+  "e_contrato_de_locacao": true,
+  "nomes_que_possuem_selo_carimbo_de_firma_reconhecida": [],
+  "todos_os_envolvidos_no_contrato": [
+    {
+      "nome": "GERALDO CANDIDO DA SILVA",
+      "endereco": "Rua Augusto Vaz nº 885, Casa B, Bairro Centro, Cidade Capitão Andrade/MG, CEP 35.123-000",
+      "CPF_ou_CNPJ": "594.020.406-68",
+      "locador": true,
+      "locatario": false,
+      "fiador_ou_avalista": false,
+      "e_procurador_ou_representante_do_locador": false,
+      "e_procurador_ou_representante_do_locatario": false,
+      "e_procurador_ou_representante_do_fiador": false,
+      "possui_procurador_ou_representante": false,
+      "casado": true,
+      "venia_conjugal": false,
+      "assinatura_reconhecida_ou_digital": {
+        "reconhecimento_de_firma": {
+          "existe_nome_da_pessoa_ou_do_seu_representante_no_selo_firma": false,
+          "existe_carimbo_de_assinatura_confere_com_a_original_gerente_banco": false,
+          "matricula_gerente": "",
+          "nome_gerente_carimbo": "",
+          "registro_titulos_e_documentos_livro_3_firma_reconhecida": false,
+          "nome_pessoa_firma_reconhecida_e_locador_ou_locataria_ou_fiador": "",
+          "nome_pessoa_firma_reconhecida_e_procurador_ou_representante": "",
+          "numero_selo_cartorario": "",
+          "numero_selo_digital": "",
+          "site_consulta_selo": ""
+        },
+        "assinatura_digital": {
+          "existe_nome_da_pessoa_ou_do_seu_representante_no_selo_digital": false,
+          "nome_da_assinatura_digital_e_locador_ou_locataria_ou_fiador": "",
+          "nome_da_assinatura_digital_e_procurador_ou_representante": "",
+          "numero_selo_digital": "",
+          "site_autenticacao": ""
+        }
+      }
+    },
+    {
+      "nome": "L&R CONSTRUTORA E EMPREEDIMENTOS LTDA",
+      "endereco": "Não Localizado",
+      "CPF_ou_CNPJ": "36.723.015/0001-25",
+      "locador": false,
+      "locatario": true,
+      "fiador_ou_avalista": false,
+      "e_procurador_ou_representante_do_locador": false,
+      "e_procurador_ou_representante_do_locatario": false,
+      "e_procurador_ou_representante_do_fiador": false,
+      "possui_procurador_ou_representante": true,
+      "casado": false,
+      "venia_conjugal": false,
+      "assinatura_reconhecida_ou_digital": {
+        "reconhecimento_de_firma": {
+          "existe_nome_da_pessoa_ou_do_seu_representante_no_selo_firma": false,
+          "existe_carimbo_de_assinatura_confere_com_a_original_gerente_banco": false,
+          "matricula_gerente": "",
+          "nome_gerente_carimbo": "",
+          "registro_titulos_e_documentos_livro_3_firma_reconhecida": false,
+          "nome_pessoa_firma_reconhecida_e_locador_ou_locataria_ou_fiador": "",
+          "nome_pessoa_firma_reconhecida_e_procurador_ou_representante": "",
+          "numero_selo_cartorario": "",
+          "numero_selo_digital": "",
+          "site_consulta_selo": ""
+        },
+        "assinatura_digital": {
+          "existe_nome_da_pessoa_ou_do_seu_representante_no_selo_digital": false,
+          "nome_da_assinatura_digital_e_locador_ou_locataria_ou_fiador": "",
+          "nome_da_assinatura_digital_e_procurador_ou_representante": "",
+          "numero_selo_digital": "",
+          "site_autenticacao": ""
+        }
+      }
+    },
+    {
+      "nome": "Robério Goveia Machado",
+      "endereco": "endereço do Imóvel objeto do presente contrato",
+      "CPF_ou_CNPJ": "103.188.706-73",
+      "locador": false,
+      "locatario": false,
+      "fiador_ou_avalista": false,
+      "e_procurador_ou_representante_do_locador": false,
+      "e_procurador_ou_representante_do_locatario": true,
+      "e_procurador_ou_representante_do_fiador": false,
+      "possui_procurador_ou_representante": false,
+      "casado": false,
+      "venia_conjugal": false,
+      "assinatura_reconhecida_ou_digital": {
+        "reconhecimento_de_firma": {
+          "existe_nome_da_pessoa_ou_do_seu_representante_no_selo_firma": false,
+          "existe_carimbo_de_assinatura_confere_com_a_original_gerente_banco": false,
+          "matricula_gerente": "",
+          "nome_gerente_carimbo": "",
+          "registro_titulos_e_documentos_livro_3_firma_reconhecida": false,
+          "nome_pessoa_firma_reconhecida_e_locador_ou_locataria_ou_fiador": "",
+          "nome_pessoa_firma_reconhecida_e_procurador_ou_representante": "",
+          "numero_selo_cartorario": "",
+          "numero_selo_digital": "",
+          "site_consulta_selo": ""
+        },
+        "assinatura_digital": {
+          "existe_nome_da_pessoa_ou_do_seu_representante_no_selo_digital": false,
+          "nome_da_assinatura_digital_e_locador_ou_locataria_ou_fiador": "",
+          "nome_da_assinatura_digital_e_procurador_ou_representante": "",
+          "numero_selo_digital": "",
+          "site_autenticacao": ""
+        }
+      }
+    }
+  ],
+  "imovel": {
+    "imovel_urbano": true,
+    "endereco_do_imovel": "Rua Augusto Vaz, nº 885, Casa A, Capitão Andrade/MG, CEP 35.123-000",
+    "tipo_do_imovel": "imóvel residencial",
+    "area_do_imovel": ""
+  },
+  "atividades_permitidas": [
+    "uso comercial e de sua empresa"
+  ],
+  "termos_locacao": {
+    "data_inicio": "2023-01-01",
+    "duracao_em_dias": 1095,
+    "duracao_do_contrato_e_maior_ou_igual_a_dez_anos": false,
+    "data_vencimento_aluguel": ""
+  },
+  "clausula_autorizacao_construcao_reforma": "O LOCATÁRIO se responsabiliza em zelar pela limpeza e conservação do imóvel, incluída a pintura, sendo vedadas reformas e quaisquer alterações no imóvel sem a prévia e expressa autorização da LOCADORA.",
+  "clausula_vigencia": true,
+  "registro_livro2_cartorio": false,
+  "registro_titulos_e_documentos_livro_3": false,
+  "observacoes": {
+    "inventario_bens": "Há referência à devolução do imóvel e utensílios nas condições em que foram recebidos, mas sem inventário detalhado.",
+    "valor_aluguel": "R$ 600,00",
+    "substituicao_fiador_garantia": "",
+    "obrigacoes_locador": "Pagar as despesas referentes à prefeitura e impostos do imóvel que incidam sobre ele; reparar danos ou defeitos cuja reparação lhe incumba, desde que comunicado pelo locatário.",
+    "obrigacoes_locatario": "Pagar o aluguel até o dia 05 de cada mês; pagar água, luz e demais despesas referentes à conservação do imóvel e eventuais taxas ou tributos que incidam sobre ele; devolver o imóvel e utensílios nas condições em que recebeu, limpo, conservado e em pleno funcionamento; não sublocar, transferir ou ceder o imóvel sem consentimento prévio e por escrito; não colocar placas, bandeiras, cartazes, painéis, luminosos, antenas ou similares sem autorização prévia e expressa do locador; zelar pela limpeza e conservação do imóvel, incluída a pintura; comunicar imediatamente danos, defeitos e intimações ou avisos de autoridades públicas recebidos no imóvel.",
+    "responsavel_manutencao_reparos": "O locatário é responsável pela conservação, limpeza, pintura e despesas de conservação do imóvel. O locador responde pelos reparos de danos ou defeitos cuja reparação lhe incumba, desde que comunicado pelo locatário.",
+    "multa_rescisao": "Equivalente a 01 (um) mês de aluguel em caso de desocupação antes do prazo estipulado.",
+    "aviso_previo": "",
+    "outras_penalidades": "Multa equivalente a 01 (um) mês de aluguel se o locatário não restituir o imóvel ao término do prazo ou não o devolver nas mesmas condições em que recebeu; possibilidade de rescisão de pleno direito por descumprimento de qualquer cláusula, sem direito do locatário a indenização ou reclamação.",
+    "direito_preferencia": "",
+    "renovacao_automatica": "Não há renovação automática; eventual prorrogação depende de comum acordo e termo aditivo de locação com novo prazo e reajuste do aluguel.",
+    "aditivos_clausulas_especiais": "Foro eleito da Comarca de Itanhomi/MG. Prorrogação do contrato somente mediante termo aditivo expresso e formal.",
+    "comentario_sobre_clausulas_contraditorias": "Há contradição entre a qualificação do contrato e do imóvel como residencial e a Cláusula Oitava, que destina o imóvel única e exclusivamente para uso comercial e da empresa do locatário.",
+    "comentario_sobre_informacoes_ilegiveis": "Há trechos com possível OCR imperfeito, como a grafia de 'EMPREEDIMENTOS' e rubricas/assinaturas manuscritas parcialmente ilegíveis, sem prejuízo da identificação principal das partes.",
+    "dados_duplicados": ""
+  }
+}

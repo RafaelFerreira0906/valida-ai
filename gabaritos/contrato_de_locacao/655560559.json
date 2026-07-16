@@ -1,0 +1,112 @@
+{
+  "e_contrato_de_locacao": true,
+  "nomes_que_possuem_selo_carimbo_de_firma_reconhecida": [],
+  "todos_os_envolvidos_no_contrato": [
+    {
+      "nome": "Alcides Lopes Junior",
+      "endereco": "Não Localizado",
+      "CPF_ou_CNPJ": "022.789.597-51",
+      "locador": true,
+      "locatario": false,
+      "fiador_ou_avalista": false,
+      "e_procurador_ou_representante_do_locador": false,
+      "e_procurador_ou_representante_do_locatario": false,
+      "e_procurador_ou_representante_do_fiador": false,
+      "possui_procurador_ou_representante": false,
+      "casado": false,
+      "venia_conjugal": false,
+      "assinatura_reconhecida_ou_digital": {
+        "reconhecimento_de_firma": {
+          "existe_nome_da_pessoa_ou_do_seu_representante_no_selo_firma": true,
+          "existe_carimbo_de_assinatura_confere_com_a_original_gerente_banco": true,
+          "matricula_gerente": "F 149764",
+          "nome_gerente_carimbo": "Bruno Robson de Jesus Mota",
+          "registro_titulos_e_documentos_livro_3_firma_reconhecida": false,
+          "nome_pessoa_firma_reconhecida_e_locador_ou_locataria_ou_fiador": "Alcides Lopes Junior",
+          "nome_pessoa_firma_reconhecida_e_procurador_ou_representante": "",
+          "numero_selo_cartorario": "",
+          "numero_selo_digital": "",
+          "site_consulta_selo": ""
+        },
+        "assinatura_digital": {
+          "existe_nome_da_pessoa_ou_do_seu_representante_no_selo_digital": false,
+          "nome_da_assinatura_digital_e_locador_ou_locataria_ou_fiador": "",
+          "nome_da_assinatura_digital_e_procurador_ou_representante": "",
+          "numero_selo_digital": "",
+          "site_autenticacao": ""
+        }
+      }
+    },
+    {
+      "nome": "CDC CENTRO DE DOR E COLUNA LTDA",
+      "endereco": "Não Localizado",
+      "CPF_ou_CNPJ": "57.752.957/0001-01",
+      "locador": false,
+      "locatario": true,
+      "fiador_ou_avalista": false,
+      "e_procurador_ou_representante_do_locador": false,
+      "e_procurador_ou_representante_do_locatario": false,
+      "e_procurador_ou_representante_do_fiador": false,
+      "possui_procurador_ou_representante": false,
+      "casado": false,
+      "venia_conjugal": false,
+      "assinatura_reconhecida_ou_digital": {
+        "reconhecimento_de_firma": {
+          "existe_nome_da_pessoa_ou_do_seu_representante_no_selo_firma": true,
+          "existe_carimbo_de_assinatura_confere_com_a_original_gerente_banco": true,
+          "matricula_gerente": "F 149764",
+          "nome_gerente_carimbo": "Bruno Robson de Jesus Mota",
+          "registro_titulos_e_documentos_livro_3_firma_reconhecida": false,
+          "nome_pessoa_firma_reconhecida_e_locador_ou_locataria_ou_fiador": "CDC CENTRO DE DOR E COLUNA LTDA",
+          "nome_pessoa_firma_reconhecida_e_procurador_ou_representante": "",
+          "numero_selo_cartorario": "",
+          "numero_selo_digital": "",
+          "site_consulta_selo": ""
+        },
+        "assinatura_digital": {
+          "existe_nome_da_pessoa_ou_do_seu_representante_no_selo_digital": false,
+          "nome_da_assinatura_digital_e_locador_ou_locataria_ou_fiador": "",
+          "nome_da_assinatura_digital_e_procurador_ou_representante": "",
+          "numero_selo_digital": "",
+          "site_autenticacao": ""
+        }
+      }
+    }
+  ],
+  "imovel": {
+    "imovel_urbano": true,
+    "endereco_do_imovel": "RUA AFONSO PENA (- ATE 1820/1821), 1579 - SL 01, ESPLANADA, GOVERNADOR VALADARES - MG",
+    "tipo_do_imovel": "sala comercial",
+    "area_do_imovel": ""
+  },
+  "atividades_permitidas": [
+    "COMERCIAL"
+  ],
+  "termos_locacao": {
+    "data_inicio": "2024-01-15",
+    "duracao_em_dias": 1825,
+    "duracao_do_contrato_e_maior_ou_igual_a_dez_anos": false,
+    "data_vencimento_aluguel": ""
+  },
+  "clausula_autorizacao_construcao_reforma": "O locatário está autorizado a fazer instalação, adaptação, obra ou benfeitoria, inclusive colocação de luminosos, placa, letreiros e cartazes sem prévia obtenção de autorização por escrito do locador; em caso de obra, reforma ou adaptação, devidamente autorizada pelo locador, deverá repor o imóvel ao estado primitivo na entrega das chaves, sem qualquer indenização.",
+  "clausula_vigencia": true,
+  "registro_livro2_cartorio": false,
+  "registro_titulos_e_documentos_livro_3": false,
+  "observacoes": {
+    "inventario_bens": "Há referência a laudo de vistoria em anexo e à relação anexa dos móveis e utensílios como parte integrante do contrato.",
+    "valor_aluguel": "R$ 5.000,00",
+    "substituicao_fiador_garantia": "No caso de morte, falência ou insolvência dos fiadores, o locatário obriga-se a apresentar substituto idôneo, a juízo do locador, dentro de 30 dias, sob pena de grave infração contratual com consequente despejo.",
+    "obrigacoes_locador": "Receber notificações encaminhadas pelo locatário, poder examinar ou vistoriar o imóvel por si ou por representante legal quando solicitado e, ao final do prazo, mandar fazer vistoria no imóvel por ocasião da entrega das chaves.",
+    "obrigacoes_locatario": "Pagar aluguel até o dia 01 de cada mês; pagar luz, taxa de condomínio e IPTU; conservar e limpar o imóvel; entregar o imóvel nas mesmas condições do laudo de vistoria; não transferir, sublocar, ceder ou emprestar sem autorização por escrito; não alterar a destinação; encaminhar notificações e intimações ao locador; permitir vistoria e visita de interessados em caso de venda; pagar aluguel até a entrega das chaves se houver infração e necessidade de reparos.",
+    "responsavel_manutencao_reparos": "Locatário, correndo por sua conta exclusiva as despesas necessárias para manter e restituir o imóvel em perfeito estado de conservação e limpeza.",
+    "multa_rescisao": "Multa igual a 30% sobre o valor do contrato para a parte que infringir qualquer disposição contratual ou legal.",
+    "aviso_previo": "",
+    "outras_penalidades": "Em mora, o locatário pagará multa de 10%, juros de mora de 1% ao mês e correção monetária. Após o dia 30 do mês seguinte ao vencido, poderá haver cobrança por advogado, com honorários advocatícios e, em caso de cobrança judicial, custas processuais. Infrações graves podem acarretar rescisão e despejo.",
+    "direito_preferencia": "",
+    "renovacao_automatica": "Não há renovação automática; o locatário obriga-se a renovar expressamente por novo contrato caso permaneça no imóvel.",
+    "aditivos_clausulas_especiais": "Reajuste a cada 12 meses com base no IGPM. Benfeitorias autorizadas, ainda que úteis e necessárias, incorporam-se ao imóvel sem indenização ou direito de retenção. Foro eleito é o da situação do imóvel. Garantia prevista por fiança, com responsabilidade dos fiadores até a entrega efetiva das chaves, mas os fiadores não foram qualificados no texto fornecido.",
+    "comentario_sobre_clausulas_contraditorias": "Há aparente contradição entre a cláusula VIII, alínea b, que autoriza instalação, adaptação, obra ou benfeitoria sem prévia autorização por escrito do locador, e a cláusula VIII, alínea e, bem como a cláusula XI, que tratam obra, reforma ou adaptação como dependentes de autorização do locador. Também há divergência entre o término da locação em 15/01/2029 e o campo 'LOCAL / DATA' constando Governador Valadares, 15/01/2029.",
+    "comentario_sobre_informacoes_ilegiveis": "Há trechos com OCR imperfeito e assinaturas ilegíveis, incluindo expressões como 'Dania Ônios :selected:' e rubricas finais. Os nomes dos fiadores não estão claramente identificáveis no texto fornecido.",
+    "dados_duplicados": ""
+  }
+}

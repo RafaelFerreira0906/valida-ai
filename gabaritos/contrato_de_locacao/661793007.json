@@ -1,0 +1,182 @@
+{
+  "e_contrato_de_locacao": true,
+  "nomes_que_possuem_selo_carimbo_de_firma_reconhecida": [],
+  "todos_os_envolvidos_no_contrato": [
+    {
+      "nome": "AUTO POSTO AUFOARA LTDA",
+      "endereco": "Avenida dos Pioneiros, n° 204, Bairro Invejada, no município de Mutum, estado de Minas Gerais",
+      "CPF_ou_CNPJ": "03.310.162/0001-14",
+      "locador": true,
+      "locatario": false,
+      "fiador_ou_avalista": false,
+      "e_procurador_ou_representante_do_locador": false,
+      "e_procurador_ou_representante_do_locatario": false,
+      "e_procurador_ou_representante_do_fiador": false,
+      "possui_procurador_ou_representante": true,
+      "casado": false,
+      "venia_conjugal": false,
+      "assinatura_reconhecida_ou_digital": {
+        "reconhecimento_de_firma": {
+          "existe_nome_da_pessoa_ou_do_seu_representante_no_selo_firma": false,
+          "existe_carimbo_de_assinatura_confere_com_a_original_gerente_banco": false,
+          "matricula_gerente": "",
+          "nome_gerente_carimbo": "",
+          "registro_titulos_e_documentos_livro_3_firma_reconhecida": false,
+          "nome_pessoa_firma_reconhecida_e_locador_ou_locataria_ou_fiador": "",
+          "nome_pessoa_firma_reconhecida_e_procurador_ou_representante": "",
+          "numero_selo_cartorario": "",
+          "numero_selo_digital": "",
+          "site_consulta_selo": ""
+        },
+        "assinatura_digital": {
+          "existe_nome_da_pessoa_ou_do_seu_representante_no_selo_digital": true,
+          "nome_da_assinatura_digital_e_locador_ou_locataria_ou_fiador": "AUTO POSTO AUFOARA LTDA",
+          "nome_da_assinatura_digital_e_procurador_ou_representante": "Joel Francisco Lopes",
+          "numero_selo_digital": "",
+          "site_autenticacao": ""
+        }
+      }
+    },
+    {
+      "nome": "Joel Francisco Lopes",
+      "endereco": "Rua Sete de Setembro, n° 399, Bairro Centro, no município de Mutum, estado de Minas Gerais",
+      "CPF_ou_CNPJ": "340.887.256-20",
+      "locador": false,
+      "locatario": false,
+      "fiador_ou_avalista": false,
+      "e_procurador_ou_representante_do_locador": true,
+      "e_procurador_ou_representante_do_locatario": false,
+      "e_procurador_ou_representante_do_fiador": false,
+      "possui_procurador_ou_representante": false,
+      "casado": true,
+      "venia_conjugal": false,
+      "assinatura_reconhecida_ou_digital": {
+        "reconhecimento_de_firma": {
+          "existe_nome_da_pessoa_ou_do_seu_representante_no_selo_firma": false,
+          "existe_carimbo_de_assinatura_confere_com_a_original_gerente_banco": false,
+          "matricula_gerente": "",
+          "nome_gerente_carimbo": "",
+          "registro_titulos_e_documentos_livro_3_firma_reconhecida": false,
+          "nome_pessoa_firma_reconhecida_e_locador_ou_locataria_ou_fiador": "",
+          "nome_pessoa_firma_reconhecida_e_procurador_ou_representante": "",
+          "numero_selo_cartorario": "",
+          "numero_selo_digital": "",
+          "site_consulta_selo": ""
+        },
+        "assinatura_digital": {
+          "existe_nome_da_pessoa_ou_do_seu_representante_no_selo_digital": true,
+          "nome_da_assinatura_digital_e_locador_ou_locataria_ou_fiador": "AUTO POSTO AUFOARA LTDA",
+          "nome_da_assinatura_digital_e_procurador_ou_representante": "Joel Francisco Lopes",
+          "numero_selo_digital": "",
+          "site_autenticacao": ""
+        }
+      }
+    },
+    {
+      "nome": "TM CONSTRUTORA E CONSULTORIA LTDA",
+      "endereco": "Córrego Encoberta, S/N, Zona Rural, no município de Mutum, estado de Minas Gerais",
+      "CPF_ou_CNPJ": "57.314.207/0001-58",
+      "locador": false,
+      "locatario": true,
+      "fiador_ou_avalista": false,
+      "e_procurador_ou_representante_do_locador": false,
+      "e_procurador_ou_representante_do_locatario": false,
+      "e_procurador_ou_representante_do_fiador": false,
+      "possui_procurador_ou_representante": true,
+      "casado": false,
+      "venia_conjugal": false,
+      "assinatura_reconhecida_ou_digital": {
+        "reconhecimento_de_firma": {
+          "existe_nome_da_pessoa_ou_do_seu_representante_no_selo_firma": false,
+          "existe_carimbo_de_assinatura_confere_com_a_original_gerente_banco": false,
+          "matricula_gerente": "",
+          "nome_gerente_carimbo": "",
+          "registro_titulos_e_documentos_livro_3_firma_reconhecida": false,
+          "nome_pessoa_firma_reconhecida_e_locador_ou_locataria_ou_fiador": "",
+          "nome_pessoa_firma_reconhecida_e_procurador_ou_representante": "",
+          "numero_selo_cartorario": "",
+          "numero_selo_digital": "",
+          "site_consulta_selo": ""
+        },
+        "assinatura_digital": {
+          "existe_nome_da_pessoa_ou_do_seu_representante_no_selo_digital": true,
+          "nome_da_assinatura_digital_e_locador_ou_locataria_ou_fiador": "TM CONSTRUTORA E CONSULTORIA LTDA",
+          "nome_da_assinatura_digital_e_procurador_ou_representante": "Bruno Neto Tavares",
+          "numero_selo_digital": "",
+          "site_autenticacao": "http://serpro.gov.br/assinador-digital"
+        }
+      }
+    },
+    {
+      "nome": "Bruno Neto Tavares",
+      "endereco": "Rua Coronel Brandão, 208, Bairro Centro, no município de Mutum, estado de Minas Gerais",
+      "CPF_ou_CNPJ": "088.256.217-79",
+      "locador": false,
+      "locatario": false,
+      "fiador_ou_avalista": false,
+      "e_procurador_ou_representante_do_locador": false,
+      "e_procurador_ou_representante_do_locatario": true,
+      "e_procurador_ou_representante_do_fiador": false,
+      "possui_procurador_ou_representante": false,
+      "casado": true,
+      "venia_conjugal": false,
+      "assinatura_reconhecida_ou_digital": {
+        "reconhecimento_de_firma": {
+          "existe_nome_da_pessoa_ou_do_seu_representante_no_selo_firma": false,
+          "existe_carimbo_de_assinatura_confere_com_a_original_gerente_banco": false,
+          "matricula_gerente": "",
+          "nome_gerente_carimbo": "",
+          "registro_titulos_e_documentos_livro_3_firma_reconhecida": false,
+          "nome_pessoa_firma_reconhecida_e_locador_ou_locataria_ou_fiador": "",
+          "nome_pessoa_firma_reconhecida_e_procurador_ou_representante": "",
+          "numero_selo_cartorario": "",
+          "numero_selo_digital": "",
+          "site_consulta_selo": ""
+        },
+        "assinatura_digital": {
+          "existe_nome_da_pessoa_ou_do_seu_representante_no_selo_digital": true,
+          "nome_da_assinatura_digital_e_locador_ou_locataria_ou_fiador": "TM CONSTRUTORA E CONSULTORIA LTDA",
+          "nome_da_assinatura_digital_e_procurador_ou_representante": "Bruno Neto Tavares",
+          "numero_selo_digital": "",
+          "site_autenticacao": "http://serpro.gov.br/assinador-digital"
+        }
+      }
+    }
+  ],
+  "imovel": {
+    "imovel_urbano": true,
+    "endereco_do_imovel": "Avenida dos Pioneiros, nº 204 B, Bairro Invejada, no município de Mutum, estado de Minas Gerais",
+    "tipo_do_imovel": "",
+    "area_do_imovel": ""
+  },
+  "atividades_permitidas": [
+    "Exclusivamente para fins comerciais"
+  ],
+  "termos_locacao": {
+    "data_inicio": "2025-03-01",
+    "duracao_em_dias": 665,
+    "duracao_do_contrato_e_maior_ou_igual_a_dez_anos": false,
+    "data_vencimento_aluguel": ""
+  },
+  "clausula_autorizacao_construcao_reforma": "",
+  "clausula_vigencia": true,
+  "registro_livro2_cartorio": false,
+  "registro_titulos_e_documentos_livro_3": false,
+  "observacoes": {
+    "inventario_bens": "",
+    "valor_aluguel": "R$ 700,00 (setecentos reais) nos 6 primeiros meses, e o valor referente a um salário mínimo no restante do contrato",
+    "substituicao_fiador_garantia": "",
+    "obrigacoes_locador": "",
+    "obrigacoes_locatario": "Utilizar o imóvel exclusivamente para os fins estabelecidos no contrato; manter o imóvel em bom estado de conservação e limpeza; devolver o imóvel ao final do contrato nas mesmas condições em que o recebeu, salvo o desgaste natural; pagar todas as taxas e encargos incidentes sobre o imóvel, incluindo IPTU, água, energia elétrica, taxa de condomínio se houver e demais despesas inerentes ao uso do imóvel.",
+    "responsavel_manutencao_reparos": "A locatária deve manter o imóvel em bom estado de conservação e limpeza e devolvê-lo nas mesmas condições em que o recebeu, salvo o desgaste natural.",
+    "multa_rescisao": "",
+    "aviso_previo": "30 dias",
+    "outras_penalidades": "Em caso de inadimplência, multa de 10% sobre o valor do aluguel e juros de 1%.",
+    "direito_preferencia": "",
+    "renovacao_automatica": "O contrato poderá ser renovado mediante acordo entre as partes.",
+    "aditivos_clausulas_especiais": "Foro da comarca de Mutum/MG eleito para dirimir questões oriundas do contrato.",
+    "comentario_sobre_clausulas_contraditorias": "No bloco final de assinaturas, as identificações de LOCADOR e LOCATÁRIO aparecem invertidas em relação à qualificação inicial das partes. Foi priorizada a qualificação inicial completa e específica do contrato.",
+    "comentario_sobre_informacoes_ilegiveis": "",
+    "dados_duplicados": ""
+  }
+}

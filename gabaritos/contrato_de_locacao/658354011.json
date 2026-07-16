@@ -1,0 +1,114 @@
+{
+  "e_contrato_de_locacao": true,
+  "nomes_que_possuem_selo_carimbo_de_firma_reconhecida": [
+    "OSWALDO SAMYR LOURENÇO RODRIGUES"
+  ],
+  "todos_os_envolvidos_no_contrato": [
+    {
+      "nome": "ANTONIO OSVALDO RODRIGUES",
+      "endereco": "rua Bonfim Sobrinho nº 316 AP 902 Bairro: Fátima, Fortaleza-CE",
+      "CPF_ou_CNPJ": "013.181.013-87",
+      "locador": true,
+      "locatario": false,
+      "fiador_ou_avalista": false,
+      "e_procurador_ou_representante_do_locador": false,
+      "e_procurador_ou_representante_do_locatario": false,
+      "e_procurador_ou_representante_do_fiador": false,
+      "possui_procurador_ou_representante": false,
+      "casado": false,
+      "venia_conjugal": false,
+      "assinatura_reconhecida_ou_digital": {
+        "reconhecimento_de_firma": {
+          "existe_nome_da_pessoa_ou_do_seu_representante_no_selo_firma": false,
+          "existe_carimbo_de_assinatura_confere_com_a_original_gerente_banco": false,
+          "matricula_gerente": "",
+          "nome_gerente_carimbo": "",
+          "registro_titulos_e_documentos_livro_3_firma_reconhecida": false,
+          "nome_pessoa_firma_reconhecida_e_locador_ou_locataria_ou_fiador": "",
+          "nome_pessoa_firma_reconhecida_e_procurador_ou_representante": "",
+          "numero_selo_cartorario": "",
+          "numero_selo_digital": "",
+          "site_consulta_selo": ""
+        },
+        "assinatura_digital": {
+          "existe_nome_da_pessoa_ou_do_seu_representante_no_selo_digital": false,
+          "nome_da_assinatura_digital_e_locador_ou_locataria_ou_fiador": "",
+          "nome_da_assinatura_digital_e_procurador_ou_representante": "",
+          "numero_selo_digital": "",
+          "site_autenticacao": ""
+        }
+      }
+    },
+    {
+      "nome": "OSWALDO SAMYR LOURENÇO RODRIGUES",
+      "endereco": "rua Peru nº 1235 Bairro: Parangaba, Fortaleza-CE",
+      "CPF_ou_CNPJ": "001.351.103-35",
+      "locador": false,
+      "locatario": true,
+      "fiador_ou_avalista": false,
+      "e_procurador_ou_representante_do_locador": false,
+      "e_procurador_ou_representante_do_locatario": false,
+      "e_procurador_ou_representante_do_fiador": false,
+      "possui_procurador_ou_representante": false,
+      "casado": false,
+      "venia_conjugal": false,
+      "assinatura_reconhecida_ou_digital": {
+        "reconhecimento_de_firma": {
+          "existe_nome_da_pessoa_ou_do_seu_representante_no_selo_firma": true,
+          "existe_carimbo_de_assinatura_confere_com_a_original_gerente_banco": false,
+          "matricula_gerente": "",
+          "nome_gerente_carimbo": "",
+          "registro_titulos_e_documentos_livro_3_firma_reconhecida": false,
+          "nome_pessoa_firma_reconhecida_e_locador_ou_locataria_ou_fiador": "OSWALDO SAMYR LOURENÇO RODRIGUES",
+          "nome_pessoa_firma_reconhecida_e_procurador_ou_representante": "",
+          "numero_selo_cartorario": "",
+          "numero_selo_digital": "",
+          "site_consulta_selo": ""
+        },
+        "assinatura_digital": {
+          "existe_nome_da_pessoa_ou_do_seu_representante_no_selo_digital": false,
+          "nome_da_assinatura_digital_e_locador_ou_locataria_ou_fiador": "",
+          "nome_da_assinatura_digital_e_procurador_ou_representante": "",
+          "numero_selo_digital": "",
+          "site_autenticacao": ""
+        }
+      }
+    }
+  ],
+  "imovel": {
+    "imovel_urbano": true,
+    "endereco_do_imovel": "Rua Raimunda Nogueira Martins nº 1230, Aquiraz-CE",
+    "tipo_do_imovel": "imóvel comercial",
+    "area_do_imovel": ""
+  },
+  "atividades_permitidas": [
+    "fins comerciais"
+  ],
+  "termos_locacao": {
+    "data_inicio": "2016-11-01",
+    "duracao_em_dias": 0,
+    "duracao_do_contrato_e_maior_ou_igual_a_dez_anos": false,
+    "data_vencimento_aluguel": ""
+  },
+  "clausula_autorizacao_construcao_reforma": "No caso de qualquer obra, reforma ou adaptação, devidamente autorizada pelo Locador, o Locatário deverá repor, por ocasião da entrega das chaves, o estado primitivo do imóvel, não podendo exigir qualquer indenização.",
+  "clausula_vigencia": false,
+  "registro_livro2_cartorio": false,
+  "registro_titulos_e_documentos_livro_3": false,
+  "observacoes": {
+    "inventario_bens": "",
+    "valor_aluguel": "R$ 500,00",
+    "substituicao_fiador_garantia": "",
+    "obrigacoes_locador": "Permitir vistoria do imóvel por si ou por representante legal; fica exonerado de responsabilidades em caso de desapropriação; assegurados os direitos da Lei nº 8.245/91 e legislação aplicável.",
+    "obrigacoes_locatario": "Pagar aluguel mensal; pagar água, luz, esgoto, IPTU e demais tributos municipais; manter o imóvel em perfeito estado de conservação e limpeza; restituir o imóvel nas mesmas condições, inclusive pintura; permitir vistoria e visitas em caso de venda; renovar expressamente novo contrato caso permaneça no imóvel.",
+    "responsavel_manutencao_reparos": "Locatário, inclusive conservação de pinturas, portas, fechaduras, trincos, puxadores, vitrais, vidraças, lustres, instalações elétricas, torneiras, aparelhos sanitários e outras despesas necessárias à conservação.",
+    "multa_rescisao": "Multa igual a 05 (cinco) aluguéis, paga integralmente, qualquer que seja o tempo contratual decorrido, inclusive se houver prorrogação da vigência.",
+    "aviso_previo": "Há previsão de aviso prévio de ambas as partes, sem prazo expresso em dias.",
+    "outras_penalidades": "Em caso de infração das obrigações pelo Locatário, rescisão contratual, despejo e imediata satisfação dos consectários contratuais e legais. Em caso de mora, juros de 1% ao mês e correção monetária.",
+    "direito_preferencia": "",
+    "renovacao_automatica": "Não há renovação automática expressa; consta que o Locatário deverá renovar expressamente novo contrato caso permaneça no imóvel. Também consta que, se prorrogada a locação, as cláusulas continuam em vigor por prazo indeterminado.",
+    "aditivos_clausulas_especiais": "Benfeitorias autorizadas, ainda que úteis ou necessárias, ficam incorporadas ao imóvel sem indenização ou direito de retenção. O forro do pavimento térreo do prédio foi colocado pelo Locatário, podendo retirá-lo ao desocupar o imóvel.",
+    "comentario_sobre_clausulas_contraditorias": "O contrato declara prazo de locação indeterminado desde o início, mas também menciona 'após o vencimento' e 'findo o prazo deste contrato', o que pode indicar redação padronizada não totalmente ajustada ao prazo indeterminado.",
+    "comentario_sobre_informacoes_ilegiveis": "Trechos do bloco cartorário e do selo de autenticidade estão parcialmente ilegíveis, incluindo possíveis nomes de serventuários e dados do selo.",
+    "dados_duplicados": ""
+  }
+}

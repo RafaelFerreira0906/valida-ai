@@ -1,0 +1,112 @@
+{
+  "e_contrato_de_locacao": true,
+  "nomes_que_possuem_selo_carimbo_de_firma_reconhecida": [],
+  "todos_os_envolvidos_no_contrato": [
+    {
+      "nome": "ROSIL SILVA",
+      "endereco": "Rua José Conserva Filho, 68, Ligeiro, Queimadas-PB",
+      "CPF_ou_CNPJ": "640.921.004-34",
+      "locador": true,
+      "locatario": false,
+      "fiador_ou_avalista": false,
+      "e_procurador_ou_representante_do_locador": false,
+      "e_procurador_ou_representante_do_locatario": false,
+      "e_procurador_ou_representante_do_fiador": false,
+      "possui_procurador_ou_representante": false,
+      "casado": false,
+      "venia_conjugal": false,
+      "assinatura_reconhecida_ou_digital": {
+        "reconhecimento_de_firma": {
+          "existe_nome_da_pessoa_ou_do_seu_representante_no_selo_firma": false,
+          "existe_carimbo_de_assinatura_confere_com_a_original_gerente_banco": false,
+          "matricula_gerente": "",
+          "nome_gerente_carimbo": "",
+          "registro_titulos_e_documentos_livro_3_firma_reconhecida": false,
+          "nome_pessoa_firma_reconhecida_e_locador_ou_locataria_ou_fiador": "",
+          "nome_pessoa_firma_reconhecida_e_procurador_ou_representante": "",
+          "numero_selo_cartorario": "",
+          "numero_selo_digital": "",
+          "site_consulta_selo": ""
+        },
+        "assinatura_digital": {
+          "existe_nome_da_pessoa_ou_do_seu_representante_no_selo_digital": true,
+          "nome_da_assinatura_digital_e_locador_ou_locataria_ou_fiador": "ROSIL SILVA",
+          "nome_da_assinatura_digital_e_procurador_ou_representante": "",
+          "numero_selo_digital": "",
+          "site_autenticacao": "https://validar.iti.gov.br"
+        }
+      }
+    },
+    {
+      "nome": "SERRALHARIA SILVA",
+      "endereco": "Rua Jornalista Epitacio Soares, 196, Distrito Industrial, Campina Grande-PB",
+      "CPF_ou_CNPJ": "10.392.501/0001-14",
+      "locador": false,
+      "locatario": true,
+      "fiador_ou_avalista": false,
+      "e_procurador_ou_representante_do_locador": false,
+      "e_procurador_ou_representante_do_locatario": false,
+      "e_procurador_ou_representante_do_fiador": false,
+      "possui_procurador_ou_representante": false,
+      "casado": false,
+      "venia_conjugal": false,
+      "assinatura_reconhecida_ou_digital": {
+        "reconhecimento_de_firma": {
+          "existe_nome_da_pessoa_ou_do_seu_representante_no_selo_firma": false,
+          "existe_carimbo_de_assinatura_confere_com_a_original_gerente_banco": false,
+          "matricula_gerente": "",
+          "nome_gerente_carimbo": "",
+          "registro_titulos_e_documentos_livro_3_firma_reconhecida": false,
+          "nome_pessoa_firma_reconhecida_e_locador_ou_locataria_ou_fiador": "",
+          "nome_pessoa_firma_reconhecida_e_procurador_ou_representante": "",
+          "numero_selo_cartorario": "",
+          "numero_selo_digital": "",
+          "site_consulta_selo": ""
+        },
+        "assinatura_digital": {
+          "existe_nome_da_pessoa_ou_do_seu_representante_no_selo_digital": false,
+          "nome_da_assinatura_digital_e_locador_ou_locataria_ou_fiador": "",
+          "nome_da_assinatura_digital_e_procurador_ou_representante": "",
+          "numero_selo_digital": "",
+          "site_autenticacao": ""
+        }
+      }
+    }
+  ],
+  "imovel": {
+    "imovel_urbano": true,
+    "endereco_do_imovel": "Rua Radialista Geraldo Batista, S/N, Distrito Industrial, Campina Grande-PB",
+    "tipo_do_imovel": "Imóvel comercial",
+    "area_do_imovel": ""
+  },
+  "atividades_permitidas": [
+    "Uso comercial"
+  ],
+  "termos_locacao": {
+    "data_inicio": "2024-02-01",
+    "duracao_em_dias": 730,
+    "duracao_do_contrato_e_maior_ou_igual_a_dez_anos": false,
+    "data_vencimento_aluguel": ""
+  },
+  "clausula_autorizacao_construcao_reforma": "No caso de qualquer obra, reforma ou adaptação, devidamente autorizada pelo Locador, o Locatário deverá repor o imóvel ao estado primitivo na entrega das chaves, sem poder exigir indenização. Benfeitorias autorizadas, ainda que úteis ou necessárias, ficam incorporadas ao imóvel, sem indenização, ressarcimento ou direito de retenção.",
+  "clausula_vigencia": true,
+  "registro_livro2_cartorio": false,
+  "registro_titulos_e_documentos_livro_3": false,
+  "observacoes": {
+    "inventario_bens": "",
+    "valor_aluguel": "R$ 6.500,00",
+    "substituicao_fiador_garantia": "No caso de morte, falência ou insolvência dos fiadores, o Locatário obriga-se a apresentar substituto idôneo, a juízo do Locador, dentro de 30 dias, sob pena de grave infração contratual com consequente despejo.",
+    "obrigacoes_locador": "Permitir vistoria do imóvel e, ao final do prazo, mandar fazer vistoria no prédio locado para verificar se está nas condições em que foi recebido; poderá examinar ou vistoriar o imóvel sempre que solicitado e mostrá-lo a interessados caso seja colocado à venda.",
+    "obrigacoes_locatario": "Pagar aluguel pontualmente; pagar água, luz, esgoto e tributos municipais, inclusive IPTU; manter o imóvel em perfeito estado de conservação e limpeza; não transferir o contrato, não sublocar, não ceder ou emprestar; não alterar a destinação da locação; encaminhar ao Locador notificações e intimações recebidas no imóvel; permitir vistorias e visitas; repor o imóvel ao estado primitivo em caso de obra, reforma ou adaptação autorizada.",
+    "responsavel_manutencao_reparos": "Locatário, que recebeu o imóvel em perfeito estado e deve mantê-lo em perfeito estado de conservação e limpeza, além de repor ao estado primitivo as alterações autorizadas.",
+    "multa_rescisao": "Cláusula penal de R$ 600,00, com texto por extenso indicando 'Seiscentos mil reais'.",
+    "aviso_previo": "",
+    "outras_penalidades": "Em caso de infração das obrigações contratuais, poderá haver rescisão, despejo e imediata satisfação dos consectários contratuais e legais. Em mora, o Locatário pagará juros de 1% ao mês, correção monetária, honorários de advogado mesmo em cobrança extrajudicial e custas em caso de cobrança judicial.",
+    "direito_preferencia": "",
+    "renovacao_automatica": "Não há renovação automática; o contrato prevê que o Locatário deve renovar expressamente novo contrato caso permaneça no imóvel.",
+    "aditivos_clausulas_especiais": "Benfeitorias autorizadas incorporam-se ao imóvel sem indenização ou direito de retenção; desapropriação exonera o Locador de responsabilidades; foro eleito é o da situação do imóvel; fiadores respondem solidariamente até a entrega efetiva e real das chaves.",
+    "comentario_sobre_clausulas_contraditorias": "A cláusula penal apresenta divergência entre valor numérico e valor por extenso: 'R$ 600,00' e '(Seiscentos mil reais)'. O bloco de assinaturas digitais/relatório ITI indica duas assinaturas, ambas atribuídas a 'ROSIL SILVA', o que não corresponde claramente à qualificação do locatário 'SERRALHARIA SILVA'. A cláusula de garantias menciona fiadores 'anteriormente qualificados', porém o campo de fiador no contrato está em branco.",
+    "comentario_sobre_informacoes_ilegiveis": "O bloco final de assinaturas está com OCR parcialmente desorganizado, dificultando a associação exata da segunda assinatura digital ao locatário. Não foi possível identificar com clareza nome de signatário digital vinculado à pessoa jurídica locatária.",
+    "dados_duplicados": "O nome 'ROSIL SILVA' aparece repetido no relatório de conformidade de assinaturas digitais."
+  }
+}

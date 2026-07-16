@@ -1,0 +1,147 @@
+{
+  "e_contrato_de_locacao": true,
+  "nomes_que_possuem_selo_carimbo_de_firma_reconhecida": [],
+  "todos_os_envolvidos_no_contrato": [
+    {
+      "nome": "Eder Silva da Aparecida",
+      "endereco": "Rua Beija-Flor, 505, Lagoa Santa, Governador Valadares/MG, CEP 35.065-126",
+      "CPF_ou_CNPJ": "997.243.326-91",
+      "locador": true,
+      "locatario": false,
+      "fiador_ou_avalista": false,
+      "e_procurador_ou_representante_do_locador": false,
+      "e_procurador_ou_representante_do_locatario": false,
+      "e_procurador_ou_representante_do_fiador": false,
+      "possui_procurador_ou_representante": false,
+      "casado": true,
+      "venia_conjugal": false,
+      "assinatura_reconhecida_ou_digital": {
+        "reconhecimento_de_firma": {
+          "existe_nome_da_pessoa_ou_do_seu_representante_no_selo_firma": false,
+          "existe_carimbo_de_assinatura_confere_com_a_original_gerente_banco": false,
+          "matricula_gerente": "",
+          "nome_gerente_carimbo": "",
+          "registro_titulos_e_documentos_livro_3_firma_reconhecida": false,
+          "nome_pessoa_firma_reconhecida_e_locador_ou_locataria_ou_fiador": "",
+          "nome_pessoa_firma_reconhecida_e_procurador_ou_representante": "",
+          "numero_selo_cartorario": "",
+          "numero_selo_digital": "",
+          "site_consulta_selo": ""
+        },
+        "assinatura_digital": {
+          "existe_nome_da_pessoa_ou_do_seu_representante_no_selo_digital": true,
+          "nome_da_assinatura_digital_e_locador_ou_locataria_ou_fiador": "Eder Silva da Aparecida",
+          "nome_da_assinatura_digital_e_procurador_ou_representante": "",
+          "numero_selo_digital": "",
+          "site_autenticacao": ""
+        }
+      }
+    },
+    {
+      "nome": "Leal & Leal Soluções & Serviços Ltda",
+      "endereco": "Não Localizado",
+      "CPF_ou_CNPJ": "54.042.016/0001-96",
+      "locador": false,
+      "locatario": true,
+      "fiador_ou_avalista": false,
+      "e_procurador_ou_representante_do_locador": false,
+      "e_procurador_ou_representante_do_locatario": false,
+      "e_procurador_ou_representante_do_fiador": false,
+      "possui_procurador_ou_representante": true,
+      "casado": false,
+      "venia_conjugal": false,
+      "assinatura_reconhecida_ou_digital": {
+        "reconhecimento_de_firma": {
+          "existe_nome_da_pessoa_ou_do_seu_representante_no_selo_firma": false,
+          "existe_carimbo_de_assinatura_confere_com_a_original_gerente_banco": false,
+          "matricula_gerente": "",
+          "nome_gerente_carimbo": "",
+          "registro_titulos_e_documentos_livro_3_firma_reconhecida": false,
+          "nome_pessoa_firma_reconhecida_e_locador_ou_locataria_ou_fiador": "",
+          "nome_pessoa_firma_reconhecida_e_procurador_ou_representante": "",
+          "numero_selo_cartorario": "",
+          "numero_selo_digital": "",
+          "site_consulta_selo": ""
+        },
+        "assinatura_digital": {
+          "existe_nome_da_pessoa_ou_do_seu_representante_no_selo_digital": true,
+          "nome_da_assinatura_digital_e_locador_ou_locataria_ou_fiador": "Leal & Leal Soluções & Serviços Ltda",
+          "nome_da_assinatura_digital_e_procurador_ou_representante": "Gilma Rodrigues Leal",
+          "numero_selo_digital": "",
+          "site_autenticacao": ""
+        }
+      }
+    },
+    {
+      "nome": "Gilma Rodrigues Leal",
+      "endereco": "Rua Beija-Flor, 505, Lagoa Santa, Governador Valadares/MG, CEP 35.065-126",
+      "CPF_ou_CNPJ": "006.314.806-41",
+      "locador": false,
+      "locatario": false,
+      "fiador_ou_avalista": false,
+      "e_procurador_ou_representante_do_locador": false,
+      "e_procurador_ou_representante_do_locatario": true,
+      "e_procurador_ou_representante_do_fiador": false,
+      "possui_procurador_ou_representante": false,
+      "casado": true,
+      "venia_conjugal": false,
+      "assinatura_reconhecida_ou_digital": {
+        "reconhecimento_de_firma": {
+          "existe_nome_da_pessoa_ou_do_seu_representante_no_selo_firma": false,
+          "existe_carimbo_de_assinatura_confere_com_a_original_gerente_banco": false,
+          "matricula_gerente": "",
+          "nome_gerente_carimbo": "",
+          "registro_titulos_e_documentos_livro_3_firma_reconhecida": false,
+          "nome_pessoa_firma_reconhecida_e_locador_ou_locataria_ou_fiador": "",
+          "nome_pessoa_firma_reconhecida_e_procurador_ou_representante": "",
+          "numero_selo_cartorario": "",
+          "numero_selo_digital": "",
+          "site_consulta_selo": ""
+        },
+        "assinatura_digital": {
+          "existe_nome_da_pessoa_ou_do_seu_representante_no_selo_digital": true,
+          "nome_da_assinatura_digital_e_locador_ou_locataria_ou_fiador": "Leal & Leal Soluções & Serviços Ltda",
+          "nome_da_assinatura_digital_e_procurador_ou_representante": "Gilma Rodrigues Leal",
+          "numero_selo_digital": "",
+          "site_autenticacao": ""
+        }
+      }
+    }
+  ],
+  "imovel": {
+    "imovel_urbano": true,
+    "endereco_do_imovel": "AV. Eng. Roberto Lassance, 1080, Vila Isa, Governador Valadares/MG, CEP 35.044-080",
+    "tipo_do_imovel": "Sala administrativa galpão B",
+    "area_do_imovel": ""
+  },
+  "atividades_permitidas": [
+    "Fins comerciais"
+  ],
+  "termos_locacao": {
+    "data_inicio": "2025-04-01",
+    "duracao_em_dias": 3650,
+    "duracao_do_contrato_e_maior_ou_igual_a_dez_anos": true,
+    "data_vencimento_aluguel": ""
+  },
+  "clausula_autorizacao_construcao_reforma": "Todas e quaisquer benfeitorias úteis ou voluptuárias dependerão de prévio consentimento do LOCADOR, ficando certo, ainda, que no caso de ser autorizadas, as mesmas incorporar-se-ão ao imóvel locado sem que assista ao locador qualquer direito à retenção, reembolso ou indenização.",
+  "clausula_vigencia": true,
+  "registro_livro2_cartorio": false,
+  "registro_titulos_e_documentos_livro_3": false,
+  "observacoes": {
+    "inventario_bens": "",
+    "valor_aluguel": "R$ 1.000,00",
+    "substituicao_fiador_garantia": "",
+    "obrigacoes_locador": "Autorizar depósito do aluguel na conta indicada; ressarcir benfeitorias necessárias em caso de desapropriação total ou parcial do imóvel; tomar todas as providências ao seu alcance para manter o locatário na posse mansa e pacífica do imóvel enquanto durar a locação.",
+    "obrigacoes_locatario": "Pagar o aluguel mensal; manter o imóvel em perfeitas condições de conservação e funcionamento; arcar com custos de substituições por desgaste ou exigência legal; pagar todos os impostos, taxas e contribuições que recaiam ou venham a recair sobre o imóvel; não sublocar, ceder, alienar ou transferir direitos sem autorização prévia por escrito do locador; devolver o imóvel em perfeito estado, inclusive com pintura nova.",
+    "responsavel_manutencao_reparos": "LOCATÁRIO, inclusive conservação, funcionamento e substituições por desgaste pelo uso ou por determinação legal.",
+    "multa_rescisao": "Multa correspondente a 3 (três) meses do aluguel vigente na data da infração; em caso de interdição irreversível causada pelo locatário, multa de 3 (três) aluguéis vigentes na época da interdição.",
+    "aviso_previo": "",
+    "outras_penalidades": "No atraso do pagamento dos aluguéis haverá atualização monetária, juros de mora de 1% ao mês calculados pró-rata e multa de 10% sobre o total devido, sem prejuízo das medidas judiciais cabíveis; perdas e danos, custas e honorários advocatícios de 20% sobre o total devido.",
+    "direito_preferencia": "Respeitado o direito de preferência do LOCATÁRIO em caso de alienação total ou parcial do imóvel.",
+    "renovacao_automatica": "Prorrogado e renovado automaticamente por igual período, desde que o LOCATÁRIO tenha cumprido fielmente todas as cláusulas do contrato, inclusive pagamento pontual dos aluguéis.",
+    "aditivos_clausulas_especiais": "O locativo mensal começará a incidir a partir de 01/04/2025, sendo pagos antecipadamente, de modo que ao término da locação o locatário gozará de um mês de uso; vigência do contrato persistirá em caso de alienação total ou parcial do imóvel, para os fins do artigo 8º da Lei 8.245/91; foro eleito de Governador Valadares/MG.",
+    "comentario_sobre_clausulas_contraditorias": "A cláusula 1.5 atribui ao LOCATÁRIO o pagamento de todos os impostos, taxas e contribuições que recaiam sobre o imóvel, sem distinção, o que pode conflitar com a distribuição legal usual de encargos. A cláusula 5 menciona fiadores e principais pagadores, mas o documento não identifica nominalmente quaisquer fiadores.",
+    "comentario_sobre_informacoes_ilegiveis": "Há trechos com OCR imperfeito, como 'o que, ao término da local' e pequenas quebras na área de assinaturas digitais, mas o conteúdo principal permanece identificável.",
+    "dados_duplicados": "O CPF 997.243.326-91 do locador aparece também como chave PIX para pagamento do aluguel."
+  }
+}

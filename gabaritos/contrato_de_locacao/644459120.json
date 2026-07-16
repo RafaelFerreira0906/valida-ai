@@ -1,1 +1,185 @@
-644459120
+{
+  "e_contrato_de_locacao": true,
+  "nomes_que_possuem_selo_carimbo_de_firma_reconhecida": [
+    "RICHARDSON EWERTON DOS SANTOS RANGEL"
+  ],
+  "todos_os_envolvidos_no_contrato": [
+    {
+      "nome": "INSTITUTO DE OFTALMOLOGIA E OTORRINOLARINGOLOGIA DO RN LTDA",
+      "endereco": "Avenida Afonso Pena, nº 754, Bairro Tirol, Natal/RN, CEP 59020-100",
+      "CPF_ou_CNPJ": "05.080.587/0001-00",
+      "locador": true,
+      "locatario": false,
+      "fiador_ou_avalista": false,
+      "e_procurador_ou_representante_do_locador": false,
+      "e_procurador_ou_representante_do_locatario": false,
+      "e_procurador_ou_representante_do_fiador": false,
+      "possui_procurador_ou_representante": true,
+      "casado": false,
+      "venia_conjugal": false,
+      "assinatura_reconhecida_ou_digital": {
+        "reconhecimento_de_firma": {
+          "existe_nome_da_pessoa_ou_do_seu_representante_no_selo_firma": false,
+          "existe_carimbo_de_assinatura_confere_com_a_original_gerente_banco": false,
+          "matricula_gerente": "",
+          "nome_gerente_carimbo": "",
+          "registro_titulos_e_documentos_livro_3_firma_reconhecida": false,
+          "nome_pessoa_firma_reconhecida_e_locador_ou_locataria_ou_fiador": "",
+          "nome_pessoa_firma_reconhecida_e_procurador_ou_representante": "",
+          "numero_selo_cartorario": "",
+          "numero_selo_digital": "",
+          "site_consulta_selo": ""
+        },
+        "assinatura_digital": {
+          "existe_nome_da_pessoa_ou_do_seu_representante_no_selo_digital": true,
+          "nome_da_assinatura_digital_e_locador_ou_locataria_ou_fiador": "INSTITUTO DE OFTALMOLOGIA E OTORRINOLARINGOLOGIA DO RN LTDA",
+          "nome_da_assinatura_digital_e_procurador_ou_representante": "LUCIANA DANTAS BRITO",
+          "numero_selo_digital": "a6df981c-2bb1-4375-bd4b-1d218e02a37a",
+          "site_autenticacao": "https://app.clicksign.com"
+        }
+      }
+    },
+    {
+      "nome": "LUCIANA DANTAS BRITO",
+      "endereco": "Av. Governador Silvio Pedrosa, n 304, apto 1702, Areia Preta, Natal/RN, CEP 59014-100",
+      "CPF_ou_CNPJ": "914.382.334-34",
+      "locador": false,
+      "locatario": false,
+      "fiador_ou_avalista": false,
+      "e_procurador_ou_representante_do_locador": true,
+      "e_procurador_ou_representante_do_locatario": false,
+      "e_procurador_ou_representante_do_fiador": false,
+      "possui_procurador_ou_representante": false,
+      "casado": false,
+      "venia_conjugal": false,
+      "assinatura_reconhecida_ou_digital": {
+        "reconhecimento_de_firma": {
+          "existe_nome_da_pessoa_ou_do_seu_representante_no_selo_firma": false,
+          "existe_carimbo_de_assinatura_confere_com_a_original_gerente_banco": false,
+          "matricula_gerente": "",
+          "nome_gerente_carimbo": "",
+          "registro_titulos_e_documentos_livro_3_firma_reconhecida": false,
+          "nome_pessoa_firma_reconhecida_e_locador_ou_locataria_ou_fiador": "",
+          "nome_pessoa_firma_reconhecida_e_procurador_ou_representante": "",
+          "numero_selo_cartorario": "",
+          "numero_selo_digital": "",
+          "site_consulta_selo": ""
+        },
+        "assinatura_digital": {
+          "existe_nome_da_pessoa_ou_do_seu_representante_no_selo_digital": true,
+          "nome_da_assinatura_digital_e_locador_ou_locataria_ou_fiador": "INSTITUTO DE OFTALMOLOGIA E OTORRINOLARINGOLOGIA DO RN LTDA",
+          "nome_da_assinatura_digital_e_procurador_ou_representante": "LUCIANA DANTAS BRITO",
+          "numero_selo_digital": "a6df981c-2bb1-4375-bd4b-1d218e02a37a",
+          "site_autenticacao": "https://app.clicksign.com"
+        }
+      }
+    },
+    {
+      "nome": "RICHARDSON EWERTON DOS SANTOS RANGEL 09388186435",
+      "endereco": "Rua Manoel Elpideo, nº 230, Penedo - Caicó/RN, CEP 59300-000",
+      "CPF_ou_CNPJ": "37.494.298/001-43",
+      "locatario": true,
+      "locador": false,
+      "fiador_ou_avalista": false,
+      "e_procurador_ou_representante_do_locador": false,
+      "e_procurador_ou_representante_do_locatario": false,
+      "e_procurador_ou_representante_do_fiador": false,
+      "possui_procurador_ou_representante": true,
+      "casado": false,
+      "venia_conjugal": false,
+      "assinatura_reconhecida_ou_digital": {
+        "reconhecimento_de_firma": {
+          "existe_nome_da_pessoa_ou_do_seu_representante_no_selo_firma": true,
+          "existe_carimbo_de_assinatura_confere_com_a_original_gerente_banco": false,
+          "matricula_gerente": "",
+          "nome_gerente_carimbo": "",
+          "registro_titulos_e_documentos_livro_3_firma_reconhecida": false,
+          "nome_pessoa_firma_reconhecida_e_locador_ou_locataria_ou_fiador": "RICHARDSON EWERTON DOS SANTOS RANGEL 09388186435",
+          "nome_pessoa_firma_reconhecida_e_procurador_ou_representante": "RICHARDSON EWERTON DOS SANTOS RANGEL",
+          "numero_selo_cartorario": "AM586720",
+          "numero_selo_digital": "RN2024009411000358311PW",
+          "site_consulta_selo": "https://selodigital.tjrn.jus.br/"
+        },
+        "assinatura_digital": {
+          "existe_nome_da_pessoa_ou_do_seu_representante_no_selo_digital": false,
+          "nome_da_assinatura_digital_e_locador_ou_locataria_ou_fiador": "",
+          "nome_da_assinatura_digital_e_procurador_ou_representante": "",
+          "numero_selo_digital": "",
+          "site_autenticacao": ""
+        }
+      }
+    },
+    {
+      "nome": "RICHARDSON EWERTON DOS SANTOS RANGEL",
+      "endereco": "Rua Josefa Antônia da Conceição, nº 280, soledade, Caicó/RN, CEP 59300-000",
+      "CPF_ou_CNPJ": "093.881.864-35",
+      "locador": false,
+      "locatario": false,
+      "fiador_ou_avalista": false,
+      "e_procurador_ou_representante_do_locador": false,
+      "e_procurador_ou_representante_do_locatario": true,
+      "e_procurador_ou_representante_do_fiador": false,
+      "possui_procurador_ou_representante": false,
+      "casado": true,
+      "venia_conjugal": false,
+      "assinatura_reconhecida_ou_digital": {
+        "reconhecimento_de_firma": {
+          "existe_nome_da_pessoa_ou_do_seu_representante_no_selo_firma": true,
+          "existe_carimbo_de_assinatura_confere_com_a_original_gerente_banco": false,
+          "matricula_gerente": "",
+          "nome_gerente_carimbo": "",
+          "registro_titulos_e_documentos_livro_3_firma_reconhecida": false,
+          "nome_pessoa_firma_reconhecida_e_locador_ou_locataria_ou_fiador": "RICHARDSON EWERTON DOS SANTOS RANGEL 09388186435",
+          "nome_pessoa_firma_reconhecida_e_procurador_ou_representante": "RICHARDSON EWERTON DOS SANTOS RANGEL",
+          "numero_selo_cartorario": "AM586720",
+          "numero_selo_digital": "RN2024009411000358311PW",
+          "site_consulta_selo": "https://selodigital.tjrn.jus.br/"
+        },
+        "assinatura_digital": {
+          "existe_nome_da_pessoa_ou_do_seu_representante_no_selo_digital": false,
+          "nome_da_assinatura_digital_e_locador_ou_locataria_ou_fiador": "",
+          "nome_da_assinatura_digital_e_procurador_ou_representante": "",
+          "numero_selo_digital": "",
+          "site_autenticacao": ""
+        }
+      }
+    }
+  ],
+  "imovel": {
+    "imovel_urbano": true,
+    "endereco_do_imovel": "Rua Pires Ferreira, nº 101, Centro, Caicó/RN, CEP 59300-000",
+    "tipo_do_imovel": "ARMAZEM",
+    "area_do_imovel": ""
+  },
+  "atividades_permitidas": [
+    "Fins exclusivamente comerciais",
+    "Instalação de um restaurante"
+  ],
+  "termos_locacao": {
+    "data_inicio": "2024-10-31",
+    "duracao_em_dias": 1825,
+    "duracao_do_contrato_e_maior_ou_igual_a_dez_anos": false,
+    "data_vencimento_aluguel": "2025-03-01"
+  },
+  "clausula_autorizacao_construcao_reforma": "O locatário poderá realizar, por sua conta e expensas, as obras necessárias à adaptação do imóvel para a atividade desenvolvida, desde que com prévia autorização do locador. Qualquer benfeitoria deverá ser previamente autorizada por escrito pelo locador; as benfeitorias autorizadas integrarão o imóvel, sem direito a indenização ou retenção, ressalvadas as removíveis sem dano à estrutura. Placas, letreiros e cartazes também dependem de autorização prévia por escrito.",
+  "clausula_vigencia": true,
+  "registro_livro2_cartorio": false,
+  "registro_titulos_e_documentos_livro_3": false,
+  "observacoes": {
+    "inventario_bens": "",
+    "valor_aluguel": "R$ 4.500,00",
+    "substituicao_fiador_garantia": "",
+    "obrigacoes_locador": "Entregar o imóvel em estado de servir ao uso a que se destina; garantir o uso pacífico durante a locação; pagar a taxa de intermediação à imobiliária correspondente ao primeiro aluguel; poderá vistoriar o imóvel mediante agendamento prévio e realizar reparos indispensáveis à segurança e salubridade em caso de urgência ou com prévia comunicação.",
+    "obrigacoes_locatario": "Pagar aluguel e encargos pontualmente; usar o imóvel exclusivamente para restaurante; não sublocar, ceder ou emprestar sem anuência escrita; realizar obras de adaptação com prévia autorização do locador; restituir o imóvel com as melhorias pactuadas; comunicar danos ou defeitos; permitir vistorias; cumprir normas e exigências dos poderes públicos; obter e manter licenças e alvarás; responder por danos, multas e autuações; apresentar comprovantes de quitação quando solicitado.",
+    "responsavel_manutencao_reparos": "Durante a vigência, o locatário é o exclusivo responsável por todas as manutenções e reparos necessários à conservação do imóvel, instalações, equipamentos e acessórios, incluindo limpeza e desobstrução de calhas, fossas e caixas de gordura, manutenção de ar-condicionado, higienização de caixas d'água e manutenção/substituição de aparelhos sanitários, louças e metais. O locador poderá efetuar reparos indispensáveis à segurança e salubridade em caso de urgência.",
+    "multa_rescisao": "O inadimplemento do aluguel por período superior a 3 meses consecutivos, excluído o período de carência, enseja rescisão automática do contrato. Há previsão de indenização ao locatário por melhorias em caso de rescisão antecipada pelo locador, calculada proporcionalmente ao tempo restante do contrato.",
+    "aviso_previo": "30 dias",
+    "outras_penalidades": "Atraso no pagamento: multa de 10% sobre o valor devido e juros de mora de 1% ao mês. Infração de qualquer cláusula: multa equivalente a 1 aluguel vigente. Alienação do imóvel sem observância do direito de preferência: multa equivalente a 3 aluguéis vigentes à época da transação.",
+    "direito_preferencia": "O locatário tem direito de preferência na aquisição do imóvel em igualdade de condições com terceiros. O locador deve notificar por escrito, informando preço, condições e demais termos, concedendo prazo de 30 dias para manifestação. Havendo interesse, o contrato de compra e venda deve ser celebrado em até 60 dias da notificação.",
+    "renovacao_automatica": "Findo o prazo contratual, se o locatário permanecer no imóvel com concordância do locador, a locação presume-se renovada por prazo indeterminado, nas mesmas condições ajustadas, podendo ser rescindida por qualquer das partes mediante comunicação por escrito com antecedência mínima de 30 dias.",
+    "aditivos_clausulas_especiais": "Há carência de 4 meses de aluguel, compreendendo novembro e dezembro de 2024, e janeiro e fevereiro de 2025, como contrapartida pelas melhorias/benfeitorias a serem realizadas no imóvel. O primeiro pagamento é devido em 01/03/2025. O aluguel será reajustado anualmente pelo IPCA. É vedada a alteração de destinação do imóvel sem autorização expressa do locador.",
+    "comentario_sobre_clausulas_contraditorias": "Há coexistência entre a cláusula 11.2, que prevê incorporação das benfeitorias ao imóvel sem direito a indenização ou retenção, e a cláusula 17, que prevê indenização ao locatário pelas melhorias em hipótese de rescisão antecipada pelo locador. Também há referência cruzada aparentemente inconsistente em 17.3 ao mencionar a cláusula 17.4.",
+    "comentario_sobre_informacoes_ilegiveis": "Há trechos com OCR imperfeito em assinaturas e repetições de nomes ao longo do documento digitalizado, mas os dados principais das partes, do imóvel, do prazo e do selo de reconhecimento de firma estão identificáveis.",
+    "dados_duplicados": "O nome Richardson Ewerton dos Santos Rangel aparece tanto como representante da pessoa jurídica locatária quanto como denominação empresarial com CNPJ, além de repetição do CPF nas assinaturas e no selo."
+  }
+}

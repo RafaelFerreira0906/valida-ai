@@ -1,0 +1,110 @@
+{
+  "e_contrato_de_locacao": true,
+  "nomes_que_possuem_selo_carimbo_de_firma_reconhecida": [],
+  "todos_os_envolvidos_no_contrato": [
+    {
+      "nome": "Anna Rachel Brasileiro Quirino Silveira",
+      "endereco": "Rua Edésio Silva, Nº 930, Bairro Liberdade, CEP 58414-255, Campina Grande - PB",
+      "CPF_ou_CNPJ": "032.350.904-52",
+      "locador": true,
+      "locatario": false,
+      "fiador_ou_avalista": false,
+      "e_procurador_ou_representante_do_locador": false,
+      "e_procurador_ou_representante_do_locatario": false,
+      "e_procurador_ou_representante_do_fiador": false,
+      "possui_procurador_ou_representante": false,
+      "casado": true,
+      "venia_conjugal": false,
+      "assinatura_reconhecida_ou_digital": {
+        "reconhecimento_de_firma": {
+          "existe_nome_da_pessoa_ou_do_seu_representante_no_selo_firma": false,
+          "existe_carimbo_de_assinatura_confere_com_a_original_gerente_banco": false,
+          "matricula_gerente": "",
+          "nome_gerente_carimbo": "",
+          "registro_titulos_e_documentos_livro_3_firma_reconhecida": false,
+          "nome_pessoa_firma_reconhecida_e_locador_ou_locataria_ou_fiador": "",
+          "nome_pessoa_firma_reconhecida_e_procurador_ou_representante": "",
+          "numero_selo_cartorario": "",
+          "numero_selo_digital": "",
+          "site_consulta_selo": ""
+        },
+        "assinatura_digital": {
+          "existe_nome_da_pessoa_ou_do_seu_representante_no_selo_digital": false,
+          "nome_da_assinatura_digital_e_locador_ou_locataria_ou_fiador": "",
+          "nome_da_assinatura_digital_e_procurador_ou_representante": "",
+          "numero_selo_digital": "",
+          "site_autenticacao": ""
+        }
+      }
+    },
+    {
+      "nome": "MIRANDA LOCACOES DE VEICULOS LTDA",
+      "endereco": "Rua Edésio Silva, Nº 934, Bairro Liberdade, CEP 58414-255, Campina Grande - PB",
+      "CPF_ou_CNPJ": "45.007.441/0001-53",
+      "locador": false,
+      "locatario": true,
+      "fiador_ou_avalista": false,
+      "e_procurador_ou_representante_do_locador": false,
+      "e_procurador_ou_representante_do_locatario": false,
+      "e_procurador_ou_representante_do_fiador": false,
+      "possui_procurador_ou_representante": false,
+      "casado": false,
+      "venia_conjugal": false,
+      "assinatura_reconhecida_ou_digital": {
+        "reconhecimento_de_firma": {
+          "existe_nome_da_pessoa_ou_do_seu_representante_no_selo_firma": false,
+          "existe_carimbo_de_assinatura_confere_com_a_original_gerente_banco": false,
+          "matricula_gerente": "",
+          "nome_gerente_carimbo": "",
+          "registro_titulos_e_documentos_livro_3_firma_reconhecida": false,
+          "nome_pessoa_firma_reconhecida_e_locador_ou_locataria_ou_fiador": "",
+          "nome_pessoa_firma_reconhecida_e_procurador_ou_representante": "",
+          "numero_selo_cartorario": "",
+          "numero_selo_digital": "",
+          "site_consulta_selo": ""
+        },
+        "assinatura_digital": {
+          "existe_nome_da_pessoa_ou_do_seu_representante_no_selo_digital": false,
+          "nome_da_assinatura_digital_e_locador_ou_locataria_ou_fiador": "",
+          "nome_da_assinatura_digital_e_procurador_ou_representante": "",
+          "numero_selo_digital": "",
+          "site_autenticacao": ""
+        }
+      }
+    }
+  ],
+  "imovel": {
+    "imovel_urbano": true,
+    "endereco_do_imovel": "Rua Edésio Silva, Nº 934, Bairro Liberdade, CEP 58414-255, Campina Grande - PB",
+    "tipo_do_imovel": "",
+    "area_do_imovel": ""
+  },
+  "atividades_permitidas": [],
+  "termos_locacao": {
+    "data_inicio": "2023-03-28",
+    "duracao_em_dias": 1080,
+    "duracao_do_contrato_e_maior_ou_igual_a_dez_anos": false,
+    "data_vencimento_aluguel": ""
+  },
+  "clausula_autorizacao_construcao_reforma": "Qualquer benfeitoria ou construção programada no imóvel deverá ser submetida previamente à autorização expressa do locador. Se realizada, ao final do contrato o locador poderá aceitá-la ou não; em caso de não aceitação, o locatário deverá modificar o imóvel para que fique da maneira como lhe foi entregue. Em caso de aceitação, as benfeitorias, consertos ou reparos serão integralizados ao imóvel, sem direito de retenção ou indenização ao locatário.",
+  "clausula_vigencia": true,
+  "registro_livro2_cartorio": false,
+  "registro_titulos_e_documentos_livro_3": false,
+  "observacoes": {
+    "inventario_bens": "Há menção a TERMO DE VISTORIA DE ENTREGA, escrito e fotografado, realizado no início da locação.",
+    "valor_aluguel": "R$ 2.500,00 mensais",
+    "substituicao_fiador_garantia": "",
+    "obrigacoes_locador": "Entregar as chaves ao locatário no ato da assinatura do contrato; afirmar e entregar o imóvel em condições de uso, conforme termo de vistoria de entrega.",
+    "obrigacoes_locatario": "Pagar o aluguel; pagar energia e demais despesas ordinárias de conservação legalmente permitidas; guardar, administrar, cuidar da limpeza, ordem e conservação do imóvel; entregar o imóvel nas mesmas condições do termo de vistoria; reparar danos causados ao imóvel e a vizinhos; transferir a titularidade da conta de energia elétrica para seu nome em 5 dias e comprovar a transferência; solicitar por escrito autorização para troca do segredo das fechaduras; desocupar o imóvel no vencimento da locação; não emprestar, ceder ou sublocar o imóvel ou parte dele sem autorização expressa do locador.",
+    "responsavel_manutencao_reparos": "O locatário é totalmente responsável pela guarda e manutenção do imóvel durante a vigência do contrato e pelas despesas de reparação de danos causados por uso indevido.",
+    "multa_rescisao": "Multa de 01 aluguel em caso de rescisão, com comunicação à parte inocente com antecedência de 30 dias.",
+    "aviso_previo": "30 dias",
+    "outras_penalidades": "Atraso no pagamento do aluguel: multa de 10% sobre o valor devido e juros de mora de 0,33% ao dia; após 30 dias de atraso o contrato considerar-se-á rescindido. Descumprimento das obrigações do locatário: multa de 10% sobre o valor do aluguel mensal, sem prejuízo da rescisão e ação de despejo. Em ações judiciais ou extrajudiciais relativas a atraso ou outra medida contra o locatário, este pagará honorários advocatícios de 20% sobre o valor atualizado do débito.",
+    "direito_preferencia": "O locador deverá notificar o locatário para exercício do direito de preferência na aquisição do imóvel, nas mesmas condições oferecidas a terceiros. O locatário deverá responder em 30 dias via Cartório de Títulos e Documentos.",
+    "renovacao_automatica": "Após 30 dias do decurso do prazo determinado, o contrato poderá ser prorrogado se não houver manifestação contrária do locador; havendo permanência do locatário, o reajuste será pelo IPCA.",
+    "aditivos_clausulas_especiais": "Reajuste automático pela periodicidade mínima legal com base no IPCA. O pagamento dos valores das locações referentes aos 24 meses seguintes será feito em espécie ao locador. O contrato, assinado pelas partes e duas testemunhas, é declarado título executivo extrajudicial. Foro eleito: situação do imóvel.",
+    "comentario_sobre_clausulas_contraditorias": "Na cláusula 8, § 3º, consta multa de 10%, mas por extenso aparece 'cinco por cento'. Foi priorizado o percentual numérico de 10%, por ser mais específico e coerente com outras cláusulas.",
+    "comentario_sobre_informacoes_ilegiveis": "A assinatura do locatário apresenta trecho manuscrito de difícil leitura antes da identificação da empresa, sem identificação clara de representante nomeado.",
+    "dados_duplicados": ""
+  }
+}

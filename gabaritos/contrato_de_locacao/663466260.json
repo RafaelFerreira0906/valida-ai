@@ -1,0 +1,112 @@
+{
+  "e_contrato_de_locacao": true,
+  "nomes_que_possuem_selo_carimbo_de_firma_reconhecida": [],
+  "todos_os_envolvidos_no_contrato": [
+    {
+      "nome": "DEBORA BARBIERI LIMA",
+      "endereco": "Não Localizado",
+      "CPF_ou_CNPJ": "011.902.286-96",
+      "locador": true,
+      "locatario": false,
+      "fiador_ou_avalista": false,
+      "e_procurador_ou_representante_do_locador": false,
+      "e_procurador_ou_representante_do_locatario": false,
+      "e_procurador_ou_representante_do_fiador": false,
+      "possui_procurador_ou_representante": false,
+      "casado": false,
+      "venia_conjugal": false,
+      "assinatura_reconhecida_ou_digital": {
+        "reconhecimento_de_firma": {
+          "existe_nome_da_pessoa_ou_do_seu_representante_no_selo_firma": true,
+          "existe_carimbo_de_assinatura_confere_com_a_original_gerente_banco": true,
+          "matricula_gerente": "F 149764",
+          "nome_gerente_carimbo": "Bruno Robson Je Jesus Mota",
+          "registro_titulos_e_documentos_livro_3_firma_reconhecida": false,
+          "nome_pessoa_firma_reconhecida_e_locador_ou_locataria_ou_fiador": "DEBORA BARBIERI LIMA",
+          "nome_pessoa_firma_reconhecida_e_procurador_ou_representante": "",
+          "numero_selo_cartorario": "",
+          "numero_selo_digital": "",
+          "site_consulta_selo": ""
+        },
+        "assinatura_digital": {
+          "existe_nome_da_pessoa_ou_do_seu_representante_no_selo_digital": false,
+          "nome_da_assinatura_digital_e_locador_ou_locataria_ou_fiador": "",
+          "nome_da_assinatura_digital_e_procurador_ou_representante": "",
+          "numero_selo_digital": "",
+          "site_autenticacao": ""
+        }
+      }
+    },
+    {
+      "nome": "NAORTA PRODUTOS SAUDAVEIS LTDA",
+      "endereco": "Não Localizado",
+      "CPF_ou_CNPJ": "59.005.927/0001-67",
+      "locador": false,
+      "locatario": true,
+      "fiador_ou_avalista": false,
+      "e_procurador_ou_representante_do_locador": false,
+      "e_procurador_ou_representante_do_locatario": false,
+      "e_procurador_ou_representante_do_fiador": false,
+      "possui_procurador_ou_representante": false,
+      "casado": false,
+      "venia_conjugal": false,
+      "assinatura_reconhecida_ou_digital": {
+        "reconhecimento_de_firma": {
+          "existe_nome_da_pessoa_ou_do_seu_representante_no_selo_firma": true,
+          "existe_carimbo_de_assinatura_confere_com_a_original_gerente_banco": true,
+          "matricula_gerente": "F 149764",
+          "nome_gerente_carimbo": "Bruno Robsonde Jus Mota",
+          "registro_titulos_e_documentos_livro_3_firma_reconhecida": false,
+          "nome_pessoa_firma_reconhecida_e_locador_ou_locataria_ou_fiador": "NAORTA PRODUTOS SAUDAVEIS LTDA",
+          "nome_pessoa_firma_reconhecida_e_procurador_ou_representante": "",
+          "numero_selo_cartorario": "",
+          "numero_selo_digital": "",
+          "site_consulta_selo": ""
+        },
+        "assinatura_digital": {
+          "existe_nome_da_pessoa_ou_do_seu_representante_no_selo_digital": false,
+          "nome_da_assinatura_digital_e_locador_ou_locataria_ou_fiador": "",
+          "nome_da_assinatura_digital_e_procurador_ou_representante": "",
+          "numero_selo_digital": "",
+          "site_autenticacao": ""
+        }
+      }
+    }
+  ],
+  "imovel": {
+    "imovel_urbano": true,
+    "endereco_do_imovel": "RUA ISRAEL PINHEIRO (- ATE 2625/2626), 2236, SAO PEDRO, GOVERNADOR VALADARES - MG",
+    "tipo_do_imovel": "Imóvel comercial",
+    "area_do_imovel": ""
+  },
+  "atividades_permitidas": [
+    "COMERCIAL"
+  ],
+  "termos_locacao": {
+    "data_inicio": "2025-02-01",
+    "duracao_em_dias": 1095,
+    "duracao_do_contrato_e_maior_ou_igual_a_dez_anos": false,
+    "data_vencimento_aluguel": ""
+  },
+  "clausula_autorizacao_construcao_reforma": "O locatário está autorizado a fazer instalação, adaptação, obra ou benfeitoria, inclusive colocação de luminosos, placa, letreiros e cartazes sem prévia obtenção de autorização por escrito do locador; no caso de obra, reforma ou adaptação, devidamente autorizada pelo locador, deverá repor o imóvel ao estado primitivo na entrega das chaves, sem qualquer indenização; toda benfeitoria autorizada ficará incorporada ao imóvel sem direito de retenção ou ressarcimento.",
+  "clausula_vigencia": true,
+  "registro_livro2_cartorio": false,
+  "registro_titulos_e_documentos_livro_3": false,
+  "observacoes": {
+    "inventario_bens": "Há menção a vistoria anexa assinada por ambas as partes e à relação anexa de móveis e utensílios como parte integrante do contrato.",
+    "valor_aluguel": "R$ 4.800,00",
+    "substituicao_fiador_garantia": "No caso de morte, falência ou insolvência dos fiadores, o locatário deve apresentar substituto idôneo, a juízo do locador, em 30 dias, sob pena de grave infração contratual e consequente despejo.",
+    "obrigacoes_locador": "Receber o imóvel ao final mediante vistoria; permitir exame ou vistoria por si ou representante; poderá enviar recibos para cobrança por advogado após o dia 30 do mês seguinte ao vencido.",
+    "obrigacoes_locatario": "Pagar aluguel pontualmente; pagar luz, taxa de condomínio e IPTU; conservar e limpar o imóvel; entregar nas condições do laudo de vistoria; não transferir, sublocar, ceder ou emprestar sem autorização por escrito; não alterar a destinação; encaminhar notificações e intimações recebidas no imóvel; permitir vistoria e visita de interessados em caso de venda; pagar aluguel até entrega das chaves se houver infração e necessidade de reparos.",
+    "responsavel_manutencao_reparos": "Locatário, inclusive conservação, limpeza e despesas necessárias para restituição do imóvel; deve repor o imóvel ao estado primitivo em caso de obra, reforma ou adaptação autorizada.",
+    "multa_rescisao": "Multa igual a 30% sobre o valor do contrato por infração de qualquer disposição contratual ou legal, paga integralmente independentemente do tempo decorrido, inclusive na prorrogação.",
+    "aviso_previo": "",
+    "outras_penalidades": "Em caso de mora, multa de 10%, juros de 1% ao mês e correção monetária; após o dia 30 do mês seguinte ao vencido, poderá haver cobrança por advogado, inclusive honorários extrajudiciais e custas judiciais; o locatário terá 05 dias úteis após o vencimento para satisfazer o pagamento da locação.",
+    "direito_preferencia": "",
+    "renovacao_automatica": "Não há renovação automática expressa; consta que o locatário deve renovar expressamente novo contrato caso permaneça no imóvel.",
+    "aditivos_clausulas_especiais": "Reajuste a cada 12 meses com base no IGPM; foro eleito é o da situação do imóvel; fiadores renunciam expressamente a dispositivos do Código Civil e respondem até a entrega efetiva das chaves.",
+    "comentario_sobre_clausulas_contraditorias": "Há aparente contradição entre a cláusula VIII, alínea b, que autoriza instalação, adaptação, obra ou benfeitoria sem prévia autorização por escrito do locador, e a cláusula VIII, alínea e, além da cláusula XI, que tratam de obras/reformas/benfeitorias como devidamente autorizadas pelo locador.",
+    "comentario_sobre_informacoes_ilegiveis": "Os nomes dos fiadores, do fiador cônjuge, de uma testemunha e do signatário do locatário no bloco final de assinaturas estão parcialmente ilegíveis. O nome do gerente do carimbo bancário aparece com variações de OCR.",
+    "dados_duplicados": ""
+  }
+}

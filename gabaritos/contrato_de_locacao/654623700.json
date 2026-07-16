@@ -1,0 +1,112 @@
+{
+  "e_contrato_de_locacao": true,
+  "nomes_que_possuem_selo_carimbo_de_firma_reconhecida": [],
+  "todos_os_envolvidos_no_contrato": [
+    {
+      "nome": "MARIA NUBIA AVELINO DE SOUSA BARROS",
+      "endereco": "Não Localizado",
+      "CPF_ou_CNPJ": "358.259.103-44",
+      "locador": true,
+      "locatario": false,
+      "fiador_ou_avalista": false,
+      "e_procurador_ou_representante_do_locador": false,
+      "e_procurador_ou_representante_do_locatario": false,
+      "e_procurador_ou_representante_do_fiador": false,
+      "possui_procurador_ou_representante": false,
+      "casado": false,
+      "venia_conjugal": false,
+      "assinatura_reconhecida_ou_digital": {
+        "reconhecimento_de_firma": {
+          "existe_nome_da_pessoa_ou_do_seu_representante_no_selo_firma": false,
+          "existe_carimbo_de_assinatura_confere_com_a_original_gerente_banco": false,
+          "matricula_gerente": "",
+          "nome_gerente_carimbo": "",
+          "registro_titulos_e_documentos_livro_3_firma_reconhecida": false,
+          "nome_pessoa_firma_reconhecida_e_locador_ou_locataria_ou_fiador": "",
+          "nome_pessoa_firma_reconhecida_e_procurador_ou_representante": "",
+          "numero_selo_cartorario": "",
+          "numero_selo_digital": "",
+          "site_consulta_selo": ""
+        },
+        "assinatura_digital": {
+          "existe_nome_da_pessoa_ou_do_seu_representante_no_selo_digital": false,
+          "nome_da_assinatura_digital_e_locador_ou_locataria_ou_fiador": "",
+          "nome_da_assinatura_digital_e_procurador_ou_representante": "",
+          "numero_selo_digital": "",
+          "site_autenticacao": ""
+        }
+      }
+    },
+    {
+      "nome": "ERANDI BARROS PEREIRA",
+      "endereco": "Não Localizado",
+      "CPF_ou_CNPJ": "19.116.663/0001-02",
+      "locador": false,
+      "locatario": true,
+      "fiador_ou_avalista": false,
+      "e_procurador_ou_representante_do_locador": false,
+      "e_procurador_ou_representante_do_locatario": false,
+      "e_procurador_ou_representante_do_fiador": false,
+      "possui_procurador_ou_representante": false,
+      "casado": false,
+      "venia_conjugal": false,
+      "assinatura_reconhecida_ou_digital": {
+        "reconhecimento_de_firma": {
+          "existe_nome_da_pessoa_ou_do_seu_representante_no_selo_firma": false,
+          "existe_carimbo_de_assinatura_confere_com_a_original_gerente_banco": false,
+          "matricula_gerente": "",
+          "nome_gerente_carimbo": "",
+          "registro_titulos_e_documentos_livro_3_firma_reconhecida": false,
+          "nome_pessoa_firma_reconhecida_e_locador_ou_locataria_ou_fiador": "",
+          "nome_pessoa_firma_reconhecida_e_procurador_ou_representante": "",
+          "numero_selo_cartorario": "",
+          "numero_selo_digital": "",
+          "site_consulta_selo": ""
+        },
+        "assinatura_digital": {
+          "existe_nome_da_pessoa_ou_do_seu_representante_no_selo_digital": false,
+          "nome_da_assinatura_digital_e_locador_ou_locataria_ou_fiador": "",
+          "nome_da_assinatura_digital_e_procurador_ou_representante": "",
+          "numero_selo_digital": "",
+          "site_autenticacao": ""
+        }
+      }
+    }
+  ],
+  "imovel": {
+    "imovel_urbano": true,
+    "endereco_do_imovel": "RUA DO ORACIO, 94, BROTAS, MIRAIMA - CE",
+    "tipo_do_imovel": "Imóvel comercial",
+    "area_do_imovel": ""
+  },
+  "atividades_permitidas": [
+    "Comercial"
+  ],
+  "termos_locacao": {
+    "data_inicio": "2024-12-01",
+    "duracao_em_dias": 2618,
+    "duracao_do_contrato_e_maior_ou_igual_a_dez_anos": false,
+    "data_vencimento_aluguel": ""
+  },
+  "clausula_autorizacao_construcao_reforma": "O locatário está autorizado a fazer instalação, adaptação, obra ou benfeitoria, inclusive colocação de luminosos, placas, letreiros e cartazes no imóvel. Há também autorização final específica à empresa ERANDI BARROS PEREIRA para essas intervenções no imóvel localizado à RUA DO ORACIO, 94, BROTAS, MIRAIMA - CE. Benfeitorias autorizadas ficam incorporadas ao imóvel, sem indenização ou direito de retenção.",
+  "clausula_vigencia": true,
+  "registro_livro2_cartorio": false,
+  "registro_titulos_e_documentos_livro_3": false,
+  "observacoes": {
+    "inventario_bens": "Há menção a laudo de vistoria anexo e à relação anexa de móveis e utensílios como parte integrante do contrato.",
+    "valor_aluguel": "R$ 400,00",
+    "substituicao_fiador_garantia": "No caso de morte, falência ou insolvência dos fiadores, o locatário deve apresentar substituto idôneo, a juízo do locador, no prazo de 30 dias, sob pena de grave infração contratual com consequente despejo.",
+    "obrigacoes_locador": "Receber o imóvel ao final nas condições da vistoria; realizar vistoria por ocasião da entrega das chaves; permitir ou autorizar por escrito exceções de transferência de contrato, sublocação, cessão ou empréstimo; pode vistoriar o imóvel ou exibi-lo a interessados em caso de venda.",
+    "obrigacoes_locatario": "Pagar aluguel pontualmente; pagar luz, taxa de condomínio e IPTU; conservar e limpar o imóvel; entregar nas condições do laudo de vistoria; não transferir, sublocar, ceder ou emprestar sem autorização por escrito; não alterar a destinação da locação; encaminhar notificações dos poderes públicos ao locador; permitir vistorias; responder por multas e penalidades decorrentes de atraso ou descumprimento.",
+    "responsavel_manutencao_reparos": "Locatário, correndo por sua conta exclusiva as despesas necessárias para conservação, limpeza, consertos e reparos necessários à restituição do imóvel.",
+    "multa_rescisao": "Multa igual a 30% sobre o valor do contrato para a parte que infringir qualquer disposição contratual ou legal. Em caso de mora, há também multa de 10% sobre aluguéis e encargos, além de juros e correção monetária.",
+    "aviso_previo": "",
+    "outras_penalidades": "Juros de mora de 1% ao mês, correção monetária, honorários advocatícios inclusive em cobrança extrajudicial, custas judiciais, despejo e obrigação de continuar pagando aluguel até a entrega das chaves se houver infração e necessidade de conserto ou reparo.",
+    "direito_preferencia": "",
+    "renovacao_automatica": "Não há renovação automática. O contrato prevê que o locatário deve renovar expressamente novo contrato caso permaneça no imóvel.",
+    "aditivos_clausulas_especiais": "Reajuste a cada 12 meses com base no IGPM. Garantia marcada no quadro inicial como seguro de fiança locatícia. Benfeitorias autorizadas incorporam-se ao imóvel sem indenização nem direito de retenção. Foro eleito é o da situação do imóvel.",
+    "comentario_sobre_clausulas_contraditorias": "Há inconsistência entre o prazo informado como '08 anos' e as datas de início e término (2024-12-01 a 2032-02-01), que não correspondem exatamente a 8 anos. O quadro inicial marca 'seguro de fiança locatícia', porém a cláusula XIII trata de fiadores e o campo de fiador está sem qualificação preenchida. Também há aparente conflito entre a cláusula que autoriza benfeitorias sem prévia autorização por escrito e a alínea 'e' que menciona obra, reforma ou adaptação devidamente autorizada pelo locador.",
+    "comentario_sobre_informacoes_ilegiveis": "Há variações de OCR e grafia em nomes/assinaturas, como 'FRANDi Bannos Pereira', 'ERANDi' e 'Maria Nubia Avelino de sousa Barros', mas o nome do locatário foi extraído conforme qualificação principal e a identificação do locador foi confirmada pela repetição ao final.",
+    "dados_duplicados": "O nome da locadora aparece repetido no bloco final de autorização, junto ao CPF."
+  }
+}

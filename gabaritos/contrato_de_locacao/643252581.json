@@ -1,1 +1,148 @@
-643252581
+{
+  "e_contrato_de_locacao": true,
+  "nomes_que_possuem_selo_carimbo_de_firma_reconhecida": [],
+  "todos_os_envolvidos_no_contrato": [
+    {
+      "nome": "R DE S LIMA COM. E IND. DE CONFECÇÕES ME",
+      "endereco": "Rua Raimunda Pontes de Andrade Nº 207 galpão 2 Bairro Planalto Horizonte cep 62884-005, Horizonte-Ce",
+      "CPF_ou_CNPJ": "24.259.083/0001-04",
+      "locador": true,
+      "locatario": false,
+      "fiador_ou_avalista": false,
+      "e_procurador_ou_representante_do_locador": false,
+      "e_procurador_ou_representante_do_locatario": false,
+      "e_procurador_ou_representante_do_fiador": false,
+      "possui_procurador_ou_representante": false,
+      "casado": false,
+      "venia_conjugal": false,
+      "assinatura_reconhecida_ou_digital": {
+        "reconhecimento_de_firma": {
+          "existe_nome_da_pessoa_ou_do_seu_representante_no_selo_firma": false,
+          "existe_carimbo_de_assinatura_confere_com_a_original_gerente_banco": false,
+          "matricula_gerente": "",
+          "nome_gerente_carimbo": "",
+          "registro_titulos_e_documentos_livro_3_firma_reconhecida": false,
+          "nome_pessoa_firma_reconhecida_e_locador_ou_locataria_ou_fiador": "",
+          "nome_pessoa_firma_reconhecida_e_procurador_ou_representante": "",
+          "numero_selo_cartorario": "",
+          "numero_selo_digital": "",
+          "site_consulta_selo": ""
+        },
+        "assinatura_digital": {
+          "existe_nome_da_pessoa_ou_do_seu_representante_no_selo_digital": false,
+          "nome_da_assinatura_digital_e_locador_ou_locataria_ou_fiador": "",
+          "nome_da_assinatura_digital_e_procurador_ou_representante": "",
+          "numero_selo_digital": "",
+          "site_autenticacao": ""
+        }
+      }
+    },
+    {
+      "nome": "MARCIANO FERREIRA DA SILVA (REVILLE JEANS)",
+      "endereco": "Rua Abel Ribeiro Nº 393 Bairro Parangaba Fortaleza-Ce",
+      "CPF_ou_CNPJ": "16.812.072/0001-73",
+      "locador": true,
+      "locatario": false,
+      "fiador_ou_avalista": false,
+      "e_procurador_ou_representante_do_locador": false,
+      "e_procurador_ou_representante_do_locatario": false,
+      "e_procurador_ou_representante_do_fiador": false,
+      "possui_procurador_ou_representante": false,
+      "casado": false,
+      "venia_conjugal": false,
+      "assinatura_reconhecida_ou_digital": {
+        "reconhecimento_de_firma": {
+          "existe_nome_da_pessoa_ou_do_seu_representante_no_selo_firma": false,
+          "existe_carimbo_de_assinatura_confere_com_a_original_gerente_banco": false,
+          "matricula_gerente": "",
+          "nome_gerente_carimbo": "",
+          "registro_titulos_e_documentos_livro_3_firma_reconhecida": false,
+          "nome_pessoa_firma_reconhecida_e_locador_ou_locataria_ou_fiador": "",
+          "nome_pessoa_firma_reconhecida_e_procurador_ou_representante": "",
+          "numero_selo_cartorario": "",
+          "numero_selo_digital": "",
+          "site_consulta_selo": ""
+        },
+        "assinatura_digital": {
+          "existe_nome_da_pessoa_ou_do_seu_representante_no_selo_digital": false,
+          "nome_da_assinatura_digital_e_locador_ou_locataria_ou_fiador": "",
+          "nome_da_assinatura_digital_e_procurador_ou_representante": "",
+          "numero_selo_digital": "",
+          "site_autenticacao": ""
+        }
+      }
+    },
+    {
+      "nome": "AÇO SUPREME IND. E COM. DE AÇO LTDA",
+      "endereco": "rua Raimunda pontes de andrade Nº 207 Galpão 03 Bairro Planalto Horizonte cep 62884-005, Horizonte-Ce",
+      "CPF_ou_CNPJ": "56.224.010/0001-65",
+      "locador": false,
+      "locatario": true,
+      "fiador_ou_avalista": false,
+      "e_procurador_ou_representante_do_locador": false,
+      "e_procurador_ou_representante_do_locatario": false,
+      "e_procurador_ou_representante_do_fiador": false,
+      "possui_procurador_ou_representante": false,
+      "casado": false,
+      "venia_conjugal": false,
+      "assinatura_reconhecida_ou_digital": {
+        "reconhecimento_de_firma": {
+          "existe_nome_da_pessoa_ou_do_seu_representante_no_selo_firma": false,
+          "existe_carimbo_de_assinatura_confere_com_a_original_gerente_banco": false,
+          "matricula_gerente": "",
+          "nome_gerente_carimbo": "",
+          "registro_titulos_e_documentos_livro_3_firma_reconhecida": false,
+          "nome_pessoa_firma_reconhecida_e_locador_ou_locataria_ou_fiador": "",
+          "nome_pessoa_firma_reconhecida_e_procurador_ou_representante": "",
+          "numero_selo_cartorario": "",
+          "numero_selo_digital": "",
+          "site_consulta_selo": ""
+        },
+        "assinatura_digital": {
+          "existe_nome_da_pessoa_ou_do_seu_representante_no_selo_digital": false,
+          "nome_da_assinatura_digital_e_locador_ou_locataria_ou_fiador": "",
+          "nome_da_assinatura_digital_e_procurador_ou_representante": "",
+          "numero_selo_digital": "",
+          "site_autenticacao": ""
+        }
+      }
+    }
+  ],
+  "imovel": {
+    "imovel_urbano": true,
+    "endereco_do_imovel": "Rua Raimunda Pontes de Andrade 207, Bairro Planalto, CEP 62884-005, Horizonte-Ce",
+    "tipo_do_imovel": "Terreno",
+    "area_do_imovel": "3.2663,00 m2"
+  },
+  "atividades_permitidas": [
+    "fins industrial",
+    "uso comercial exclusivo"
+  ],
+  "termos_locacao": {
+    "data_inicio": "2024-08-02",
+    "duracao_em_dias": 1800,
+    "duracao_do_contrato_e_maior_ou_igual_a_dez_anos": false,
+    "data_vencimento_aluguel": ""
+  },
+  "clausula_autorizacao_construcao_reforma": "O locatário não poderá fazer quaisquer benfeitorias sem o consentimento do locador, e as que fizer nessas condições não lhe darão direito de retenção ou indenização. O locador poderá exigir a remoção das benfeitorias ou obras realizadas pelo locatário, às expensas deste, ainda que autorizadas.",
+  "clausula_vigencia": true,
+  "registro_livro2_cartorio": false,
+  "registro_titulos_e_documentos_livro_3": false,
+  "observacoes": {
+    "inventario_bens": "",
+    "valor_aluguel": "R$ 15.000,00",
+    "substituicao_fiador_garantia": "",
+    "obrigacoes_locador": "Poderá cobrar o aluguel juntamente com as demais despesas; poderá rescindir de pleno direito nas hipóteses previstas; poderá exigir remoção de benfeitorias; poderá vistoriar o imóvel por si ou pessoa autorizada.",
+    "obrigacoes_locatario": "Pagar aluguel e demais encargos; pagar despesas anuais de IPTU, energia e água no ato da assinatura do contrato perante o órgão competente; não mudar a destinação do imóvel sem consentimento expresso do locador; não impedir visita do locador; devolver o imóvel ao final do prazo.",
+    "responsavel_manutencao_reparos": "Locatário responde por estragos ocasionados no imóvel ou em suas instalações e pelas despesas que o locador efetuar por eventuais modificações feitas no imóvel pelo locatário.",
+    "multa_rescisao": "Se o locatário devolver o imóvel antes do prazo ajustado, pagará ao locador multa equivalente ao valor do aluguel, correspondente à rescisão de contrato até o final do prazo estabelecido.",
+    "aviso_previo": "",
+    "outras_penalidades": "Em caso de atraso de pagamento, o locatário responderá pelas despesas de cobrança do aluguel e demais despesas. O locador poderá rescindir o contrato nas hipóteses de inadimplência, incêndio que impeça continuidade das atividades, uso diverso do pactuado, recusa de visita, falência ou insolvência do locatário.",
+    "direito_preferencia": "",
+    "renovacao_automatica": "",
+    "aditivos_clausulas_especiais": "Reajuste semestral mediante aplicação do coeficiente resultado do aumento relativo do salário mínimo, não sendo permitida a aplicação de outro índice.",
+    "comentario_sobre_clausulas_contraditorias": "Há divergência na qualificação e assinatura do segundo locador: no corpo consta 'MARCIANO FERREIRA DA SILVA (REVILLE JEANS)' com CNPJ 16.812.072/0001-73, enquanto nas assinaturas aparece 'Marino Ferreira da Silva' e também 'MARCIANO FERRERIA DA SILVA'. Há também aparente divergência entre a finalidade 'para fins industrial' e a cláusula 3ª que prevê uso 'COMERCIAL' exclusivo.",
+    "comentario_sobre_informacoes_ilegiveis": "Há trechos com possível OCR imperfeito, incluindo 'AÇO SUPREME IMD. E COM. DE AÇO LTDA 1 Marciano Ferreira da Silva', símbolo '£' e a área do imóvel '3.2663,00 m2'.",
+    "dados_duplicados": "O nome e CNPJ 16.812.072/0001-73 do segundo locador aparecem repetidos com grafias divergentes."
+  }
+}

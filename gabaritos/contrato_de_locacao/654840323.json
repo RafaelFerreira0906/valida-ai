@@ -1,0 +1,112 @@
+{
+  "e_contrato_de_locacao": true,
+  "nomes_que_possuem_selo_carimbo_de_firma_reconhecida": [],
+  "todos_os_envolvidos_no_contrato": [
+    {
+      "nome": "IGOR ANDRE NACIF",
+      "endereco": "Não Localizado",
+      "CPF_ou_CNPJ": "078.073.866-73",
+      "locador": true,
+      "locatario": false,
+      "fiador_ou_avalista": false,
+      "e_procurador_ou_representante_do_locador": false,
+      "e_procurador_ou_representante_do_locatario": false,
+      "e_procurador_ou_representante_do_fiador": false,
+      "possui_procurador_ou_representante": false,
+      "casado": false,
+      "venia_conjugal": false,
+      "assinatura_reconhecida_ou_digital": {
+        "reconhecimento_de_firma": {
+          "existe_nome_da_pessoa_ou_do_seu_representante_no_selo_firma": true,
+          "existe_carimbo_de_assinatura_confere_com_a_original_gerente_banco": true,
+          "matricula_gerente": "F 149764",
+          "nome_gerente_carimbo": "Bruno Robson de Jesus Mota",
+          "registro_titulos_e_documentos_livro_3_firma_reconhecida": false,
+          "nome_pessoa_firma_reconhecida_e_locador_ou_locataria_ou_fiador": "IGOR ANDRE NACIF",
+          "nome_pessoa_firma_reconhecida_e_procurador_ou_representante": "",
+          "numero_selo_cartorario": "",
+          "numero_selo_digital": "",
+          "site_consulta_selo": ""
+        },
+        "assinatura_digital": {
+          "existe_nome_da_pessoa_ou_do_seu_representante_no_selo_digital": false,
+          "nome_da_assinatura_digital_e_locador_ou_locataria_ou_fiador": "",
+          "nome_da_assinatura_digital_e_procurador_ou_representante": "",
+          "numero_selo_digital": "",
+          "site_autenticacao": ""
+        }
+      }
+    },
+    {
+      "nome": "CASTANHEIRAS ACADEMIA LTDA",
+      "endereco": "Não Localizado",
+      "CPF_ou_CNPJ": "59.455.074/0001-65",
+      "locador": false,
+      "locatario": true,
+      "fiador_ou_avalista": false,
+      "e_procurador_ou_representante_do_locador": false,
+      "e_procurador_ou_representante_do_locatario": false,
+      "e_procurador_ou_representante_do_fiador": false,
+      "possui_procurador_ou_representante": false,
+      "casado": false,
+      "venia_conjugal": false,
+      "assinatura_reconhecida_ou_digital": {
+        "reconhecimento_de_firma": {
+          "existe_nome_da_pessoa_ou_do_seu_representante_no_selo_firma": true,
+          "existe_carimbo_de_assinatura_confere_com_a_original_gerente_banco": true,
+          "matricula_gerente": "F 149764",
+          "nome_gerente_carimbo": "Bruno Robson de Jesus Mota",
+          "registro_titulos_e_documentos_livro_3_firma_reconhecida": false,
+          "nome_pessoa_firma_reconhecida_e_locador_ou_locataria_ou_fiador": "CASTANHEIRAS ACADEMIA LTDA",
+          "nome_pessoa_firma_reconhecida_e_procurador_ou_representante": "",
+          "numero_selo_cartorario": "",
+          "numero_selo_digital": "",
+          "site_consulta_selo": ""
+        },
+        "assinatura_digital": {
+          "existe_nome_da_pessoa_ou_do_seu_representante_no_selo_digital": false,
+          "nome_da_assinatura_digital_e_locador_ou_locataria_ou_fiador": "",
+          "nome_da_assinatura_digital_e_procurador_ou_representante": "",
+          "numero_selo_digital": "",
+          "site_autenticacao": ""
+        }
+      }
+    }
+  ],
+  "imovel": {
+    "imovel_urbano": true,
+    "endereco_do_imovel": "AVENIDA PECUARISTA CARLOS MACHADO RANGEL, 468, CASTANHEIRAS, GOVERNADOR VALADARES - MG",
+    "tipo_do_imovel": "Imóvel comercial",
+    "area_do_imovel": ""
+  },
+  "atividades_permitidas": [
+    "COMERCIAL"
+  ],
+  "termos_locacao": {
+    "data_inicio": "2025-01-01",
+    "duracao_em_dias": 2920,
+    "duracao_do_contrato_e_maior_ou_igual_a_dez_anos": false,
+    "data_vencimento_aluguel": ""
+  },
+  "clausula_autorizacao_construcao_reforma": "O locatário está autorizado a fazer instalação, adaptação, obra ou benfeitoria, inclusive colocação de luminosos, placa, letreiros e cartazes sem prévia obtenção de autorização por escrito do locador; em outra cláusula consta que, no caso de obra, reforma ou adaptação devidamente autorizada pelo locador, deverá repor o imóvel ao estado primitivo na entrega das chaves, sem qualquer indenização.",
+  "clausula_vigencia": true,
+  "registro_livro2_cartorio": false,
+  "registro_titulos_e_documentos_livro_3": false,
+  "observacoes": {
+    "inventario_bens": "Há menção a vistoria anexa assinada por ambas as partes e à relação anexa de móveis e utensílios como parte integrante do contrato.",
+    "valor_aluguel": "R$ 1.500,00",
+    "substituicao_fiador_garantia": "No caso de morte, falência ou insolvência dos fiadores, o locatário obriga-se a apresentar substituto idôneo, a juízo do locador, dentro de 30 dias, sob pena de grave infração contratual com consequente despejo.",
+    "obrigacoes_locador": "",
+    "obrigacoes_locatario": "Pagar aluguel até o dia 01 de cada mês; pagar luz, taxa de condomínio e IPTU; conservar e limpar o imóvel; entregar o imóvel nas mesmas condições da vistoria; não transferir, sublocar, ceder ou emprestar sem autorização escrita do proprietário; não alterar a destinação da locação; encaminhar notificações e intimações dos poderes públicos ao locador; permitir vistoria do imóvel pelo locador ou representante; repor o imóvel ao estado primitivo em caso de obras autorizadas.",
+    "responsavel_manutencao_reparos": "Locatário, correndo por sua conta exclusiva as despesas necessárias para conservar, limpar e restituir o imóvel, além de reparos necessários para entrega das chaves nas condições da vistoria.",
+    "multa_rescisao": "Multa igual a 30% sobre o valor do contrato pela parte que infringir qualquer disposição contratual ou legal. Em caso de mora no pagamento, há multa de 10%, juros de 1% ao mês e correção monetária.",
+    "aviso_previo": "",
+    "outras_penalidades": "Rescisão contratual, despejo, imediata satisfação dos consectários contratuais e legais, honorários advocatícios mesmo em cobrança extrajudicial, custas judiciais, juros de mora de 1% ao mês e correção monetária.",
+    "direito_preferencia": "",
+    "renovacao_automatica": "Não há renovação automática. O contrato prevê que o locatário deverá renovar expressamente novo contrato caso permaneça no imóvel.",
+    "aditivos_clausulas_especiais": "Reajuste a cada 12 meses com base no IGPM. Benfeitorias autorizadas, ainda que úteis e necessárias, ficam incorporadas ao imóvel sem indenização ou direito de retenção. Foro eleito é o da situação do imóvel.",
+    "comentario_sobre_clausulas_contraditorias": "Há contradição entre a cláusula que autoriza o locatário a fazer instalação, adaptação, obra ou benfeitoria sem prévia autorização por escrito do locador e a cláusula que trata obra, reforma ou adaptação como devidamente autorizada pelo locador.",
+    "comentario_sobre_informacoes_ilegiveis": "As assinaturas finais estão parcialmente ilegíveis no OCR, especialmente os nomes manuscritos junto aos campos de locador e locatário. O texto do carimbo bancário aparece com pequenas variações de OCR, mas é identificável como conferência com o original por gerente Bruno Robson de Jesus Mota, matrícula F 149764.",
+    "dados_duplicados": ""
+  }
+}

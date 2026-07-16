@@ -1,0 +1,150 @@
+{
+  "e_contrato_de_locacao": true,
+  "nomes_que_possuem_selo_carimbo_de_firma_reconhecida": [
+    "DIEGO DOS ANJOS SANTOS SOARES"
+  ],
+  "todos_os_envolvidos_no_contrato": [
+    {
+      "nome": "Altamiro Gonçalves de Oliva",
+      "endereco": "Avenida Afonso Pena 231, Centro, Montes Claros/MG, CEP: 39400-098",
+      "CPF_ou_CNPJ": "034.266.106-04",
+      "locador": true,
+      "locatario": false,
+      "fiador_ou_avalista": false,
+      "e_procurador_ou_representante_do_locador": false,
+      "e_procurador_ou_representante_do_locatario": false,
+      "e_procurador_ou_representante_do_fiador": false,
+      "possui_procurador_ou_representante": true,
+      "casado": true,
+      "venia_conjugal": false,
+      "assinatura_reconhecida_ou_digital": {
+        "reconhecimento_de_firma": {
+          "existe_nome_da_pessoa_ou_do_seu_representante_no_selo_firma": false,
+          "existe_carimbo_de_assinatura_confere_com_a_original_gerente_banco": false,
+          "matricula_gerente": "",
+          "nome_gerente_carimbo": "",
+          "registro_titulos_e_documentos_livro_3_firma_reconhecida": false,
+          "nome_pessoa_firma_reconhecida_e_locador_ou_locataria_ou_fiador": "",
+          "nome_pessoa_firma_reconhecida_e_procurador_ou_representante": "",
+          "numero_selo_cartorario": "",
+          "numero_selo_digital": "",
+          "site_consulta_selo": ""
+        },
+        "assinatura_digital": {
+          "existe_nome_da_pessoa_ou_do_seu_representante_no_selo_digital": false,
+          "nome_da_assinatura_digital_e_locador_ou_locataria_ou_fiador": "",
+          "nome_da_assinatura_digital_e_procurador_ou_representante": "",
+          "numero_selo_digital": "",
+          "site_autenticacao": ""
+        }
+      }
+    },
+    {
+      "nome": "Master RSM Imóveis",
+      "endereco": "Rua São Roberto, 20, bairro Todos os Santos, Montes Claros/MG",
+      "CPF_ou_CNPJ": "17.709.692/0001-44",
+      "locador": false,
+      "locatario": false,
+      "fiador_ou_avalista": false,
+      "e_procurador_ou_representante_do_locador": true,
+      "e_procurador_ou_representante_do_locatario": false,
+      "e_procurador_ou_representante_do_fiador": false,
+      "possui_procurador_ou_representante": false,
+      "casado": false,
+      "venia_conjugal": false,
+      "assinatura_reconhecida_ou_digital": {
+        "reconhecimento_de_firma": {
+          "existe_nome_da_pessoa_ou_do_seu_representante_no_selo_firma": false,
+          "existe_carimbo_de_assinatura_confere_com_a_original_gerente_banco": false,
+          "matricula_gerente": "",
+          "nome_gerente_carimbo": "",
+          "registro_titulos_e_documentos_livro_3_firma_reconhecida": false,
+          "nome_pessoa_firma_reconhecida_e_locador_ou_locataria_ou_fiador": "",
+          "nome_pessoa_firma_reconhecida_e_procurador_ou_representante": "",
+          "numero_selo_cartorario": "",
+          "numero_selo_digital": "",
+          "site_consulta_selo": ""
+        },
+        "assinatura_digital": {
+          "existe_nome_da_pessoa_ou_do_seu_representante_no_selo_digital": false,
+          "nome_da_assinatura_digital_e_locador_ou_locataria_ou_fiador": "",
+          "nome_da_assinatura_digital_e_procurador_ou_representante": "",
+          "numero_selo_digital": "",
+          "site_autenticacao": ""
+        }
+      }
+    },
+    {
+      "nome": "Diego dos Anjos Santos Soares",
+      "endereco": "Rua Dezesseis 82, bairro Alto da Boa Vista, Montes Claros/MG, CEP: 39402.575",
+      "CPF_ou_CNPJ": "098.332.476-01",
+      "locador": false,
+      "locatario": true,
+      "fiador_ou_avalista": false,
+      "e_procurador_ou_representante_do_locador": false,
+      "e_procurador_ou_representante_do_locatario": false,
+      "e_procurador_ou_representante_do_fiador": false,
+      "possui_procurador_ou_representante": false,
+      "casado": false,
+      "venia_conjugal": false,
+      "assinatura_reconhecida_ou_digital": {
+        "reconhecimento_de_firma": {
+          "existe_nome_da_pessoa_ou_do_seu_representante_no_selo_firma": true,
+          "existe_carimbo_de_assinatura_confere_com_a_original_gerente_banco": false,
+          "matricula_gerente": "",
+          "nome_gerente_carimbo": "",
+          "registro_titulos_e_documentos_livro_3_firma_reconhecida": false,
+          "nome_pessoa_firma_reconhecida_e_locador_ou_locataria_ou_fiador": "Diego dos Anjos Santos Soares",
+          "nome_pessoa_firma_reconhecida_e_procurador_ou_representante": "",
+          "numero_selo_cartorario": "AAF539486",
+          "numero_selo_digital": "DDQ37586",
+          "site_consulta_selo": ""
+        },
+        "assinatura_digital": {
+          "existe_nome_da_pessoa_ou_do_seu_representante_no_selo_digital": false,
+          "nome_da_assinatura_digital_e_locador_ou_locataria_ou_fiador": "",
+          "nome_da_assinatura_digital_e_procurador_ou_representante": "",
+          "numero_selo_digital": "",
+          "site_autenticacao": ""
+        }
+      }
+    }
+  ],
+  "imovel": {
+    "imovel_urbano": true,
+    "endereco_do_imovel": "Rua Buenos Aires 52, Centro, Montes Claros/MG, CEP 39400-088",
+    "tipo_do_imovel": "",
+    "area_do_imovel": ""
+  },
+  "atividades_permitidas": [
+    "Não residencial",
+    "Uso exclusivo de escritório de advocacia"
+  ],
+  "termos_locacao": {
+    "data_inicio": "2019-10-25",
+    "duracao_em_dias": 365,
+    "duracao_do_contrato_e_maior_ou_igual_a_dez_anos": false,
+    "data_vencimento_aluguel": ""
+  },
+  "clausula_autorizacao_construcao_reforma": "Sem prévia autorização do locador, por escrito, não poderá ser introduzida qualquer modificação e/ou benfeitoria no imóvel locado, sob pena de infração contratual, rescisão do contrato e despejo, com obrigação de restituir o imóvel nas condições originais. As benfeitorias realizadas ficarão incorporadas ao imóvel, salvo se o locador exigir a restituição ao estado anterior, sem direito de retenção, indenização ou reembolso.",
+  "clausula_vigencia": true,
+  "registro_livro2_cartorio": false,
+  "registro_titulos_e_documentos_livro_3": false,
+  "observacoes": {
+    "inventario_bens": "Há referência ao Laudo de Vistoria como parte integrante do contrato e aos bens relacionados no Laudo de Vistoria e nas Cláusulas Adicionais.",
+    "valor_aluguel": "R$ 850,00",
+    "substituicao_fiador_garantia": "A garantia é título de capitalização no valor nominal de R$ 8.500,00, proposta nº 2004822631, BRASILCAP CAPITALIZAÇÃO S.A. Caso haja resgate do título durante a locação para pagamento de débitos, o locatário obriga-se a contratar novos títulos para substituição da garantia.",
+    "obrigacoes_locador": "Resolver, após notificação do locatário, os problemas do imóvel que sejam de sua responsabilidade; permitir vistoria mediante prévio aviso; não reaver o imóvel durante o prazo contratual salvo nos casos previstos em lei; liberar a caução do título ao término da locação sem débitos.",
+    "obrigacoes_locatario": "Pagar aluguel, condomínio, IPTU, taxa de lixo, água, saneamento, energia, taxa de incêndio e demais encargos; pagar despesas de boleto bancário se houver; transferir ligações de água e luz para seu nome; cumprir convenção e regulamento de condomínio; não ceder, transferir, sublocar ou emprestar o imóvel sem consentimento; usar o imóvel apenas para a finalidade contratada; conservar o imóvel; reparar danos; entregar guias quitadas e documentos de rescisão; fornecer novo endereço ao final.",
+    "responsavel_manutencao_reparos": "O locatário é responsável pela conservação geral, reparação de estragos causados por si, dependentes e visitantes, substituição de aparelhos e peças, e manutenção preventiva de equipamentos, telhados, calhas, caixa d'água, instalações hidráulicas e elétricas. O locador é responsável, após notificação, pelos problemas que sejam de sua responsabilidade.",
+    "multa_rescisao": "20% sobre a somatória dos aluguéis que restarem até o fim do contrato.",
+    "aviso_previo": "30 dias",
+    "outras_penalidades": "Multa moratória de 20% sobre o débito por atraso, correção monetária diária e juros de 1% ao mês; honorários advocatícios de 20% do débito em caso de cobrança por advogado; inclusão em SPC/SERASA; multa por infração contratual equivalente a 3 aluguéis mensais quando não houver multa específica; possibilidade de despejo por infração contratual.",
+    "direito_preferencia": "",
+    "renovacao_automatica": "Findo o prazo, se o locatário permanecer no imóvel por mais de 30 dias sem oposição do locador, a locação presumir-se-á prorrogada por prazo indeterminado, mantidas as demais cláusulas e condições.",
+    "aditivos_clausulas_especiais": "O imóvel está sendo entregue com pintura nova e, na rescisão, o locatário fará a pintura com pintor indicado pelo locador. O imóvel destina-se ao uso exclusivo de escritório de advocacia. As chaves só serão entregues após assinatura do contrato e do laudo de vistoria com reconhecimento das respectivas firmas.",
+    "comentario_sobre_clausulas_contraditorias": "",
+    "comentario_sobre_informacoes_ilegiveis": "O texto do site de consulta do selo cartorário está parcialmente ilegível por digitalização/OCR imperfeito. Há trechos com pequenas falhas de OCR em nomes e palavras, sem prejuízo da identificação principal do contrato.",
+    "dados_duplicados": ""
+  }
+}

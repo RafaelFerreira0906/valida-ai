@@ -1,0 +1,112 @@
+{
+  "e_contrato_de_locacao": true,
+  "nomes_que_possuem_selo_carimbo_de_firma_reconhecida": [],
+  "todos_os_envolvidos_no_contrato": [
+    {
+      "nome": "PALOMA PORTELA VIANA",
+      "endereco": "Não Localizado",
+      "CPF_ou_CNPJ": "605.942.953-00",
+      "locador": true,
+      "locatario": false,
+      "fiador_ou_avalista": false,
+      "e_procurador_ou_representante_do_locador": false,
+      "e_procurador_ou_representante_do_locatario": false,
+      "e_procurador_ou_representante_do_fiador": false,
+      "possui_procurador_ou_representante": false,
+      "casado": false,
+      "venia_conjugal": false,
+      "assinatura_reconhecida_ou_digital": {
+        "reconhecimento_de_firma": {
+          "existe_nome_da_pessoa_ou_do_seu_representante_no_selo_firma": false,
+          "existe_carimbo_de_assinatura_confere_com_a_original_gerente_banco": false,
+          "matricula_gerente": "",
+          "nome_gerente_carimbo": "",
+          "registro_titulos_e_documentos_livro_3_firma_reconhecida": false,
+          "nome_pessoa_firma_reconhecida_e_locador_ou_locataria_ou_fiador": "",
+          "nome_pessoa_firma_reconhecida_e_procurador_ou_representante": "",
+          "numero_selo_cartorario": "",
+          "numero_selo_digital": "",
+          "site_consulta_selo": ""
+        },
+        "assinatura_digital": {
+          "existe_nome_da_pessoa_ou_do_seu_representante_no_selo_digital": false,
+          "nome_da_assinatura_digital_e_locador_ou_locataria_ou_fiador": "",
+          "nome_da_assinatura_digital_e_procurador_ou_representante": "",
+          "numero_selo_digital": "",
+          "site_autenticacao": ""
+        }
+      }
+    },
+    {
+      "nome": "MACIEL OLIVEIRA DE ANDRADE",
+      "endereco": "Não Localizado",
+      "CPF_ou_CNPJ": "37.778.985/0001-90",
+      "locador": false,
+      "locatario": true,
+      "fiador_ou_avalista": false,
+      "e_procurador_ou_representante_do_locador": false,
+      "e_procurador_ou_representante_do_locatario": false,
+      "e_procurador_ou_representante_do_fiador": false,
+      "possui_procurador_ou_representante": false,
+      "casado": false,
+      "venia_conjugal": false,
+      "assinatura_reconhecida_ou_digital": {
+        "reconhecimento_de_firma": {
+          "existe_nome_da_pessoa_ou_do_seu_representante_no_selo_firma": false,
+          "existe_carimbo_de_assinatura_confere_com_a_original_gerente_banco": false,
+          "matricula_gerente": "",
+          "nome_gerente_carimbo": "",
+          "registro_titulos_e_documentos_livro_3_firma_reconhecida": false,
+          "nome_pessoa_firma_reconhecida_e_locador_ou_locataria_ou_fiador": "",
+          "nome_pessoa_firma_reconhecida_e_procurador_ou_representante": "",
+          "numero_selo_cartorario": "",
+          "numero_selo_digital": "",
+          "site_consulta_selo": ""
+        },
+        "assinatura_digital": {
+          "existe_nome_da_pessoa_ou_do_seu_representante_no_selo_digital": false,
+          "nome_da_assinatura_digital_e_locador_ou_locataria_ou_fiador": "",
+          "nome_da_assinatura_digital_e_procurador_ou_representante": "",
+          "numero_selo_digital": "",
+          "site_autenticacao": ""
+        }
+      }
+    }
+  ],
+  "imovel": {
+    "imovel_urbano": true,
+    "endereco_do_imovel": "AVENIDA SENADOR VIRGILIO TAVORA, 840, ALTO SAO FRANCISCO, TRAIRI - CE",
+    "tipo_do_imovel": "Imóvel comercial",
+    "area_do_imovel": ""
+  },
+  "atividades_permitidas": [
+    "COMERCIAL"
+  ],
+  "termos_locacao": {
+    "data_inicio": "2025-01-01",
+    "duracao_em_dias": 3651,
+    "duracao_do_contrato_e_maior_ou_igual_a_dez_anos": true,
+    "data_vencimento_aluguel": ""
+  },
+  "clausula_autorizacao_construcao_reforma": "O locatário está autorizado a fazer instalação, adaptação, obra ou benfeitoria, inclusive colocação de luminosos, placa, letreiros e cartazes sem prévia obtenção de autorização por escrito do locador; no caso de qualquer obra, reforma ou adaptação, devidamente autorizada pelo locador, deverá repor o imóvel ao estado primitivo na entrega das chaves, sem qualquer indenização.",
+  "clausula_vigencia": true,
+  "registro_livro2_cartorio": false,
+  "registro_titulos_e_documentos_livro_3": false,
+  "observacoes": {
+    "inventario_bens": "Há menção a vistoria do imóvel em anexo e à relação anexa de móveis e utensílios como parte integrante do contrato.",
+    "valor_aluguel": "R$ 800,00",
+    "substituicao_fiador_garantia": "No caso de morte, falência ou insolvência dos fiadores, obriga-se o locatário a dar substituto idôneo, a juízo do locador, dentro de 30 dias, sob pena de grave infração contratual com consequente despejo.",
+    "obrigacoes_locador": "Permitir vistoria do imóvel na entrega das chaves; poderá examinar ou vistoriar o imóvel por si ou representante; poderá mostrar o imóvel a interessados em caso de venda; fica exonerado de responsabilidade em caso de desapropriação do imóvel pelos poderes públicos.",
+    "obrigacoes_locatario": "Pagar aluguel mensal; pagar luz, taxa de condomínio e IPTU; manter o imóvel em perfeito estado de conservação e limpeza; entregar o imóvel nas mesmas condições da vistoria; não transferir, sublocar, ceder ou emprestar sem autorização escrita; não alterar a destinação da locação; encaminhar notificações e intimações dos poderes públicos ao locador; permitir vistoria e visitação do imóvel; pagar aluguel até a entrega das chaves se houver infração e necessidade de reparos.",
+    "responsavel_manutencao_reparos": "Locatário, que deve manter o imóvel em perfeito estado de conservação e limpeza e arcar com as despesas necessárias, além de repor o imóvel ao estado primitivo em caso de obra, reforma ou adaptação.",
+    "multa_rescisao": "Multa igual a 30% sobre o valor do contrato por infração de qualquer disposição contratual ou legal; em caso de mora, multa de 10%, juros de 1% ao mês e correção monetária.",
+    "aviso_previo": "",
+    "outras_penalidades": "Infrações do locatário podem acarretar rescisão contratual, despejo, imediata satisfação dos consectários contratuais e legais, honorários advocatícios em cobrança extrajudicial, custas judiciais em cobrança judicial, além de juros e correção monetária por atraso.",
+    "direito_preferencia": "",
+    "renovacao_automatica": "Não há renovação automática. O contrato prevê que o locatário deve renovar expressamente novo contrato caso permaneça no imóvel.",
+    "aditivos_clausulas_especiais": "Reajuste a cada 12 meses com base no IGPM; benfeitorias autorizadas, ainda que úteis e necessárias, incorporam-se ao imóvel sem indenização ou direito de retenção; foro eleito é o da situação do imóvel.",
+    "comentario_sobre_clausulas_contraditorias": "Há aparente inconsistência entre a cláusula que autoriza instalação, adaptação, obra ou benfeitoria sem prévia autorização escrita do locador e a cláusula posterior que menciona obra, reforma ou adaptação devidamente autorizada pelo locador.",
+    "comentario_sobre_informacoes_ilegiveis": "O bloco final de assinaturas apresenta desalinhamento e possível OCR imperfeito, com menções a FIADOR e FIADOR (CÔNJUGE) sem qualificação clara de fiadores identificáveis.",
+    "dados_duplicados": ""
+  }
+}

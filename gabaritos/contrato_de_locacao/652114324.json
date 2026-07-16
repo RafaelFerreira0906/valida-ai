@@ -1,0 +1,112 @@
+{
+  "e_contrato_de_locacao": true,
+  "nomes_que_possuem_selo_carimbo_de_firma_reconhecida": [],
+  "todos_os_envolvidos_no_contrato": [
+    {
+      "nome": "Aristides Corsino da Silva",
+      "endereco": "Avenida Governador Magalhães Pinto, 2076, Vera Cruz, Montes Claros - MG",
+      "CPF_ou_CNPJ": "157.268.946-34",
+      "locador": true,
+      "locatario": false,
+      "fiador_ou_avalista": false,
+      "e_procurador_ou_representante_do_locador": false,
+      "e_procurador_ou_representante_do_locatario": false,
+      "e_procurador_ou_representante_do_fiador": false,
+      "possui_procurador_ou_representante": false,
+      "casado": true,
+      "venia_conjugal": false,
+      "assinatura_reconhecida_ou_digital": {
+        "reconhecimento_de_firma": {
+          "existe_nome_da_pessoa_ou_do_seu_representante_no_selo_firma": false,
+          "existe_carimbo_de_assinatura_confere_com_a_original_gerente_banco": false,
+          "matricula_gerente": "",
+          "nome_gerente_carimbo": "",
+          "registro_titulos_e_documentos_livro_3_firma_reconhecida": false,
+          "nome_pessoa_firma_reconhecida_e_locador_ou_locataria_ou_fiador": "",
+          "nome_pessoa_firma_reconhecida_e_procurador_ou_representante": "",
+          "numero_selo_cartorario": "",
+          "numero_selo_digital": "",
+          "site_consulta_selo": ""
+        },
+        "assinatura_digital": {
+          "existe_nome_da_pessoa_ou_do_seu_representante_no_selo_digital": false,
+          "nome_da_assinatura_digital_e_locador_ou_locataria_ou_fiador": "",
+          "nome_da_assinatura_digital_e_procurador_ou_representante": "",
+          "numero_selo_digital": "",
+          "site_autenticacao": ""
+        }
+      }
+    },
+    {
+      "nome": "JOSÉ WILMAR AVELINO",
+      "endereco": "Praça Tiradentes, nº 152, Bairro Centro, Claro dos Porções - MG",
+      "CPF_ou_CNPJ": "682.059.706-10",
+      "locador": false,
+      "locatario": true,
+      "fiador_ou_avalista": false,
+      "e_procurador_ou_representante_do_locador": false,
+      "e_procurador_ou_representante_do_locatario": false,
+      "e_procurador_ou_representante_do_fiador": false,
+      "possui_procurador_ou_representante": false,
+      "casado": false,
+      "venia_conjugal": false,
+      "assinatura_reconhecida_ou_digital": {
+        "reconhecimento_de_firma": {
+          "existe_nome_da_pessoa_ou_do_seu_representante_no_selo_firma": false,
+          "existe_carimbo_de_assinatura_confere_com_a_original_gerente_banco": false,
+          "matricula_gerente": "",
+          "nome_gerente_carimbo": "",
+          "registro_titulos_e_documentos_livro_3_firma_reconhecida": false,
+          "nome_pessoa_firma_reconhecida_e_locador_ou_locataria_ou_fiador": "",
+          "nome_pessoa_firma_reconhecida_e_procurador_ou_representante": "",
+          "numero_selo_cartorario": "",
+          "numero_selo_digital": "",
+          "site_consulta_selo": ""
+        },
+        "assinatura_digital": {
+          "existe_nome_da_pessoa_ou_do_seu_representante_no_selo_digital": false,
+          "nome_da_assinatura_digital_e_locador_ou_locataria_ou_fiador": "",
+          "nome_da_assinatura_digital_e_procurador_ou_representante": "",
+          "numero_selo_digital": "",
+          "site_autenticacao": ""
+        }
+      }
+    }
+  ],
+  "imovel": {
+    "imovel_urbano": true,
+    "endereco_do_imovel": "AV Manoel Magalhães Filho, 548, Jardim Palmeiras, Montes Claros - MG",
+    "tipo_do_imovel": "loja comercial",
+    "area_do_imovel": ""
+  },
+  "atividades_permitidas": [
+    "instalação e funcionamento de uma loja comercial"
+  ],
+  "termos_locacao": {
+    "data_inicio": "2024-02-23",
+    "duracao_em_dias": 1094,
+    "duracao_do_contrato_e_maior_ou_igual_a_dez_anos": false,
+    "data_vencimento_aluguel": ""
+  },
+  "clausula_autorizacao_construcao_reforma": "O locatário responde por todas as obras, exceto as que importem na segurança do imóvel. Benfeitorias necessárias devem ser apresentadas em projeto ao locador, que responderá em 5 dias e não está obrigado a autorizar. Ao término do contrato, o locador decide se aceita as benfeitorias; se não aceitar, o locatário deverá retirá-las às suas expensas.",
+  "clausula_vigencia": true,
+  "registro_livro2_cartorio": false,
+  "registro_titulos_e_documentos_livro_3": false,
+  "observacoes": {
+    "inventario_bens": "",
+    "valor_aluguel": "R$ 4.950,00",
+    "substituicao_fiador_garantia": "",
+    "obrigacoes_locador": "Dar o imóvel em locação; responder pela qualidade dos pisos, estrutura e cobertura do imóvel; manifestar-se sobre projeto de benfeitorias em 5 dias; permitir o exercício do direito de preferência em caso de venda.",
+    "obrigacoes_locatario": "Restituir o imóvel ao final em perfeito estado de conservação, salvo deteriorações do uso normal; pagar aluguel antecipado; entregar paredes pintadas e estrutura em perfeitas condições após vistoria; pagar despesas de conservação, água, luz, telefone, IPTU, taxas condominiais e outras ligadas ao uso; satisfazer exigências do Poder Público a que der causa; não transferir, ceder, sublocar ou emprestar o imóvel sem autorização escrita do locador; permitir vistoria em dia e hora previamente acordados.",
+    "responsavel_manutencao_reparos": "O locatário é responsável pelas despesas de conservação e pelas obras em geral, exceto as que importem na segurança do imóvel. O locador garante a qualidade dos pisos, estrutura e cobertura, não se responsabilizando por mau uso ou excesso de uso.",
+    "multa_rescisao": "20% proporcional ao tempo de locação em caso de rescisão antecipada pelo locatário; também há multa de 20% do valor do contrato, proporcional ao tempo de locação, por infração contratual.",
+    "aviso_previo": "",
+    "outras_penalidades": "Mora no aluguel sujeita a multa de 10% mais juros de 1% sobre o débito corrigido. Após o vencimento, o locador poderá cobrar por advogado, com honorários advocatícios extrajudiciais a cargo do locatário; se judicial, também custas. Pode haver execução da nota promissória dada em caução. A parte vencida em ação judicial pagará honorários advocatícios de 20% sobre o valor da condenação.",
+    "direito_preferencia": "Se o locador quiser vender o imóvel, o locatário terá direito de preferência para adquiri-lo em igualdade de condições com terceiros; se não exercer, deverá permitir visitas de interessados.",
+    "renovacao_automatica": "",
+    "aditivos_clausulas_especiais": "Caução por nota promissória equivalente a três aluguéis. Reajuste anual pelo IGP-M, ou na falta deste, pelo maior índice editado pelo Governo Federal ou outro fixado de comum acordo. Em caso de falência ou extinção de qualquer das partes, sucessores podem dar seguimento ao contrato em até 60 dias; em caso de silêncio, o contrato será automaticamente convalidado pelos contratantes. É aconselhável ao locatário fazer seguro do imóvel, tendo o locador como beneficiário do capital segurado.",
+    "comentario_sobre_clausulas_contraditorias": "O documento é qualificado como contrato de locação comercial, mas no encerramento consta 'Contrato de Locação Residencial'. A qualificação do locador traz 'casado, divorciado', informações potencialmente contraditórias sobre estado civil.",
+    "comentario_sobre_informacoes_ilegiveis": "A qualificação do locador traz CI/RG nº '-15.598', aparentemente incompleto. Uma das testemunhas está sem nome identificado e o campo aparece como 'fome', além de CPF sem formatação.",
+    "dados_duplicados": "O nome 'JOSÉ WILMAR AVELINO' aparece repetido no bloco de assinaturas do locatário."
+  }
+}
