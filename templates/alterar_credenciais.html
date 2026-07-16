@@ -1,0 +1,170 @@
+<!DOCTYPE html>  
+<html lang="pt-BR">  
+<head>  
+    <meta charset="UTF-8">  
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">  
+    <title>Alterar Credenciais - Valida AI</title>  
+    <style>  
+        :root {  
+            --text: #2b2b2b;  
+            --muted: #7a6f68;  
+            --border: #eadfd7;  
+            --card: #ffffff;  
+            --bnb-red: #b71c1c;  
+            --bnb-orange: #f57c00;  
+            --bnb-orange-soft: #fff1e2;  
+            --error: #b71c1c;  
+            --error-bg: #fde8e7;  
+            --success: #2e7d32;  
+            --success-bg: #e8f5e9;  
+        }  
+  
+        * { box-sizing: border-box; }  
+  
+        body {  
+            margin: 0;  
+            font-family: Arial, Helvetica, sans-serif;  
+            background: linear-gradient(180deg, #fcf6f1 0%, #f7efe9 100%);  
+            min-height: 100vh;  
+            padding: 24px;  
+        }  
+  
+        .container {  
+            max-width: 680px;  
+            margin: 40px auto;  
+            background: var(--card);  
+            border: 1px solid var(--border);  
+            border-radius: 18px;  
+            padding: 30px;  
+            box-shadow: 0 8px 24px rgba(154, 60, 20, 0.08);  
+        }  
+  
+        h1 {  
+            margin-top: 0;  
+            color: var(--bnb-red);  
+        }  
+  
+        .subtitle {  
+            color: var(--muted);  
+            margin-bottom: 24px;  
+        }  
+  
+        label {  
+            display: block;  
+            font-weight: bold;  
+            margin-bottom: 8px;  
+            color: var(--bnb-red);  
+        }  
+  
+        input {  
+            width: 100%;  
+            padding: 12px;  
+            border: 1px solid var(--border);  
+            border-radius: 12px;  
+            margin-bottom: 16px;  
+            font-family: inherit;  
+        }  
+  
+        .grid {  
+            display: grid;  
+            gap: 16px;  
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));  
+        }  
+  
+        .alert {  
+            padding: 14px 16px;  
+            border-radius: 12px;  
+            font-weight: bold;  
+            margin-bottom: 18px;  
+            border: 1px solid transparent;  
+        }  
+  
+        .alert-success {  
+            background: var(--success-bg);  
+            color: var(--success);  
+            border-color: #c8e6c9;  
+        }  
+  
+        .alert-error {  
+            background: var(--error-bg);  
+            color: var(--error);  
+            border-color: #f5c6c3;  
+        }  
+  
+        .actions {  
+            display: flex;  
+            gap: 12px;  
+            flex-wrap: wrap;  
+            margin-top: 10px;  
+        }  
+  
+        button, a {  
+            display: inline-block;  
+            text-decoration: none;  
+            border: none;  
+            border-radius: 12px;  
+            padding: 12px 18px;  
+            font-weight: bold;  
+            cursor: pointer;  
+        }  
+  
+        button {  
+            color: white;  
+            background: linear-gradient(135deg, var(--bnb-red), var(--bnb-orange));  
+        }  
+  
+        a {  
+            background: var(--bnb-orange-soft);  
+            color: #9a4f10;  
+            border: 1px solid #f3d7ba;  
+        }  
+    </style>  
+</head>  
+<body>  
+    <div class="container">  
+        <h1>Alterar login e senha</h1>  
+        <div class="subtitle">  
+            Informe o login e a senha atuais para definir novas credenciais.  
+        </div>  
+  
+        {% with messages = get_flashed_messages(with_categories=true) %}  
+            {% if messages %}  
+                {% for category, message in messages %}  
+                    <div class="alert {% if category == 'success' %}alert-success{% else %}alert-error{% endif %}">  
+                        {{ message }}  
+                    </div>  
+                {% endfor %}  
+            {% endif %}  
+        {% endwith %}  
+  
+        <form method="POST">  
+            <div class="grid">  
+                <div>  
+                    <label for="current_username">Login atual</label>  
+                    <input type="text" id="current_username" name="current_username" required>  
+                </div>  
+  
+                <div>  
+                    <label for="new_username">Login novo</label>  
+                    <input type="text" id="new_username" name="new_username" required>  
+                </div>  
+  
+                <div>  
+                    <label for="current_password">Senha atual</label>  
+                    <input type="password" id="current_password" name="current_password" required>  
+                </div>  
+  
+                <div>  
+                    <label for="new_password">Senha nova</label>  
+                    <input type="password" id="new_password" name="new_password" required>  
+                </div>  
+            </div>  
+  
+            <div class="actions">  
+                <button type="submit">Salvar novas credenciais</button>  
+                <a href="{{ url_for('index') }}">Voltar</a>  
+            </div>  
+        </form>  
+    </div>  
+</body>  
+</html>  

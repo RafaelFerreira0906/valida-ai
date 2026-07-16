@@ -6,7 +6,6 @@
     <title>Valida AI</title>  
     <style>  
         :root {  
-            /* Paleta inspirada em vermelho + laranja corporativo */  
             --bg: #f9f4f0;  
             --card: #ffffff;  
             --text: #2b2b2b;  
@@ -69,6 +68,61 @@
         .subtitle {  
             color: var(--muted);  
             margin-bottom: 20px;  
+        }  
+  
+        .topbar {  
+            display: flex;  
+            justify-content: space-between;  
+            align-items: center;  
+            gap: 16px;  
+            flex-wrap: wrap;  
+            margin-bottom: 18px;  
+            padding-bottom: 14px;  
+            border-bottom: 1px solid var(--border);  
+        }  
+  
+        .topbar-left {  
+            font-size: 14px;  
+            color: var(--muted);  
+        }  
+  
+        .topbar-left strong {  
+            color: var(--bnb-red);  
+        }  
+  
+        .topbar-actions {  
+            display: flex;  
+            gap: 10px;  
+            flex-wrap: wrap;  
+        }  
+  
+        .top-link {  
+            display: inline-block;  
+            text-decoration: none;  
+            border-radius: 12px;  
+            padding: 10px 14px;  
+            font-weight: bold;  
+            transition: 0.2s ease;  
+        }  
+  
+        .top-link-settings {  
+            background: var(--bnb-orange-soft);  
+            color: var(--bnb-orange-dark);  
+            border: 1px solid #f3d7ba;  
+        }  
+  
+        .top-link-settings:hover {  
+            filter: brightness(0.98);  
+        }  
+  
+        .top-link-logout {  
+            background: var(--bnb-red-soft);  
+            color: var(--bnb-red);  
+            border: 1px solid #f1c7c5;  
+        }  
+  
+        .top-link-logout:hover {  
+            filter: brightness(0.98);  
         }  
   
         .alert {  
@@ -402,6 +456,21 @@
     <div class="container">  
   
         <div class="card">  
+            <div class="topbar">  
+                <div class="topbar-left">  
+                    Usuário logado: <strong>{{ username }}</strong>  
+                </div>  
+  
+                <div class="topbar-actions">  
+                    <a class="top-link top-link-settings" href="{{ url_for('alterar_credenciais') }}">  
+                        Alterar login/senha  
+                    </a>  
+                    <a class="top-link top-link-logout" href="{{ url_for('logout') }}">  
+                        Sair  
+                    </a>  
+                </div>  
+            </div>  
+  
             <h1>Valida AI</h1>  
             <div class="subtitle">  
                 Validação JSON x JSON com leitura por arquivo ou texto colado, análise ponderada, risco operacional e diagnóstico detalhado.  
@@ -414,6 +483,16 @@
             {% if sucesso %}  
                 <div class="alert alert-success">{{ sucesso }}</div>  
             {% endif %}  
+  
+            {% with messages = get_flashed_messages(with_categories=true) %}  
+                {% if messages %}  
+                    {% for category, message in messages %}  
+                        <div class="alert {% if category == 'success' %}alert-success{% else %}alert-error{% endif %}">  
+                            {{ message }}  
+                        </div>  
+                    {% endfor %}  
+                {% endif %}  
+            {% endwith %}  
   
             <form method="POST" enctype="multipart/form-data">  
                 <div class="grid grid-2">  
@@ -438,11 +517,7 @@
   
                 <div class="form-group">  
                     <label for="json_texto">Ou cole o JSON aqui</label>  
-                    <textarea id="json_texto" name="json_texto" placeholder='{  
-  "e_contrato_social": {  
-    "campo": "valor"  
-  }  
-}'>{{ json_texto }}</textarea>  
+                    <textarea id="json_texto" name="json_texto" placeholder='{    "e_contrato_social": {      "campo": "valor"    }  }'>{{ json_texto }}</textarea>  
                     <div class="helper">Se o campo acima for preenchido, ele terá prioridade sobre o arquivo enviado.</div>  
                 </div>  
   

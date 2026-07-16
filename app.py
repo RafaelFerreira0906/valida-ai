@@ -2,9 +2,11 @@ import os
 import json  
 import uuid  
 import time  
+from functools import wraps  
   
-from flask import Flask, render_template, request, send_file  
+from flask import Flask, render_template, request, send_file, redirect, url_for, session, flash  
 from werkzeug.utils import secure_filename  
+from werkzeug.security import generate_password_hash, check_password_hash  
   
 from comparador import (  
     ALLOWED_EXTENSIONS,  
@@ -16,11 +18,13 @@ from comparador import (
 )  
   
 app = Flask(__name__)  
+app.secret_key = "troque_por_uma_chave_forte"  
   
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))  
 UPLOAD_FOLDER = os.path.join("/tmp", "uploads")  
 REPORTS_FOLDER = os.path.join("/tmp", "reports")  
 GABARITOS_DIR = os.path.join(BASE_DIR, "gabaritos")  
+CREDENTIALS_FILE = os.path.join(BASE_DIR, "credentials.json")  
   
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)  
 os.makedirs(REPORTS_FOLDER, exist_ok=True)  
@@ -32,7 +36,100 @@ app.config["MAX_CONTENT_LENGTH"] = 20 * 1024 * 1024  # 20 MB
 REPORT_CACHE = {}  
   
   
+def init_credentials():  
+    if not os.path.exists(CREDENTIALS_FILE):  
+        data = {  
+            "username": "admin",  
+            "password_hash": generate_password_hash("admin")  
+        }  
+        with open(CREDENTIALS_FILE, "w", encoding="utf-8") as f:  
+            json.dump(data, f, indent=4)  
+  
+  
+def load_credentials():  
+    with open(CREDENTIALS_FILE, "r", encoding="utf-8") as f:  
+        return json.load(f)  
+  
+  
+def save_credentials(new_username, new_password):  
+    data = {  
+        "username": new_username,  
+        "password_hash": generate_password_hash(new_password)  
+    }  
+    with open(CREDENTIALS_FILE, "w", encoding="utf-8") as f:  
+        json.dump(data, f, indent=4)  
+  
+  
+def login_required(func):  
+    @wraps(func)  
+    def wrapper(*args, **kwargs):  
+        if not session.get("logged_in"):  
+            return redirect(url_for("login"))  
+        return func(*args, **kwargs)  
+    return wrapper  
+  
+  
+@app.route("/login", methods=["GET", "POST"])  
+def login():  
+    if session.get("logged_in"):  
+        return redirect(url_for("index"))  
+  
+    if request.method == "POST":  
+        username = request.form.get("username", "").strip()  
+        password = request.form.get("password", "").strip()  
+  
+        creds = load_credentials()  
+  
+        if username == creds["username"] and check_password_hash(creds["password_hash"], password):  
+            session["logged_in"] = True  
+            session["username"] = username  
+            return redirect(url_for("index"))  
+        else:  
+            flash("Login ou senha inválidos.", "error")  
+  
+    return render_template("login.html")  
+  
+  
+@app.route("/logout")  
+def logout():  
+    session.clear()  
+    return redirect(url_for("login"))  
+  
+  
+@app.route("/alterar-credenciais", methods=["GET", "POST"])  
+@login_required  
+def alterar_credenciais():  
+    if request.method == "POST":  
+        current_username = request.form.get("current_username", "").strip()  
+        new_username = request.form.get("new_username", "").strip()  
+        current_password = request.form.get("current_password", "").strip()  
+        new_password = request.form.get("new_password", "").strip()  
+  
+        if not current_username or not new_username or not current_password or not new_password:  
+            flash("Preencha todos os campos.", "error")  
+            return redirect(url_for("alterar_credenciais"))  
+  
+        creds = load_credentials()  
+  
+        if current_username != creds["username"]:  
+            flash("Login atual inválido.", "error")  
+            return redirect(url_for("alterar_credenciais"))  
+  
+        if not check_password_hash(creds["password_hash"], current_password):  
+            flash("Senha atual inválida.", "error")  
+            return redirect(url_for("alterar_credenciais"))  
+  
+        save_credentials(new_username, new_password)  
+        session["username"] = new_username  
+  
+        flash("Credenciais alteradas com sucesso.", "success")  
+        return redirect(url_for("index"))  
+  
+    return render_template("alterar_credenciais.html")  
+  
+  
 @app.route("/", methods=["GET", "POST"])  
+@login_required  
 def index():  
     contexto = {  
         "erro": None,  
@@ -40,7 +137,8 @@ def index():
         "analise": None,  
         "report_id": None,  
         "json_texto": "",  
-        "id_documento_manual": ""  
+        "id_documento_manual": "",  
+        "username": session.get("username")  
     }  
   
     if request.method == "POST":  
@@ -57,6 +155,7 @@ def index():
         nome_arquivo_original = None  
         id_documento = None  
         origem_entrada = None  
+        caminho_upload = None  
   
         try:  
             # Prioridade para JSON colado  
@@ -151,6 +250,7 @@ def index():
   
   
 @app.route("/download/pdf/<report_id>")  
+@login_required  
 def download_pdf(report_id):  
     report = REPORT_CACHE.get(report_id)  
   
@@ -172,5 +272,6 @@ def download_pdf(report_id):
   
   
 if __name__ == "__main__":  
+    init_credentials()  
     port = int(os.environ.get("PORT", 5000))  
     app.run(host="0.0.0.0", port=port, debug=True)  

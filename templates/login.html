@@ -1,0 +1,138 @@
+<!DOCTYPE html>  
+<html lang="pt-BR">  
+<head>  
+    <meta charset="UTF-8">  
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">  
+    <title>Login - Valida AI</title>  
+    <style>  
+        :root {  
+            --text: #2b2b2b;  
+            --muted: #7a6f68;  
+            --border: #eadfd7;  
+            --card: #ffffff;  
+            --bnb-red: #b71c1c;  
+            --bnb-orange: #f57c00;  
+            --error: #b71c1c;  
+            --error-bg: #fde8e7;  
+            --success: #2e7d32;  
+            --success-bg: #e8f5e9;  
+        }  
+  
+        * { box-sizing: border-box; }  
+  
+        body {  
+            margin: 0;  
+            font-family: Arial, Helvetica, sans-serif;  
+            background: linear-gradient(180deg, #fcf6f1 0%, #f7efe9 100%);  
+            min-height: 100vh;  
+            display: flex;  
+            align-items: center;  
+            justify-content: center;  
+            padding: 24px;  
+        }  
+  
+        .box {  
+            width: 100%;  
+            max-width: 420px;  
+            background: var(--card);  
+            border: 1px solid var(--border);  
+            border-radius: 18px;  
+            padding: 30px;  
+            box-shadow: 0 8px 24px rgba(154, 60, 20, 0.08);  
+        }  
+  
+        h1 {  
+            margin-top: 0;  
+            margin-bottom: 8px;  
+            color: var(--bnb-red);  
+            text-align: center;  
+        }  
+  
+        .subtitle {  
+            text-align: center;  
+            color: var(--muted);  
+            margin-bottom: 24px;  
+        }  
+  
+        label {  
+            display: block;  
+            font-weight: bold;  
+            margin-bottom: 8px;  
+            color: var(--bnb-red);  
+        }  
+  
+        input {  
+            width: 100%;  
+            padding: 12px;  
+            border: 1px solid var(--border);  
+            border-radius: 12px;  
+            margin-bottom: 16px;  
+            font-family: inherit;  
+        }  
+  
+        button {  
+            width: 100%;  
+            border: none;  
+            border-radius: 12px;  
+            padding: 12px 18px;  
+            font-weight: bold;  
+            cursor: pointer;  
+            color: white;  
+            background: linear-gradient(135deg, var(--bnb-red), var(--bnb-orange));  
+        }  
+  
+        .alert {  
+            padding: 14px 16px;  
+            border-radius: 12px;  
+            font-weight: bold;  
+            margin-bottom: 18px;  
+            border: 1px solid transparent;  
+        }  
+  
+        .alert-success {  
+            background: var(--success-bg);  
+            color: var(--success);  
+            border-color: #c8e6c9;  
+        }  
+  
+        .alert-error {  
+            background: var(--error-bg);  
+            color: var(--error);  
+            border-color: #f5c6c3;  
+        }  
+  
+        .hint {  
+            margin-top: 16px;  
+            text-align: center;  
+            color: var(--muted);  
+            font-size: 13px;  
+        }  
+    </style>  
+</head>  
+<body>  
+    <div class="box">  
+        <h1>Valida AI</h1>  
+        <div class="subtitle">Acesso ao sistema</div>  
+  
+        {% with messages = get_flashed_messages(with_categories=true) %}  
+            {% if messages %}  
+                {% for category, message in messages %}  
+                    <div class="alert {% if category == 'success' %}alert-success{% else %}alert-error{% endif %}">  
+                        {{ message }}  
+                    </div>  
+                {% endfor %}  
+            {% endif %}  
+        {% endwith %}  
+  
+        <form method="POST">  
+            <label for="username">Login</label>  
+            <input type="text" id="username" name="username" required>  
+  
+            <label for="password">Senha</label>  
+            <input type="password" id="password" name="password" required>  
+  
+            <button type="submit">Entrar</button>  
+        </form>          
+    </div>  
+</body>  
+</html>  
