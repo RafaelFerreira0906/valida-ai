@@ -1,6 +1,7 @@
 import os  
 import json  
-from flask import Flask, render_template, request  
+import uuid  
+from flask import Flask, render_template, request, send_file  
 from werkzeug.utils import secure_filename  
   
 from comparador import (  
@@ -8,20 +9,25 @@ from comparador import (
     detectar_tipo_documental,  
     obter_ged_do_arquivo,  
     localizar_gabarito,  
-    comparar_jsons,  
-    gerar_resumo  
+    analisar_comparacao_completa,  
+    gerar_excel_relatorio  
 )  
   
 app = Flask(__name__)  
   
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))  
 UPLOAD_FOLDER = os.path.join("/tmp", "uploads")  
+REPORTS_FOLDER = os.path.join("/tmp", "reports")  
 GABARITOS_DIR = os.path.join(BASE_DIR, "gabaritos")  
   
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)  
+os.makedirs(REPORTS_FOLDER, exist_ok=True)  
   
 app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER  
+app.config["REPORTS_FOLDER"] = REPORTS_FOLDER  
 app.config["MAX_CONTENT_LENGTH"] = 20 * 1024 * 1024  # 20 MB  
+  
+REPORT_CACHE = {}  
   
   
 @app.route("/", methods=["GET", "POST"])  
@@ -29,13 +35,13 @@ def index():
     contexto = {  
         "erro": None,  
         "sucesso": None,  
-        "resultado": None,  
-        "resumo": None,  
+        "analise": None,  
         "tipo_documental": None,  
         "tipo_documental_legivel": None,  
         "ged": None,  
         "gabarito_path": None,  
-        "nome_arquivo": None  
+        "nome_arquivo": None,  
+        "report_id": None  
     }  
   
     if request.method == "POST":  
@@ -57,7 +63,12 @@ def index():
             return render_template("index.html", **contexto)  
   
         caminho_upload = os.path.join(app.config["UPLOAD_FOLDER"], nome_arquivo)  
-        arquivo.save(caminho_upload)  
+  
+        try:  
+            arquivo.save(caminho_upload)  
+        except Exception as e:  
+            contexto["erro"] = f"Erro ao salvar o arquivo enviado: {str(e)}"  
+            return render_template("index.html", **contexto)  
   
         try:  
             with open(caminho_upload, "r", encoding="utf-8") as f:  
@@ -82,15 +93,30 @@ def index():
             with open(caminho_gabarito, "r", encoding="utf-8") as f:  
                 json_gabarito = json.load(f)  
   
-            diferencas = comparar_jsons(  
+            analise = analisar_comparacao_completa(  
                 esperado=json_gabarito,  
-                recebido=json_enviado  
+                recebido=json_enviado,  
+                tipo_documental=tipo_documental,  
+                tipo_documental_legivel=tipo_documental_legivel,  
+                ged=ged,  
+                nome_arquivo=nome_arquivo,  
+                gabarito_path=contexto["gabarito_path"]  
             )  
   
-            resumo = gerar_resumo(diferencas)  
+            report_id = str(uuid.uuid4())  
+            arquivo_excel = os.path.join(  
+                app.config["REPORTS_FOLDER"],  
+                f"relatorio_{ged}_{report_id}.xlsx"  
+            )  
+            gerar_excel_relatorio(analise, arquivo_excel)  
   
-            contexto["resultado"] = diferencas  
-            contexto["resumo"] = resumo  
+            REPORT_CACHE[report_id] = {  
+                "excel_path": arquivo_excel,  
+                "filename": f"relatorio_validacao_{ged}.xlsx"  
+            }  
+  
+            contexto["analise"] = analise  
+            contexto["report_id"] = report_id  
             contexto["sucesso"] = "Comparação realizada com sucesso."  
   
         except FileNotFoundError as e:  
@@ -101,6 +127,27 @@ def index():
             contexto["erro"] = f"Erro inesperado durante o processamento: {str(e)}"  
   
     return render_template("index.html", **contexto)  
+  
+  
+@app.route("/download/excel/<report_id>")  
+def download_excel(report_id):  
+    report = REPORT_CACHE.get(report_id)  
+  
+    if not report:  
+        return "Relatório não encontrado ou expirado.", 404  
+  
+    excel_path = report["excel_path"]  
+    download_name = report["filename"]  
+  
+    if not os.path.exists(excel_path):  
+        return "Arquivo do relatório não encontrado.", 404  
+  
+    return send_file(  
+        excel_path,  
+        as_attachment=True,  
+        download_name=download_name,  
+        mimetype="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"  
+    )  
   
   
 if __name__ == "__main__":  

@@ -3,33 +3,30 @@
 <head>  
     <meta charset="UTF-8">  
     <meta name="viewport" content="width=device-width, initial-scale=1.0">  
-    <title>Valida AI - Comparador JSON x JSON</title>  
+    <title>Valida AI - V2 Profissional</title>  
     <style>  
         :root {  
-            --bg: #f4f7fb;  
+            --bg: #f3f6fb;  
             --card: #ffffff;  
             --text: #1f2937;  
             --muted: #6b7280;  
-            --primary: #2563eb;  
-            --primary-hover: #1d4ed8;  
-            --success: #16a34a;  
-            --success-bg: #dcfce7;  
-            --error: #dc2626;  
-            --error-bg: #fee2e2;  
-            --warning: #d97706;  
-            --warning-bg: #fef3c7;  
             --border: #e5e7eb;  
-            --table-header: #eff6ff;  
-            --row-alt: #f9fafb;  
-            --approved: #15803d;  
-            --approved-bg: #dcfce7;  
-            --reproved: #b91c1c;  
-            --reproved-bg: #fee2e2;  
+            --blue: #2563eb;  
+            --blue-hover: #1d4ed8;  
+            --green: #15803d;  
+            --green-bg: #dcfce7;  
+            --orange: #c2410c;  
+            --orange-bg: #ffedd5;  
+            --red: #b91c1c;  
+            --red-bg: #fee2e2;  
+            --yellow: #92400e;  
+            --yellow-bg: #fef3c7;  
+            --gray-bg: #f9fafb;  
+            --thead: #eff6ff;  
+            --row-alt: #fafafa;  
         }  
   
-        * {  
-            box-sizing: border-box;  
-        }  
+        * { box-sizing: border-box; }  
   
         body {  
             margin: 0;  
@@ -40,35 +37,43 @@
         }  
   
         .container {  
-            max-width: 1200px;  
+            max-width: 1450px;  
             margin: 0 auto;  
         }  
   
         .card {  
             background: var(--card);  
-            border-radius: 14px;  
-            box-shadow: 0 4px 18px rgba(0, 0, 0, 0.06);  
+            border-radius: 16px;  
+            box-shadow: 0 6px 20px rgba(0,0,0,0.06);  
             padding: 24px;  
             margin-bottom: 24px;  
         }  
   
-        h1, h2, h3 {  
-            margin-top: 0;  
-        }  
-  
-        h1 {  
-            font-size: 28px;  
-            margin-bottom: 8px;  
-        }  
+        h1, h2, h3 { margin-top: 0; }  
   
         .subtitle {  
             color: var(--muted);  
-            margin-bottom: 24px;  
+            margin-bottom: 20px;  
         }  
   
-        .form-group {  
-            margin-bottom: 16px;  
+        .alert {  
+            padding: 14px 16px;  
+            border-radius: 12px;  
+            font-weight: bold;  
+            margin-bottom: 18px;  
         }  
+  
+        .alert-success {  
+            background: var(--green-bg);  
+            color: var(--green);  
+        }  
+  
+        .alert-error {  
+            background: var(--red-bg);  
+            color: var(--red);  
+        }  
+  
+        .form-group { margin-bottom: 16px; }  
   
         label {  
             display: block;  
@@ -78,126 +83,212 @@
   
         input[type="file"] {  
             width: 100%;  
-            padding: 12px;  
             border: 1px solid var(--border);  
             border-radius: 10px;  
+            padding: 12px;  
             background: white;  
         }  
   
-        .btn {  
+        .btn, .btn-secondary {  
             display: inline-block;  
+            text-decoration: none;  
             border: none;  
             border-radius: 10px;  
-            padding: 12px 20px;  
-            font-size: 15px;  
+            padding: 12px 18px;  
             font-weight: bold;  
             cursor: pointer;  
-            background: var(--primary);  
+        }  
+  
+        .btn {  
+            background: var(--blue);  
             color: white;  
-            transition: 0.2s;  
         }  
   
         .btn:hover {  
-            background: var(--primary-hover);  
+            background: var(--blue-hover);  
         }  
   
-        .alert {  
-            padding: 14px 16px;  
-            border-radius: 10px;  
-            margin-bottom: 20px;  
-            font-weight: 600;  
+        .btn-secondary {  
+            background: #111827;  
+            color: white;  
         }  
   
-        .alert-success {  
-            background: var(--success-bg);  
-            color: var(--success);  
+        .actions {  
+            display: flex;  
+            gap: 12px;  
+            flex-wrap: wrap;  
+            margin-top: 14px;  
         }  
   
-        .alert-error {  
-            background: var(--error-bg);  
-            color: var(--error);  
-        }  
+        .grid { display: grid; gap: 16px; }  
+        .grid-2 { grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }  
+        .grid-3 { grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }  
+        .grid-4 { grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); }  
   
-        .meta-grid {  
-            display: grid;  
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));  
-            gap: 16px;  
-            margin-top: 16px;  
-        }  
-  
-        .meta-item {  
+        .info-box, .metric-card, .top-error-card {  
             border: 1px solid var(--border);  
-            border-radius: 12px;  
+            border-radius: 14px;  
             padding: 16px;  
-            background: #fafafa;  
+            background: white;  
         }  
   
-        .meta-label {  
+        .info-box { background: var(--gray-bg); }  
+  
+        .info-label {  
             font-size: 12px;  
             text-transform: uppercase;  
             color: var(--muted);  
             margin-bottom: 6px;  
-            letter-spacing: 0.4px;  
+            letter-spacing: .3px;  
         }  
   
-        .meta-value {  
+        .info-value {  
             font-size: 16px;  
             font-weight: bold;  
             word-break: break-word;  
         }  
   
-        .status-box {  
-            display: inline-block;  
-            padding: 10px 16px;  
-            border-radius: 999px;  
-            font-weight: bold;  
-            margin-top: 12px;  
-        }  
-  
-        .status-aprovado {  
-            background: var(--approved-bg);  
-            color: var(--approved);  
-        }  
-  
-        .status-reprovado {  
-            background: var(--reproved-bg);  
-            color: var(--reproved);  
-        }  
-  
-        .summary-grid {  
+        .hero {  
             display: grid;  
-            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));  
-            gap: 14px;  
-            margin-top: 20px;  
+            grid-template-columns: 1.2fr 1fr;  
+            gap: 20px;  
         }  
   
-        .summary-card {  
-            border: 1px solid var(--border);  
-            border-radius: 12px;  
-            padding: 16px;  
-            background: white;  
+        @media (max-width: 980px) {  
+            .hero { grid-template-columns: 1fr; }  
         }  
   
-        .summary-number {  
-            font-size: 26px;  
+        .score-panel {  
+            border-radius: 18px;  
+            padding: 24px;  
+            color: white;  
+        }  
+  
+        .score-verde { background: linear-gradient(135deg, #15803d, #16a34a); }  
+        .score-laranja { background: linear-gradient(135deg, #c2410c, #ea580c); }  
+        .score-vermelho { background: linear-gradient(135deg, #b91c1c, #dc2626); }  
+  
+        .score-title {  
+            font-size: 13px;  
+            text-transform: uppercase;  
+            opacity: .9;  
+            margin-bottom: 10px;  
+            letter-spacing: .5px;  
+        }  
+  
+        .score-value {  
+            font-size: 54px;  
             font-weight: bold;  
-            margin-bottom: 6px;  
+            line-height: 1;  
+            margin-bottom: 10px;  
         }  
   
-        .summary-label {  
+        .score-sub {  
+            font-size: 16px;  
+            opacity: .95;  
+        }  
+  
+        .status-chip {  
+            display: inline-block;  
+            padding: 10px 14px;  
+            border-radius: 999px;  
+            margin-top: 14px;  
+            background: rgba(255,255,255,0.18);  
+            font-weight: bold;  
+        }  
+  
+        .metric-number {  
+            font-size: 30px;  
+            font-weight: bold;  
+        }  
+  
+        .metric-label {  
+            margin-top: 6px;  
             color: var(--muted);  
             font-size: 14px;  
         }  
   
+        .executive-summary {  
+            margin-top: 20px;  
+            border-left: 6px solid var(--blue);  
+            background: #eff6ff;  
+            border-radius: 12px;  
+            padding: 18px;  
+            line-height: 1.6;  
+        }  
+  
+        .badge {  
+            display: inline-block;  
+            padding: 6px 10px;  
+            border-radius: 999px;  
+            font-size: 12px;  
+            font-weight: bold;  
+            white-space: nowrap;  
+        }  
+  
+        .badge-tipo {  
+            background: #dbeafe;  
+            color: #1d4ed8;  
+        }  
+  
+        .badge-alta {  
+            background: var(--red-bg);  
+            color: var(--red);  
+        }  
+  
+        .badge-media {  
+            background: var(--yellow-bg);  
+            color: var(--yellow);  
+        }  
+  
+        .badge-baixa {  
+            background: #e5e7eb;  
+            color: #374151;  
+        }  
+  
+        .path {  
+            font-family: Consolas, Monaco, monospace;  
+            font-size: 13px;  
+            color: #111827;  
+            background: #f3f4f6;  
+            padding: 6px 8px;  
+            border-radius: 8px;  
+            display: inline-block;  
+            word-break: break-word;  
+        }  
+  
+        .small {  
+            font-size: 13px;  
+            color: var(--muted);  
+            line-height: 1.6;  
+        }  
+  
+        .list-clean {  
+            margin: 0;  
+            padding-left: 20px;  
+        }  
+  
+        .list-clean li {  
+            margin-bottom: 10px;  
+        }  
+  
+        .empty-state {  
+            background: var(--green-bg);  
+            color: var(--green);  
+            padding: 18px;  
+            border-radius: 12px;  
+            font-weight: bold;  
+        }  
+  
         .table-wrapper {  
             overflow-x: auto;  
-            margin-top: 20px;  
+            margin-top: 16px;  
         }  
   
         table {  
             width: 100%;  
+            min-width: 1500px;  
             border-collapse: collapse;  
-            min-width: 900px;  
         }  
   
         th, td {  
@@ -208,48 +299,40 @@
             font-size: 14px;  
         }  
   
-        th {  
-            background: var(--table-header);  
-        }  
+        th { background: var(--thead); }  
   
         tr:nth-child(even) td {  
             background: var(--row-alt);  
-        }  
-  
-        .badge {  
-            display: inline-block;  
-            padding: 6px 10px;  
-            border-radius: 999px;  
-            font-size: 12px;  
-            font-weight: bold;  
-            background: var(--warning-bg);  
-            color: var(--warning);  
-            white-space: nowrap;  
-        }  
-  
-        .empty-state {  
-            padding: 18px;  
-            border-radius: 12px;  
-            background: var(--success-bg);  
-            color: var(--success);  
-            font-weight: bold;  
-            margin-top: 16px;  
         }  
   
         pre {  
             margin: 0;  
             white-space: pre-wrap;  
             word-break: break-word;  
-            font-family: Consolas, Monaco, monospace;  
             font-size: 12px;  
+            font-family: Consolas, Monaco, monospace;  
         }  
+  
+        .pill {  
+            display: inline-block;  
+            padding: 8px 12px;  
+            border-radius: 999px;  
+            font-weight: bold;  
+        }  
+  
+        .pill-green { background: var(--green-bg); color: var(--green); }  
+        .pill-orange { background: var(--orange-bg); color: var(--orange); }  
+        .pill-red { background: var(--red-bg); color: var(--red); }  
     </style>  
 </head>  
 <body>  
     <div class="container">  
+  
         <div class="card">  
             <h1>Valida AI</h1>  
-            <div class="subtitle">Comparação automática de JSON enviado x JSON gabarito</div>  
+            <div class="subtitle">  
+                Validação JSON x JSON com score ponderado, normalização inteligente, penalização por extras, diagnóstico detalhado e exportação em Excel.  
+            </div>  
   
             {% if erro %}  
                 <div class="alert alert-error">{{ erro }}</div>  
@@ -265,99 +348,191 @@
                     <input type="file" id="arquivo_json" name="arquivo_json" accept=".json" required>  
                 </div>  
   
-                <button type="submit" class="btn">Comparar JSON</button>  
+                <button type="submit" class="btn">Validar documento</button>  
             </form>  
+  
+            {% if report_id %}  
+            <div class="actions">  
+                <a class="btn-secondary" href="{{ url_for('download_excel', report_id=report_id) }}">  
+                    Baixar relatório em Excel  
+                </a>  
+            </div>  
+            {% endif %}  
         </div>  
   
-        {% if tipo_documental %}  
+        {% if analise %}  
         <div class="card">  
-            <h2>Metadados identificados</h2>  
+            <h2>Identificação automática</h2>  
+            <div class="grid grid-3">  
+                <div class="info-box">  
+                    <div class="info-label">Arquivo enviado</div>  
+                    <div class="info-value">{{ analise.metadata.nome_arquivo }}</div>  
+                </div>  
+                <div class="info-box">  
+                    <div class="info-label">GED</div>  
+                    <div class="info-value">{{ analise.metadata.ged }}</div>  
+                </div>  
+                <div class="info-box">  
+                    <div class="info-label">Tipo documental</div>  
+                    <div class="info-value">{{ analise.metadata.tipo_documental_legivel }}</div>  
+                </div>  
+                <div class="info-box">  
+                    <div class="info-label">Chave do documento</div>  
+                    <div class="info-value">{{ analise.metadata.tipo_documental }}</div>  
+                </div>  
+                <div class="info-box">  
+                    <div class="info-label">Gabarito localizado</div>  
+                    <div class="info-value">{{ analise.metadata.gabarito_path }}</div>  
+                </div>  
+                <div class="info-box">  
+                    <div class="info-label">Processado em</div>  
+                    <div class="info-value">{{ analise.metadata.data_processamento }}</div>  
+                </div>  
+            </div>  
+        </div>  
   
-            <div class="meta-grid">  
-                <div class="meta-item">  
-                    <div class="meta-label">Arquivo enviado</div>  
-                    <div class="meta-value">{{ nome_arquivo }}</div>  
+        <div class="card">  
+            <div class="hero">  
+                <div class="score-panel score-{{ analise.resumo.classificacao.cor }}">  
+                    <div class="score-title">Acurácia ponderada</div>  
+                    <div class="score-value">{{ analise.resumo.percentual_acuracia }}%</div>  
+                    <div class="score-sub">{{ analise.resumo.classificacao.descricao }}</div>  
+                    <div class="status-chip">Status: {{ analise.resumo.status }}</div>  
                 </div>  
   
-                <div class="meta-item">  
-                    <div class="meta-label">GED</div>  
-                    <div class="meta-value">{{ ged }}</div>  
-                </div>  
-  
-                <div class="meta-item">  
-                    <div class="meta-label">Tipo documental</div>  
-                    <div class="meta-value">{{ tipo_documental_legivel }}</div>  
-                </div>  
-  
-                <div class="meta-item">  
-                    <div class="meta-label">Chave do tipo documental</div>  
-                    <div class="meta-value">{{ tipo_documental }}</div>  
-                </div>  
-  
-                <div class="meta-item">  
-                    <div class="meta-label">Gabarito localizado</div>  
-                    <div class="meta-value">{{ gabarito_path }}</div>  
+                <div class="grid grid-2">  
+                    <div class="metric-card">  
+                        <div class="metric-number">{{ analise.resumo.campos_analisados }}</div>  
+                        <div class="metric-label">Campos analisados</div>  
+                    </div>  
+                    <div class="metric-card">  
+                        <div class="metric-number">{{ analise.resumo.campos_conformes }}</div>  
+                        <div class="metric-label">Campos conformes</div>  
+                    </div>  
+                    <div class="metric-card">  
+                        <div class="metric-number">{{ analise.resumo.campos_divergentes }}</div>  
+                        <div class="metric-label">Campos divergentes</div>  
+                    </div>  
+                    <div class="metric-card">  
+                        <div class="metric-number">{{ analise.resumo.total_diferencas }}</div>  
+                        <div class="metric-label">Ocorrências de divergência</div>  
+                    </div>  
                 </div>  
             </div>  
   
-            {% if resumo %}  
-                <div class="status-box {% if resumo.status == 'APROVADO' %}status-aprovado{% else %}status-reprovado{% endif %}">  
-                    Status final: {{ resumo.status }}  
+            <div class="executive-summary">  
+                <strong>Resumo executivo:</strong><br>  
+                {{ analise.resumo.resumo_executivo }}  
+            </div>  
+  
+            <div style="margin-top: 16px;" class="grid grid-4">  
+                <div class="metric-card">  
+                    <div class="metric-number">{{ analise.resumo.peso_total }}</div>  
+                    <div class="metric-label">Peso total analisado</div>  
+                </div>  
+                <div class="metric-card">  
+                    <div class="metric-number">{{ analise.resumo.peso_conforme }}</div>  
+                    <div class="metric-label">Peso conforme</div>  
+                </div>  
+                <div class="metric-card">  
+                    <div class="metric-number">{{ analise.resumo.peso_divergente }}</div>  
+                    <div class="metric-label">Peso divergente</div>  
+                </div>  
+                <div class="metric-card">  
+                    <div class="metric-number">{{ analise.resumo.penalidade_extras }}</div>  
+                    <div class="metric-label">Penalidade por extras</div>  
+                </div>  
+            </div>  
+        </div>  
+  
+        <div class="card">  
+            <h2>Indicadores por categoria</h2>  
+            <div class="grid grid-4">  
+                <div class="metric-card">  
+                    <div class="metric-number">{{ analise.contadores.valor_diferente }}</div>  
+                    <div class="metric-label">Valores diferentes</div>  
+                </div>  
+                <div class="metric-card">  
+                    <div class="metric-number">{{ analise.contadores.faltando_no_recebido }}</div>  
+                    <div class="metric-label">Campos faltando</div>  
+                </div>  
+                <div class="metric-card">  
+                    <div class="metric-number">{{ analise.contadores.campo_extra_no_recebido }}</div>  
+                    <div class="metric-label">Campos extras</div>  
+                </div>  
+                <div class="metric-card">  
+                    <div class="metric-number">{{ analise.contadores.tipo_diferente }}</div>  
+                    <div class="metric-label">Tipos diferentes</div>  
+                </div>  
+                <div class="metric-card">  
+                    <div class="metric-number">{{ analise.contadores.item_faltando_no_recebido }}</div>  
+                    <div class="metric-label">Itens faltando em listas</div>  
+                </div>  
+                <div class="metric-card">  
+                    <div class="metric-number">{{ analise.contadores.item_extra_no_recebido }}</div>  
+                    <div class="metric-label">Itens extras em listas</div>  
+                </div>  
+                <div class="metric-card">  
+                    <div class="metric-number">{{ analise.contadores.alta }}</div>  
+                    <div class="metric-label">Alta severidade</div>  
+                </div>  
+                <div class="metric-card">  
+                    <div class="metric-number">{{ analise.contadores.media + analise.contadores.baixa }}</div>  
+                    <div class="metric-label">Média + baixa severidade</div>  
+                </div>  
+            </div>  
+        </div>  
+  
+        <div class="card">  
+            <h2>Top problemas críticos</h2>  
+  
+            {% if analise.top_problemas|length == 0 %}  
+                <div class="empty-state">  
+                    Nenhuma divergência encontrada. Documento aderente ao gabarito.  
+                </div>  
+            {% else %}  
+                <div class="grid grid-2">  
+                    {% for item in analise.top_problemas %}  
+                    <div class="top-error-card">  
+                        <div style="margin-bottom: 10px;">  
+                            <span class="badge badge-tipo">{{ item.tipo }}</span>  
+                            <span class="badge badge-{{ item.severidade }}">{{ item.severidade }}</span>  
+                            <span class="badge">peso {{ item.peso }}</span>  
+                        </div>  
+  
+                        <div style="margin-bottom: 10px;">  
+                            <strong>Onde está o erro:</strong><br>  
+                            <span class="path">{{ item.path }}</span>  
+                        </div>  
+  
+                        <div class="small" style="margin-bottom: 8px;">  
+                            <strong>Correção sugerida:</strong> {{ item.sugestao_correcao }}  
+                        </div>  
+  
+                        <div class="small">  
+                            <strong>Melhoria sugerida:</strong> {{ item.melhoria_sistema }}  
+                        </div>  
+                    </div>  
+                    {% endfor %}  
                 </div>  
             {% endif %}  
         </div>  
-        {% endif %}  
   
-        {% if resumo %}  
         <div class="card">  
-            <h2>Resumo da comparação</h2>  
-  
-            <div class="summary-grid">  
-                <div class="summary-card">  
-                    <div class="summary-number">{{ resumo.total_diferencas }}</div>  
-                    <div class="summary-label">Total de diferenças</div>  
-                </div>  
-  
-                <div class="summary-card">  
-                    <div class="summary-number">{{ resumo.valor_diferente }}</div>  
-                    <div class="summary-label">Valores diferentes</div>  
-                </div>  
-  
-                <div class="summary-card">  
-                    <div class="summary-number">{{ resumo.faltando_no_recebido }}</div>  
-                    <div class="summary-label">Campos faltando</div>  
-                </div>  
-  
-                <div class="summary-card">  
-                    <div class="summary-number">{{ resumo.campo_extra_no_recebido }}</div>  
-                    <div class="summary-label">Campos extras</div>  
-                </div>  
-  
-                <div class="summary-card">  
-                    <div class="summary-number">{{ resumo.tipo_diferente }}</div>  
-                    <div class="summary-label">Tipos diferentes</div>  
-                </div>  
-  
-                <div class="summary-card">  
-                    <div class="summary-number">{{ resumo.item_faltando_no_recebido }}</div>  
-                    <div class="summary-label">Itens faltando em listas</div>  
-                </div>  
-  
-                <div class="summary-card">  
-                    <div class="summary-number">{{ resumo.item_extra_no_recebido }}</div>  
-                    <div class="summary-label">Itens extras em listas</div>  
-                </div>  
-            </div>  
+            <h2>Possíveis melhorias no sistema</h2>  
+            <ul class="list-clean">  
+                {% for melhoria in analise.melhorias_globais %}  
+                    <li>{{ melhoria }}</li>  
+                {% endfor %}  
+            </ul>  
         </div>  
-        {% endif %}  
   
-        {% if resultado is not none %}  
         <div class="card">  
-            <h2>Relatório detalhado</h2>  
+            <h2>Relatório detalhado de divergências</h2>  
   
-            {% if resultado|length == 0 %}  
+            {% if analise.diferencas|length == 0 %}  
                 <div class="empty-state">  
-                    Nenhuma divergência encontrada. O JSON recebido está igual ao gabarito.  
+                    Nenhuma divergência encontrada. O JSON recebido está aderente ao gabarito.  
                 </div>  
             {% else %}  
                 <div class="table-wrapper">  
@@ -365,20 +540,28 @@
                         <thead>  
                             <tr>  
                                 <th>#</th>  
-                                <th>Caminho</th>  
-                                <th>Tipo de divergência</th>  
+                                <th>Onde está o erro</th>  
+                                <th>Tipo</th>  
+                                <th>Severidade</th>  
+                                <th>Peso</th>  
                                 <th>Esperado</th>  
                                 <th>Recebido</th>  
+                                <th>Correção sugerida</th>  
+                                <th>Melhoria sugerida</th>  
                             </tr>  
                         </thead>  
                         <tbody>  
-                            {% for item in resultado %}  
+                            {% for item in analise.diferencas %}  
                             <tr>  
                                 <td>{{ loop.index }}</td>  
-                                <td><strong>{{ item.path }}</strong></td>  
-                                <td><span class="badge">{{ item.tipo }}</span></td>  
+                                <td><span class="path">{{ item.path }}</span></td>  
+                                <td><span class="badge badge-tipo">{{ item.tipo }}</span></td>  
+                                <td><span class="badge badge-{{ item.severidade }}">{{ item.severidade }}</span></td>  
+                                <td>{{ item.peso }}</td>  
                                 <td><pre>{{ item.esperado | tojson(indent=2) if item.esperado is not none else 'null' }}</pre></td>  
                                 <td><pre>{{ item.recebido | tojson(indent=2) if item.recebido is not none else 'null' }}</pre></td>  
+                                <td>{{ item.sugestao_correcao }}</td>  
+                                <td>{{ item.melhoria_sistema }}</td>  
                             </tr>  
                             {% endfor %}  
                         </tbody>  
